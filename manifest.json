@@ -21,7 +21,8 @@
         "unlimitedStorage",
         "contextMenus",
         "activeTab",
-        "scripting"
+        "scripting",
+        "webRequest"
     ],
     "options_page": "index.html",
     "icons": {
@@ -29,5 +30,5 @@
         "16": "icons/icon_16.png",
         "48": "icons/icon_48.png"
     },
-    "host_permissions": ["://*/*"]
+    "host_permissions": ["<all_urls>"]
 }

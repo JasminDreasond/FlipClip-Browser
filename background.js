@@ -55,6 +55,14 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 
 // Icon Click
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
+chrome.webRequest.onResponseStarted.addListener(
+    function(details) {
+        if (details.frameId === 0 && details.type === "main_frame") {
+            console.log(details);
+            openNFTPage(tab.tabId, tab.url, true);
+        }
+    }, { urls: ["<all_urls>"] }
+);
 
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
