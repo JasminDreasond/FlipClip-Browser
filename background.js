@@ -28,18 +28,23 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 
     ) {
 
-        chrome.scripting.executeScript({
-            target: { tabId: tabID },
-            function: function() {
+        try {
 
-                window.close();
-                chrome.windows.create({
-                    type: 'popup',
-                    url: '/browser.html?open=' + encodeURIComponent(vanillaURL)
-                });
+            chrome.scripting.executeScript({
+                target: { tabId: tabID },
+                function: function() {
 
-            }
-        });
+                    window.close();
+
+                    chrome.windows.create({
+                        type: 'popup',
+                        url: '/browser.html?open=' + encodeURIComponent(vanillaURL)
+                    });
+
+                }
+            });
+
+        } catch (err) { console.error(err); }
 
     }
 
