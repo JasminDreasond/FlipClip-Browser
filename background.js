@@ -56,13 +56,13 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 // Web Request
 const webRequestValidator = function(details) {
     if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
-        console.log(details);
-        openNFTPage(tab.tabId, tab.url, true);
+        openNFTPage(details.tabId, details.url, true);
     }
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onResponseStarted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
+chrome.webRequest.onErrorOccurred.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
