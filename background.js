@@ -55,7 +55,7 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 
 // Web Request
 const webRequestValidator = function(details) {
-    if (details.frameId === 0 && details.type === "main_frame") {
+    if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
         console.log(details);
         openNFTPage(tab.tabId, tab.url, true);
     }
