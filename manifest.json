@@ -1,0 +1,26 @@
+{
+    "name": "__MSG_appName__",
+    "short_name": "FlipClip",
+    "description": "__MSG_appDesc__",
+    "author": "Yasmin Seidel (JasminDreasond)",
+    "default_locale": "en",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "page": "background.html"
+    },
+    "action": {
+        "default_icon": {
+            "19": "icons/icon.png",
+            "38": "icons/icon_38.png"
+        }
+    },
+    "permissions": ["background", "storage", "unlimitedStorage", "contextMenus"],
+    "options_page": "index.html",
+    "icons": {
+        "128": "icons/icon_128.png",
+        "16": "icons/icon_16.png",
+        "48": "icons/icon_48.png"
+    },
+    "host_permissions": ["://*/*"]
+}
