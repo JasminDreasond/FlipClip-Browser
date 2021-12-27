@@ -15,7 +15,14 @@
             "38": "icons/icon_38.png"
         }
     },
-    "permissions": ["background", "storage", "unlimitedStorage", "contextMenus"],
+    "permissions": [
+        "background",
+        "storage",
+        "unlimitedStorage",
+        "contextMenus",
+        "activeTab",
+        "scripting"
+    ],
     "options_page": "index.html",
     "icons": {
         "128": "icons/icon_128.png",
