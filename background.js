@@ -1,29 +1,47 @@
 // Open NFT Script
 const openNFTPage = function(tabID, vanillaURL, newTab) {
 
-    /*     chrome.windows.create({
-            type: 'popup',
-            url: '/index.html'
-        }); */
-
     // Prepare URL Filter
     const url = vanillaURL.split('/');
-    console.log(url);
 
     // URL Checker
-    /* if (
-        url.startsWith('ipfs://')
+    if (
+
+        // URL Base
+        (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
+        url[1] === '' &&
+
+        // Domains
+        (
+            url[2].endsWith('.crypto') ||
+            url[2].endsWith('.zil') ||
+            url[2].endsWith('.coin') ||
+            url[2].endsWith('.wallet') ||
+            url[2].endsWith('.bitcoin') ||
+            url[2].endsWith('.x') ||
+            url[2].endsWith('.888') ||
+            url[2].endsWith('.nft') ||
+            url[2].endsWith('.dao') ||
+            url[2].endsWith('.blockchain')
+
+        )
+
     ) {
 
         chrome.scripting.executeScript({
             target: { tabId: tabID },
             function: function() {
-                console.log('Close OLD NFT Window.');
+
                 window.close();
+                chrome.windows.create({
+                    type: 'popup',
+                    url: '/browser.html?open=' + encodeURIComponent(vanillaURL)
+                });
+
             }
         });
 
-    } */
+    }
 
     // Complete
     return;
