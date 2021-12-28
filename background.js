@@ -60,30 +60,27 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
             // Fix URL
             url = url.join('/');
-
-            console.log(vanillaURL);
-            console.log(url);
-            console.log(domain);
             await new Promise(function(resolve) {
-                chrome.scripting.executeScript({
-                    target: { tabId: tabID },
-                    function: function() {
 
-                        window.close();
+                chrome.windows.remove(tabID, function() {
 
-                        chrome.windows.create({
-                            type: 'popup',
-                            url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
-                        });
+                    chrome.windows.create({
+                        setSelfAsOpener: true,
+                        state: 'maximized',
+                        type: 'popup',
+                        url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
+                    }, function(newWindow) {
 
                         resolve();
                         return;
 
-                    }
-                });
-            });
+                    });
 
-            return { cancel: true };
+                    return;
+
+                });
+
+            });
 
         } catch (err) { console.error(err); }
 
@@ -104,7 +101,7 @@ const webRequestValidator = function(details) {
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
-}, ["blocking"]);
+});
 
 /* "*://*.google.com/*", 
         "*://*.duckduckgo.com/*", 

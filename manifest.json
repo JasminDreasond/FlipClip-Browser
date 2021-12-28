@@ -23,9 +23,7 @@
         "unlimitedStorage",
         "contextMenus",
         "activeTab",
-        "scripting",
         "webRequest",
-        "webRequestBlocking",
         "history"
     ],
     "options_page": "index.html",
