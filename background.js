@@ -15,7 +15,7 @@ const domains = {
 };
 
 // Open NFT Script
-const openNFTPage = function(tabID, vanillaURL, newTab) {
+const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
     // Prepare URL Filter
     let url = vanillaURL.split('/');
@@ -48,19 +48,28 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
             url = url.join('/');
 
             console.log(vanillaURL);
-            chrome.scripting.executeScript({
-                target: { tabId: tabID },
-                function: function() {
+            console.log(url);
+            console.log(domain);
+            await new Promise(function(resolve) {
+                chrome.scripting.executeScript({
+                    target: { tabId: tabID },
+                    function: function() {
 
-                    window.close();
+                        window.close();
 
-                    chrome.windows.create({
-                        type: 'popup',
-                        url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
-                    });
+                        chrome.windows.create({
+                            type: 'popup',
+                            url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
+                        });
 
-                }
+                        resolve();
+                        return;
+
+                    }
+                });
             });
+
+            return;
 
         } catch (err) { console.error(err); }
 
