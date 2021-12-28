@@ -62,7 +62,7 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
             url = url.join('/');
             await new Promise(function(resolve) {
 
-                chrome.windows.remove(tabID, function() {
+                chrome.tabs.remove(tabID, function() {
 
                     chrome.windows.create({
                         focused: true,
