@@ -103,8 +103,6 @@ chrome.webNavigation.onBeforeNavigate.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
 });
 
-chrome.history.onVisited.addListener(function(tab) { console.log(tab); });
-
 /* "*://*.google.com/*", 
         "*://*.duckduckgo.com/*", 
         "*://*.yahoo.com/*",
