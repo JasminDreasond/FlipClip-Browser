@@ -21,7 +21,6 @@
         "background",
         "storage",
         "unlimitedStorage",
-        "contextMenus",
         "activeTab",
         "webRequest",
         "history"
