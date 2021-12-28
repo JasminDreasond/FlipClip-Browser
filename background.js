@@ -67,7 +67,6 @@ const webRequestValidator = function(details) {
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onResponseStarted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 chrome.webRequest.onErrorOccurred.addListener(webRequestValidator, { urls: ["<all_urls>"] });
-chrome.webNavigation.onCommitted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
