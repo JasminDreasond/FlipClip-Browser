@@ -65,7 +65,7 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                 chrome.windows.remove(tabID, function() {
 
                     chrome.windows.create({
-                        setSelfAsOpener: true,
+                        focused: true,
                         state: 'maximized',
                         type: 'popup',
                         url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
