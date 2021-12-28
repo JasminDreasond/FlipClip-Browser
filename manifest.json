@@ -17,7 +17,7 @@
             "38": "icons/icon_38.png"
         }
     },
-    "omnibox": { "keyword": "aaron" },
+    "omnibox": { "keyword": "ipfs" },
     "permissions": [
         "webNavigation",
         "background",
