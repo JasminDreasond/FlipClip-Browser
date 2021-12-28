@@ -1,3 +1,19 @@
+// Domains Servers
+const domains = {
+    unstoppabledomains: [
+        '.crypto',
+        '.zil',
+        '.coin',
+        '.wallet',
+        '.bitcoin',
+        '.x',
+        '.888',
+        '.nft',
+        '.dao',
+        '.blockchain'
+    ]
+};
+
 // Open NFT Script
 const openNFTPage = function(tabID, vanillaURL, newTab) {
 
@@ -12,19 +28,7 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
         url[1] === '' &&
 
         // Domains
-        (
-            url[2].endsWith('.crypto') ||
-            url[2].endsWith('.zil') ||
-            url[2].endsWith('.coin') ||
-            url[2].endsWith('.wallet') ||
-            url[2].endsWith('.bitcoin') ||
-            url[2].endsWith('.x') ||
-            url[2].endsWith('.888') ||
-            url[2].endsWith('.nft') ||
-            url[2].endsWith('.dao') ||
-            url[2].endsWith('.blockchain')
-
-        )
+        (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
 
     ) {
 
@@ -63,6 +67,7 @@ const webRequestValidator = function(details) {
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onResponseStarted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 chrome.webRequest.onErrorOccurred.addListener(webRequestValidator, { urls: ["<all_urls>"] });
+chrome.webNavigation.onCommitted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
