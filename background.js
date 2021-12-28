@@ -65,10 +65,8 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                 chrome.tabs.remove(tabID, function() {
 
                     chrome.windows.create({
-                        focused: true,
-                        state: 'maximized',
                         type: 'popup',
-                        url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
+                        url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
                     }, function(newWindow) {
 
                         resolve();
@@ -93,13 +91,13 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
 // Web Request
 const webRequestValidator = function(details) {
-    if (details.frameId === 0) {
+    if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
         openNFTPage(details.tabId, details.url, true);
     }
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
-chrome.webNavigation.onBeforeNavigate.addListener(webRequestValidator, {
+chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
 });
 
