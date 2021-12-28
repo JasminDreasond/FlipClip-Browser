@@ -18,7 +18,7 @@ const domains = {
 const openNFTPage = function(tabID, vanillaURL, newTab) {
 
     // Prepare URL Filter
-    const url = vanillaURL.split('/');
+    let url = vanillaURL.split('/');
 
     // URL Checker
     if (
@@ -34,6 +34,20 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 
         try {
 
+            // Remove Protocol
+            url.shift();
+
+            // Remove Blank
+            url.shift();
+
+            // Get Domain
+            const domain = url[0];
+            url.shift();
+
+            // Fix URL
+            url = url.join('/');
+
+            console.log(vanillaURL);
             chrome.scripting.executeScript({
                 target: { tabId: tabID },
                 function: function() {
@@ -42,7 +56,7 @@ const openNFTPage = function(tabID, vanillaURL, newTab) {
 
                     chrome.windows.create({
                         type: 'popup',
-                        url: '/browser.html?open=' + encodeURIComponent(vanillaURL)
+                        url: `/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`
                     });
 
                 }
@@ -65,8 +79,7 @@ const webRequestValidator = function(details) {
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
-chrome.webRequest.onResponseStarted.addListener(webRequestValidator, { urls: ["<all_urls>"] });
-chrome.webRequest.onErrorOccurred.addListener(webRequestValidator, { urls: ["<all_urls>"] });
+chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, { urls: ["<all_urls>"] });
 
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
