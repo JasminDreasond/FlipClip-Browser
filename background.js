@@ -93,13 +93,13 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
 // Web Request
 const webRequestValidator = function(details) {
-    if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
+    if (details.frameId === 0) {
         openNFTPage(details.tabId, details.url, true);
     }
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
-chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
+chrome.webNavigation.onBeforeNavigate.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
 });
 
