@@ -24,9 +24,9 @@
         "contextMenus",
         "activeTab",
         "scripting",
-        "webNavigation",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestBlocking",
+        "history"
     ],
     "options_page": "index.html",
     "icons": {
