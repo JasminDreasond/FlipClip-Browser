@@ -12,10 +12,12 @@ const messages = {
 };
 
 // Start Window Connection
+console.log('FlipClip Browser starting...');
 $(function() {
+    console.log('FlipClip Browser sending request...');
     chrome.runtime.sendMessage('connectWindow', (response) => {
         if (response) {
-            console.log('Window Connected!');
+            console.log('FlipClip Browser Started!');
         }
     });
 });

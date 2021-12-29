@@ -175,6 +175,7 @@ chrome.windows.onFocusChanged.addListener(function(windowID) {
 const messages = {
 
     connectWindow: function(message, sender, sendResponse) {
+        if (!windows[sender.tab.windowId]) { windows[sender.tab.windowId] = {}; }
         windows[sender.tab.windowId].storage = {};
         windows[sender.tab.windowId].sender = sender;
         sendResponse(true);
