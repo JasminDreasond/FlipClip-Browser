@@ -171,13 +171,20 @@ chrome.windows.onFocusChanged.addListener(function(windowID) {
     }
 });
 
-// Window Connection
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message === 'connectWindow') {
+// Messages
+const messages = {
+
+    connectWindow: function(message, sender, sendResponse) {
         windows[sender.tab.windowId].storage = {};
         windows[sender.tab.windowId].sender = sender;
         sendResponse(true);
     }
+
+};
+
+// Window Connection
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (typeof messages[message.type] === 'function') { messages[message.type](message, sender, sendResponse); }
 });
 
 // Show the demo page once the extension is installed
