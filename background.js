@@ -134,6 +134,38 @@ chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
 });
 
+// Delete Window Data
+chrome.windows.onRemoved.addListener(function(windowID) {
+    if (windows[windowID]) {
+
+        // Using Now
+        if (windows[windowID].usingNow) {
+            for (const item in windows) {
+                if (item !== windowID) {
+                    windows[item].usingNow = true;
+                    break;
+                }
+            }
+        }
+
+        // Delete Data
+        delete windows[windowID];
+
+    }
+});
+
+// Change Window Using Now
+chrome.windows.onFocusChanged.addListener(function(windowID) {
+    if (windows[windowID]) {
+        for (const item in windows) {
+            if (windows[item].usingNow) {
+                windowDetected = true;
+                break;
+            }
+        }
+    }
+});
+
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
     chrome.tabs.create({
