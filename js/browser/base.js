@@ -1,3 +1,7 @@
+// Params
+const urlSearchParams = new URLSearchParams(window.location.search);
+var params = Object.fromEntries(urlSearchParams.entries());
+
 // Messages
 const messages = {
 
@@ -8,7 +12,7 @@ const messages = {
 };
 
 // Start Window Connection
-chrome.runtime.sendMessage({ type: 'connectWindow' }, (response) => {
+chrome.runtime.sendMessage('connectWindow', (response) => {
     if (response) {
         console.log('Window Connected!');
     }

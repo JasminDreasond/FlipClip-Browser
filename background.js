@@ -184,7 +184,7 @@ const messages = {
 
 // Window Connection
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (typeof messages[message.type] === 'function') { messages[message.type](message, sender, sendResponse); }
+    if (typeof messages[message] === 'function') { messages[message](message, sender, sendResponse); }
 });
 
 // Show the demo page once the extension is installed
