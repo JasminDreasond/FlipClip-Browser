@@ -158,9 +158,10 @@ chrome.windows.onRemoved.addListener(function(windowID) {
 chrome.windows.onFocusChanged.addListener(function(windowID) {
     if (windows[windowID]) {
         for (const item in windows) {
-            if (windows[item].usingNow) {
-                windowDetected = true;
-                break;
+            if (windowID === item) {
+                windows[item].usingNow = true;
+            } else if (windows[item].usingNow) {
+                delete windows[item].usingNow;
             }
         }
     }
