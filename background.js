@@ -1,3 +1,6 @@
+// Windows
+const windows = {};
+
 // Domains Servers
 const domains = {
 
@@ -61,23 +64,53 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
             // Fix URL
             url = url.join('/');
             await new Promise(function(resolve) {
-
                 chrome.tabs.remove(tabID, function() {
 
-                    chrome.windows.create({
-                        type: 'popup',
-                        url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
-                    }, function(newWindow) {
+                    // Create Window
+                    const createWindow = function() {
+                        chrome.windows.create({
+                            type: 'popup',
+                            url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
+                        }, function(newWindow) {
 
-                        resolve();
-                        return;
 
-                    });
 
-                    return;
+                            // Add New Window
+                            windows[newWindow.id] = newWindow;
+                            windows[newWindow.id].usingNow = true;
+
+                            // Complete
+                            resolve();
+                            return;
+
+                        });
+                    };
+
+                    // New Window
+                    if (Object.keys(windows).length < 1) { createWindow(); }
+
+                    // Exist Window
+                    else {
+
+                        let windowDetected = false;
+
+                        // Detect Window
+                        for (const item in windows) {
+                            if (windows[item].usingNow) {
+                                windowDetected = true;
+                                break;
+                            }
+                        }
+
+                        // Complete
+                        if (windowDetected) { resolve(); }
+
+                        // Nope
+                        else { createWindow(); }
+
+                    }
 
                 });
-
             });
 
         } catch (err) { console.error(err); }
