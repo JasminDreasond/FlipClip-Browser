@@ -76,7 +76,7 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
 
                             // Add New Window
-                            windows[newWindow.id] = newWindow;
+                            windows[newWindow.id] = { data: newWindow };
                             windows[newWindow.id].usingNow = true;
 
                             // Complete
