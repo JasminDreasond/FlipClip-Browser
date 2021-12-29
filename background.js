@@ -73,8 +73,6 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                             url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
                         }, function(newWindow) {
 
-
-
                             // Add New Window
                             windows[newWindow.id] = { data: newWindow };
                             windows[newWindow.id].usingNow = true;
@@ -147,7 +145,7 @@ chrome.windows.onRemoved.addListener(function(windowID) {
         // Using Now
         if (windows[windowID].usingNow) {
             for (const item in windows) {
-                if (item !== windowID) {
+                if (item !== String(windowID)) {
                     windows[item].usingNow = true;
                     break;
                 }
@@ -164,7 +162,7 @@ chrome.windows.onRemoved.addListener(function(windowID) {
 chrome.windows.onFocusChanged.addListener(function(windowID) {
     if (windows[windowID]) {
         for (const item in windows) {
-            if (windowID === item) {
+            if (String(windowID) === item) {
                 windows[item].usingNow = true;
             } else if (windows[item].usingNow) {
                 delete windows[item].usingNow;
