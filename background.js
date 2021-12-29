@@ -134,17 +134,6 @@ chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: domains.filterGenerator(),
 });
 
-/* "*://*.google.com/*", 
-        "*://*.duckduckgo.com/*", 
-        "*://*.yahoo.com/*",
-         "*://*.yandex.ru/*", 
-         "*://*.qwant.com/*", 
-         "*://*.mojeek.com/*", 
-         "*://*.aol.co.uk/*", 
-         "*://*.baidu.com/*", 
-         "*://*.bing.com/*", 
-         "*://*.wiki.com/*" */
-
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
     chrome.tabs.create({
