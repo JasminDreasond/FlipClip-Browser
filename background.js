@@ -171,6 +171,15 @@ chrome.windows.onFocusChanged.addListener(function(windowID) {
     }
 });
 
+// Window Connection
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message === 'connectWindow') {
+        windows[sender.tab.windowId].storage = {};
+        windows[sender.tab.windowId].sender = sender;
+        sendResponse(true);
+    }
+});
+
 // Show the demo page once the extension is installed
 /* chrome.runtime.onInstalled.addListener((_reason) => {
     chrome.tabs.create({
