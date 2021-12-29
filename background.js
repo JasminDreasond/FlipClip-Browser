@@ -97,7 +97,7 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                             if (windows[item].usingNow) {
 
                                 // Send Data to Window
-
+                                chrome.runtime.sendMessage(null, { type: 'newTab', url: url, domain: domain });
 
                                 // Complete
                                 windowDetected = true;
