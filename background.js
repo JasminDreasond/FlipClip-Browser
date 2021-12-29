@@ -97,8 +97,14 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                         // Detect Window
                         for (const item in windows) {
                             if (windows[item].usingNow) {
+
+                                // Send Data to Window
+
+
+                                // Complete
                                 windowDetected = true;
                                 break;
+
                             }
                         }
 
