@@ -50,7 +50,7 @@ var startBrowser = function(fn) {
         resolution.ipfsHash(params.domain).then((cid) => {
             resolution.addr(params.domain, 'BTC').then((value) => {
                 $('#browser').append(
-
+                    browserSettings.createTab(cid)
                 );
                 console.log(value);
                 fn();
