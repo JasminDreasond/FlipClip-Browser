@@ -1,5 +1,3 @@
-var startBrowser = function() {
-
-
-
+var startAddressBar = function(fn) {
+    fn();
 };

@@ -18,6 +18,13 @@ $(function() {
     chrome.runtime.sendMessage('connectWindow', (response) => {
         if (response) {
             console.log('FlipClip Browser Started!');
+            startAddressBar(function() {
+                startBrowser(function() {
+                    $('#appstart').fadeOut(500, function() {
+                        $('#appstart').remove();
+                    });
+                });
+            });
         }
     });
 });
