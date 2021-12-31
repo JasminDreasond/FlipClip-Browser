@@ -39,13 +39,14 @@ const messages = {
             url.shift();
 
             // Get Domain
-            const domain = url[0].split('.')[0];
+            const domain = url[0];
+            const cid = domain.split('.')[0];
             url.shift();
 
             // Fix URL
             url = url.join('/');
 
-            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = domain;
+            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
             browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
 
         }
