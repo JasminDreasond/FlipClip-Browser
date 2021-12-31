@@ -41,9 +41,8 @@ var browserSettings = {
             src: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
-            frameBorder: 0
-        }).css({
-            'padding-bottom': browserSettings.addressBarSize
+            frameBorder: 0,
+            style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
         });
 
         // Load Detector
