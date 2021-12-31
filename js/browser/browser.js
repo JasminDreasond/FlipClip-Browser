@@ -36,6 +36,7 @@ var browserSettings = {
         };
 
         return $('<iframe>', {
+            onLoad: 'browserSettings.updateTab(this.contentWindow.location);',
             src: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
@@ -43,6 +44,15 @@ var browserSettings = {
         }).css({
             'padding-bottom': browserSettings.addressBarSize
         });
+
+    },
+
+    // Update Tab
+    updateTab: function(tabLocation) {
+
+        const url = tabLocation.split('/');
+        const proxy = browserSettings.proxy.split('/');
+        console.log(url, proxy);
 
     },
 
