@@ -1,3 +1,38 @@
+function iframeURLChange(iframe, callback) {
+    var lastDispatched = null;
+
+    var dispatchChange = function() {
+        var newHref = iframe.contentWindow.location.href;
+
+        if (newHref !== lastDispatched) {
+            callback(newHref);
+            lastDispatched = newHref;
+        }
+    };
+
+    var unloadHandler = function() {
+        // Timeout needed because the URL changes immediately after
+        // the `unload` event is dispatched.
+        setTimeout(dispatchChange, 0);
+    };
+
+    function attachUnload() {
+        // Remove the unloadHandler in case it was already attached.
+        // Otherwise, there will be two handlers, which is unnecessary.
+        iframe.contentWindow.removeEventListener("unload", unloadHandler);
+        iframe.contentWindow.addEventListener("unload", unloadHandler);
+    }
+
+    iframe.addEventListener("load", function() {
+        attachUnload();
+
+        // Just in case the change wasn't dispatched during the unload event...
+        dispatchChange();
+    });
+
+    attachUnload();
+};
+
 // Browser Scripts
 var browserSettings = {
 
@@ -38,12 +73,19 @@ var browserSettings = {
 
         // Create iFrame
         const iframe = $('<iframe>', {
-            src: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
             frameBorder: 0,
             style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
         });
+
+        // Load Detector
+        iframe.load(function(event) {
+            console.log(event);
+        });
+
+        // Change Page
+        iframe.attr('src', browserSettings.urlGenerator(cid) + path);
 
         // Complete
         return iframe;
