@@ -45,11 +45,6 @@ var browserSettings = {
             style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
         });
 
-        // Load Detector
-        iframe.load(function(event) {
-            console.log(event);
-        });
-
         // Complete
         return iframe;
 
