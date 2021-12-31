@@ -53,10 +53,10 @@ var browserSettings = {
 
         // Update Settings
         browserSettings.lastTab++;
+        if (active) { browserSettings.active = browserSettings.lastTab; }
         browserSettings.tabs[browserSettings.lastTab] = {
             cid: cid,
             path: path,
-            active: active,
             iframe: $('<iframe>', {
                 tab: browserSettings.lastTab,
                 class: 'browser-window',
