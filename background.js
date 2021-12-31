@@ -170,14 +170,21 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
 // Web Request
 const webRequestValidator = function(details) {
+
     if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
-        openNFTPage(details.tabId, details.url, true);
+        openNFTPage(details.tabId, details.url);
+    }
+    if (details.frameId > 0 && details.type === "sub_frame" && details.method === "GET") {
+        console.log(details);
+        details.frameId;
+        details.tabId;
+        details.url;
     }
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
-    urls: domains.filterGenerator(),
+    urls: ["<all_urls>"]
 });
 
 // Delete Window Data
