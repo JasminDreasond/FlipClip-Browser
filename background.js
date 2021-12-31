@@ -136,26 +136,12 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
             await new Promise(function(resolve) {
 
-                // New Window
-                if (Object.keys(windows).length < 1) { createWindow(resolve); }
+                // Get Domain
+                domain = '';
+                url = '';
 
-                // Exist Window
-                else {
-
-                    // Get Domain
-                    domain = '';
-                    url = '';
-
-                    // Detect Window
-                    detectWindow();
-
-                    // Complete
-                    if (windowDetected) { resolve(); }
-
-                    // Nope
-                    else { createWindow(resolve); }
-
-                }
+                // Complete
+                createWindow(resolve);
 
             });
 
