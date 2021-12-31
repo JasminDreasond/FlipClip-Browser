@@ -67,10 +67,10 @@ var browserSettings = {
         };
 
         // Change Page
-        browserSettings.tabs[browserSettings.lastTab].attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
+        browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
 
         // Complete
-        return browserSettings.tabs[browserSettings.lastTab];
+        return browserSettings.tabs[browserSettings.lastTab].iframe;
 
     },
 
