@@ -171,15 +171,19 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
 // Web Request
 const webRequestValidator = function(details) {
 
+    // Open URL
     if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
         openNFTPage(details.tabId, details.url);
     }
-    if (details.frameId > 0 && details.type === "sub_frame" && details.method === "GET") {
-        console.log(details);
-        details.frameId;
-        details.tabId;
-        details.url;
+
+    // Send Frame Data
+    else if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
+        chrome.runtime.sendMessage(null, {
+            type: 'frameUpdate',
+            data: details
+        });
     }
+
 };
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });

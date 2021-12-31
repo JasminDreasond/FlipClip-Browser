@@ -45,8 +45,9 @@ var browserSettings = {
         });
 
         // Change Page
+        // CRIAR UMA URL ID PARA O BACKGROUND DETECTAR E COLOCAR NO SISTEMA.
         iframe.attr('src', browserSettings.urlGenerator(cid) + path);
-        setInterval(function() { console.log(iframe[0].id); }, 1000);
+        setInterval(function() { console.log(iframe); }, 10000);
 
         // Complete
         return iframe;
