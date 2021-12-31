@@ -1,3 +1,25 @@
+function generateHexString(length) {
+    // Use crypto.getRandomValues if available
+    if (
+        typeof crypto !== 'undefined' &&
+        typeof crypto.getRandomValues === 'function'
+    ) {
+        var tmp = new Uint8Array(Math.max((~~length) / 2));
+        crypto.getRandomValues(tmp);
+        return Array.from(tmp)
+            .map(n => ('0' + n.toString(16)).substr(-2))
+            .join('')
+            .substr(0, length);
+    }
+
+    // fallback to Math.getRandomValues
+    var ret = "";
+    while (ret.length < length) {
+        ret += Math.random().toString(16).substring(2);
+    }
+    return ret.substring(0, length);
+}
+
 // Browser Scripts
 var browserSettings = {
 
@@ -16,6 +38,8 @@ var browserSettings = {
         if (!browserSettings.proxy.endsWith('/')) { urlResult += '/'; }
         return urlResult;
     },
+
+    windowSecret: generateHexString(200),
 
     // Tab Number
     lastTab: -1,
@@ -38,6 +62,7 @@ var browserSettings = {
 
         // Create iFrame
         const iframe = $('<iframe>', {
+            url: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
             frameBorder: 0,
@@ -45,9 +70,7 @@ var browserSettings = {
         });
 
         // Change Page
-        // CRIAR UMA URL ID PARA O BACKGROUND DETECTAR E COLOCAR NO SISTEMA.
-        iframe.attr('src', browserSettings.urlGenerator(cid) + path);
-        setInterval(function() { console.log(iframe); }, 10000);
+        iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
 
         // Complete
         return iframe;
