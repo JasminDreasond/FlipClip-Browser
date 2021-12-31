@@ -57,23 +57,20 @@ var browserSettings = {
         browserSettings.tabs[browserSettings.lastTab] = {
             cid: cid,
             path: path,
-            active: active
+            active: active,
+            iframe: $('<iframe>', {
+                tab: browserSettings.lastTab,
+                class: 'browser-window',
+                frameBorder: 0,
+                style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
+            })
         };
 
-        // Create iFrame
-        const iframe = $('<iframe>', {
-            url: browserSettings.urlGenerator(cid) + path,
-            tab: browserSettings.lastTab,
-            class: 'browser-window',
-            frameBorder: 0,
-            style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
-        });
-
         // Change Page
-        iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
+        browserSettings.tabs[browserSettings.lastTab].attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
 
         // Complete
-        return iframe;
+        return browserSettings.tabs[browserSettings.lastTab];
 
     },
 

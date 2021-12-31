@@ -13,7 +13,20 @@ const messages = {
     },
 
     frameUpdate: function(message) {
-        console.log(message.data);
+
+        // New iFrame Data
+        if (message.data.url.startsWith(chrome.runtime.getURL('validator.html') + '?secret=')) {
+            const urlData = new URL(message.data.url);
+            const urlSearchParams = new URLSearchParams(urlData.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            if (params.secret === browserSettings.windowSecret && browserSettings.tabs[params.id]) {
+                browserSettings.tabs[params.id].frameId = message.data.frameId;
+                browserSettings.tabs[params.id].iframe.attr('src', browserSettings.urlGenerator(browserSettings.tabs[params.id].cid) + browserSettings.tabs[params.id].path);
+            }
+        }
+
+        console.log(browserSettings);
+
     }
 
 };
