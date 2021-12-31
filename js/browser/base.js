@@ -61,12 +61,18 @@ const messages = {
 
             // Failed
             else {
-                message.data.url;
+
+                chrome.windows.create({
+                    type: 'normal',
+                    url: message.data.url
+                });
+
                 browserSettings.redirectTab(
                     browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
                     browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path,
                     browserSettings.framesId[message.data.frameId]
                 );
+
             }
 
         }
