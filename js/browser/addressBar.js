@@ -1,6 +1,6 @@
 browserSettings.updateAddressBar = function() {
 
-    console.log();
+    console.log(browserSettings);
 
 };
 
