@@ -23,6 +23,7 @@ const messages = {
                 browserSettings.tabs[params.id].frameId = message.data.frameId;
                 browserSettings.framesId[message.data.frameId] = params.id;
                 browserSettings.tabs[params.id].iframe.attr('src', browserSettings.urlGenerator(browserSettings.tabs[params.id].cid) + browserSettings.tabs[params.id].path);
+                browserSettings.updateAddressBar();
             }
         }
 
@@ -56,6 +57,7 @@ const messages = {
 
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+                browserSettings.updateAddressBar();
 
             }
 

@@ -45,10 +45,7 @@ var browserSettings = {
     lastTab: -1,
 
     // Tabs
-    tabs: {
-
-    },
-
+    tabs: {},
     framesId: {},
 
     // Create Tab

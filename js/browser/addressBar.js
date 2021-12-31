@@ -1,3 +1,9 @@
+browserSettings.updateAddressBar = function() {
+
+    console.log();
+
+};
+
 var startAddressBar = function(fn) {
 
     $('#browser').append(
