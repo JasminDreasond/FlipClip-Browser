@@ -14,6 +14,9 @@ const messages = {
 
     frameUpdate: function(message) {
 
+        // Prepare Data
+        let url = message.data.url.split('/');
+
         // New iFrame Data
         if (message.data.url.startsWith(chrome.runtime.getURL('validator.html') + '?secret=')) {
             const urlData = new URL(message.data.url);
@@ -21,11 +24,33 @@ const messages = {
             const params = Object.fromEntries(urlSearchParams.entries());
             if (params.secret === browserSettings.windowSecret && browserSettings.tabs[params.id]) {
                 browserSettings.tabs[params.id].frameId = message.data.frameId;
+                browserSettings.framesId[message.data.frameId] = params.id;
                 browserSettings.tabs[params.id].iframe.attr('src', browserSettings.urlGenerator(browserSettings.tabs[params.id].cid) + browserSettings.tabs[params.id].path);
             }
         }
 
-        console.log(browserSettings);
+        // Set New Tab Address
+        else if (browserSettings.framesId[message.data.frameId] && browserSettings.tabs[browserSettings.framesId[message.data.frameId]]) {
+
+            // Remove Protocol
+            url.shift();
+
+            // Remove Blank
+            url.shift();
+
+            // Get Domain
+            const domain = url[0];
+            url.shift();
+
+            // Fix URL
+            url = url.join('/');
+
+            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = domain;
+            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+
+        }
+
+        console.log(browserSettings.tabs);
 
     }
 

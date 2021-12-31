@@ -49,6 +49,8 @@ var browserSettings = {
 
     },
 
+    framesId: {},
+
     // Create Tab
     createTab: function(cid, path, active = false) {
 
