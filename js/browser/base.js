@@ -39,7 +39,7 @@ const messages = {
             url.shift();
 
             // Get Domain
-            const domain = url[0];
+            const domain = url[0].split('.')[0];
             url.shift();
 
             // Fix URL
@@ -49,8 +49,6 @@ const messages = {
             browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
 
         }
-
-        console.log(browserSettings.tabs);
 
     }
 
