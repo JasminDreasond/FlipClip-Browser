@@ -28,6 +28,7 @@ var browserSettings = {
     // Create Tab
     createTab: function(cid, path, active = false) {
 
+        // Update Settings
         browserSettings.lastTab++;
         browserSettings.tabs[browserSettings.lastTab] = {
             cid: cid,
@@ -35,8 +36,8 @@ var browserSettings = {
             active: active
         };
 
-        return $('<iframe>', {
-            onLoad: 'browserSettings.updateTab(this.contentWindow.location);',
+        // Create iFrame
+        const iframe = $('<iframe>', {
             src: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
@@ -44,6 +45,14 @@ var browserSettings = {
         }).css({
             'padding-bottom': browserSettings.addressBarSize
         });
+
+        // Load Detector
+        iframe.load(function(event) {
+            console.log(event);
+        });
+
+        // Complete
+        return iframe;
 
     },
 
