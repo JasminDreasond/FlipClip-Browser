@@ -60,15 +60,16 @@ var startBrowser = function(fn) {
     params.domain = browserSettings.fixDomain(params.domain);
     if (typeof params.domain === "string" && params.domain.length > 0 && params.domain !== null && params.domain !== 'null') {
         resolution.ipfsHash(params.domain).then((cid) => {
-            resolution.addr(params.domain, 'BTC').then((value) => {
-                $('#browser').append(
-                    browserSettings.createTab(cid, params.path)
-                );
-                console.log(value);
-                fn();
-                return;
-            });
+
+            // Insert Browser Window
+            $('#browser').append(
+                browserSettings.createTab(cid, params.path, true)
+            );
+
+            // Complete
+            fn();
             return;
+
         });
     }
 };

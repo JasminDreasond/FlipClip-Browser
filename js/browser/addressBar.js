@@ -14,3 +14,7 @@ var startAddressBar = function(fn) {
     fn();
 
 };
+
+/* 
+    resolution.addr(params.domain, 'BTC').then((value) => {});
+*/
