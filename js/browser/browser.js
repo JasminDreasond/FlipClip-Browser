@@ -98,5 +98,12 @@ var startBrowser = function(fn) {
             return;
 
         });
+    } else {
+
+        // Complete
+        fn();
+        return;
+
     }
+
 };
