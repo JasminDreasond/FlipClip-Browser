@@ -11,7 +11,11 @@ var browserSettings = {
 
     // Proxy
     proxy: 'https://{cid32}.ipfs.dweb.link/',
-    urlGenerator: function(value) { return browserSettings.proxy.replace('{cid}', value).replace('{cid32}', CIDTool.base32(value)); },
+    urlGenerator: function(value) {
+        let urlResult = browserSettings.proxy.replace('{cid}', value).replace('{cid32}', CIDTool.base32(value));
+        if (!browserSettings.proxy.endsWith('/')) { urlResult += '/'; }
+        return urlResult;
+    },
 
     // Tab Number
     lastTab: -1,
@@ -22,20 +26,28 @@ var browserSettings = {
     },
 
     // Create Tab
-    createTab: function(cid) {
+    createTab: function(cid, path, active = false) {
+
         browserSettings.lastTab++;
+        browserSettings.tabs[browserSettings.lastTab] = {
+            cid: cid,
+            path: path,
+            active: active
+        };
+
         return $('<iframe>', {
-            src: browserSettings.urlGenerator(cid),
+            src: browserSettings.urlGenerator(cid) + path,
             tab: browserSettings.lastTab,
             class: 'browser-window',
             frameBorder: 0
         }).css({
             'padding-bottom': browserSettings.addressBarSize
         });
+
     },
 
     // Redirect Tab
-    redirectTab: function() {
+    redirectTab: function(cid, path) {
 
     }
 
@@ -50,7 +62,7 @@ var startBrowser = function(fn) {
         resolution.ipfsHash(params.domain).then((cid) => {
             resolution.addr(params.domain, 'BTC').then((value) => {
                 $('#browser').append(
-                    browserSettings.createTab(cid)
+                    browserSettings.createTab(cid, params.path)
                 );
                 console.log(value);
                 fn();
