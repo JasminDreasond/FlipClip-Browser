@@ -76,17 +76,8 @@ var browserSettings = {
 
     },
 
-    // Update Tab
-    updateTab: function(tabLocation) {
-
-        const url = tabLocation.split('/');
-        const proxy = browserSettings.proxy.split('/');
-        console.log(url, proxy);
-
-    },
-
     // Redirect Tab
-    redirectTab: function(cid, path) {
+    redirectTab: function(cid, path, id) {
 
     }
 

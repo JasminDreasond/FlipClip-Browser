@@ -14,9 +14,6 @@ const messages = {
 
     frameUpdate: function(message) {
 
-        // Prepare Data
-        let url = message.data.url.split('/');
-
         // New iFrame Data
         if (message.data.url.startsWith(chrome.runtime.getURL('validator.html') + '?secret=')) {
             const urlData = new URL(message.data.url);
@@ -32,22 +29,45 @@ const messages = {
         // Set New Tab Address
         else if (browserSettings.framesId[message.data.frameId] && browserSettings.tabs[browserSettings.framesId[message.data.frameId]]) {
 
+            // Prepare Data
+            let url = message.data.url.split('/');
+            let urlBase = browserSettings.proxy.split('/');
+
             // Remove Protocol
             url.shift();
+            urlBase.shift();
 
             // Remove Blank
             url.shift();
+            urlBase.shift();
 
             // Get Domain
             const domain = url[0];
+            const domainCheck = urlBase[0].replace('{cid}', '').replace('{cid32}', '');
             const cid = domain.split('.')[0];
             url.shift();
+            urlBase.shift();
 
             // Fix URL
             url = url.join('/');
 
-            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
-            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+            // Verification
+            if (domain.endsWith(domainCheck)) {
+
+                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
+                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+
+            }
+
+            // Failed
+            else {
+                message.data.url;
+                browserSettings.redirectTab(
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path,
+                    browserSettings.framesId[message.data.frameId]
+                );
+            }
 
         }
 
