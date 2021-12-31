@@ -10,6 +10,10 @@ const messages = {
 
     newTab: function(message) {
         console.log(message);
+    },
+
+    frameUpdate: function(message) {
+        console.log(message);
     }
 
 };
