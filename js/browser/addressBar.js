@@ -49,9 +49,15 @@ var startAddressBar = function(fn) {
         autocomplete: 'off'
     }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
 
-    browserSettings.addressBar.bar.text.input.blur(function() {
+    const inputAdressBarEnd = function() {
         browserSettings.addressBar.bar.text.view.removeClass('d-none');
         browserSettings.addressBar.bar.text.input.addClass('d-none');
+    };
+
+    browserSettings.addressBar.bar.text.input.blur(inputAdressBarEnd).keyup(function(e) {
+        if (e.key === "Escape") { // escape key maps to keycode `27`
+            browserSettings.addressBar.bar.text.input.blur();
+        }
     });
 
     // Items
