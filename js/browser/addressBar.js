@@ -131,7 +131,14 @@ var startAddressBar = function(fn) {
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
-                )
+                ).click(function() {
+                    if (browserSettings.tabs[browserSettings.active]) {
+                        browserSettings.tabs[browserSettings.active].iframe.attr('src', '');
+                        browserSettings.tabs[browserSettings.active].iframe.attr('src', browserSettings.urlGenerator(
+                            browserSettings.tabs[browserSettings.active].cid
+                        ) + '/' + browserSettings.tabs[browserSettings.active].path);
+                    }
+                })
             ),
 
             // Home
