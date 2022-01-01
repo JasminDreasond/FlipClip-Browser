@@ -12,7 +12,7 @@ var startAddressBar = function(fn) {
     // Tabs
     browserSettings.addressBar.tabs = $('<ul>', { class: 'navbar-nav mr-auto' });
 
-    browserSettings.addressBar.nav.tabs = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'tabs' }).css('height', browserSettings.addressBar.size / 2 - 3).append(
+    browserSettings.addressBar.nav.tabs = $('<nav>', { class: 'navbar navbar-expand navbar-tab-' + browserSettings.theme + ' navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'tabs' }).css('height', browserSettings.addressBar.size / 2 - 3).append(
         browserSettings.addressBar.tabs
     );
 

@@ -9,3 +9,7 @@
 .browser-button {
     cursor: default !important;
 }
+
+.navbar-tab-light {
+    background-color: #b6b6b6 !important;
+}
