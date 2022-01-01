@@ -4,6 +4,10 @@ browserSettings.updateAddressBar = function() {
 
 };
 
+$(window).resize(function() {
+    console.log($(document).width() - browserSettings.addressBar.iconsSpace);
+});
+
 var startAddressBar = function(fn) {
 
     // Prepare Nav
