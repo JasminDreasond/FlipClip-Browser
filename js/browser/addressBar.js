@@ -4,7 +4,7 @@ browserSettings.updateAddressBarData = function() {
     const url = 'ipfs://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
 
     // Update Address Bar
-    browserSettings.addressBar.bar.text.view.text(url);
+    browserSettings.addressBar.bar.text.view.find('span').text(url);
     browserSettings.addressBar.bar.text.input.val(url);
 
 };
@@ -53,7 +53,12 @@ var startAddressBar = function(fn) {
         class: 'form-control h-100 addressbar',
         type: 'text',
         id: 'addressbar'
-    }).css({ 'font-size': browserSettings.addressBar.fontSize + 'pt', cursor: 'text' }).click(function() {
+    }).css('cursor', 'text').append($('<span>').css({
+        'font-size': browserSettings.addressBar.fontSize + 'pt',
+        position: 'absolute',
+        top: 3,
+        left: 11
+    })).click(function() {
         browserSettings.updateAddressBarData();
         browserSettings.addressBar.bar.text.view.addClass('d-none');
         browserSettings.addressBar.bar.text.input.removeClass('d-none').focus().select();
