@@ -60,7 +60,7 @@ var startAddressBar = function(fn) {
         'font-size': browserSettings.addressBar.fontSize + 'pt',
         position: 'absolute',
         top: 3,
-        left: 11
+        left: 12
     })).click(function() {
         browserSettings.updateAddressBarData();
         browserSettings.addressBar.bar.text.view.addClass('d-none');
