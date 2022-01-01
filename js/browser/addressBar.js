@@ -16,6 +16,14 @@ var startAddressBar = function(fn) {
         browserSettings.addressBar.tabs
     );
 
+    // BG Address
+    let bgAdress = '';
+    if (browserSettings.theme === 'light') {
+        bgAdress = 'white';
+    } else if (browserSettings.theme === 'dark') {
+        bgAdress = 'dark';
+    }
+
     // Items
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
@@ -64,12 +72,13 @@ var startAddressBar = function(fn) {
             ),
 
             // Address Bar
-            $('<form>', { class: 'd-inline m-0' }).append(
-                $('<input>', { class: 'form-control mr-2 ml-2 shadow-none', type: 'text', id: 'addressbar' }).css({
-                    height: '87%',
-                    'margin-top': 2,
-                    'margin-bottom': -7
-                })
+            $('<form>', { class: 'd-inline m-0 w-100' }).append(
+                $('<div>', { class: 'input-group mr-2 ml-2' }).append(
+                    $('<div>', { class: 'input-group-prepend' }).append(
+                        $('<span>', { class: 'input-group-text bg-' + bgAdress, id: 'page-status' }).text(':3')
+                    ),
+                    $('<input>', { class: 'form-control shadow-none', type: 'text', id: 'addressbar' })
+                )
             )
 
         )
