@@ -18,7 +18,7 @@ browserSettings.updateAddressBar = function() {
 // Address Bar Resize
 $(window).on('resize scroll focus mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup keyup keypress keydown hover blur click change', function() {
     if (browserSettings.addressBar.bar.base) {
-        browserSettings.addressBar.bar.base.css('width', $(document).width() - browserSettings.addressBar.iconsSpace - 300)
+        browserSettings.addressBar.bar.base.css('width', $(document).width() - browserSettings.addressBar.iconsSpace - 100)
     }
 });
 
