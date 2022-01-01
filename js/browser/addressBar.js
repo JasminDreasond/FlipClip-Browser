@@ -39,6 +39,7 @@ var startAddressBar = function(fn) {
         id: 'addressbar'
     }).css('font-size', browserSettings.addressBar.fontSize + 'pt').click(function() {
         browserSettings.addressBar.bar.text.view.addClass('d-none');
+        browserSettings.updateAddressBar();
         browserSettings.addressBar.bar.text.input.removeClass('d-none').focus();
     });
 
@@ -50,6 +51,7 @@ var startAddressBar = function(fn) {
 
     browserSettings.addressBar.bar.text.input.blur(function() {
         browserSettings.addressBar.bar.text.view.removeClass('d-none');
+        browserSettings.updateAddressBar();
         browserSettings.addressBar.bar.text.input.addClass('d-none');
     });
 
