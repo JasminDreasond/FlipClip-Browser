@@ -19,6 +19,13 @@
     background-color: #b6b6b6 !important;
 }
 
+
+/* Dark Theme */
+
+.navbar-tab-dark {
+    background-color: #0C0C17 !important;
+}
+
 .domain-name-dark {
     color: #fff;
 }

@@ -66,7 +66,7 @@ var browserSettings = {
     },
 
     // Theme
-    theme: 'light',
+    theme: 'dark',
 
     // Address Bar
     addressBar: {
