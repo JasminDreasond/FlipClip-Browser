@@ -48,7 +48,9 @@ var startAddressBar = function(fn) {
         'border-right': 0
     }).append(
         $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress + ' border-' + browserSettings.theme, id: 'page-status' })
-        .css('font-size', 'small').text(':3')
+        .css('font-size', 'small').append(
+            $('<i>', { class: 'fas fa-lock' })
+        )
     );
 
     browserSettings.addressBar.bar.text = {};
