@@ -23,6 +23,9 @@ function generateHexString(length) {
 // Browser Scripts
 var browserSettings = {
 
+    // Theme
+    theme: 'light',
+
     // Address Bar
     addressBarSize: 67,
 
