@@ -22,7 +22,7 @@ var startAddressBar = function(fn) {
 
             // Previous
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-left' }).css({
                         'font-size': browserSettings.addressBar.buttonSize,
                         'margin': browserSettings.addressBar.marginButtonFix,
@@ -33,7 +33,7 @@ var startAddressBar = function(fn) {
 
             // Next
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-right' }).css({
                         'font-size': browserSettings.addressBar.buttonSize,
                         'margin': browserSettings.addressBar.marginButtonFix,
@@ -44,21 +44,21 @@ var startAddressBar = function(fn) {
 
             // Refresh
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
                 )
             ),
 
             // Home
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-home' })
                 )
             ),
 
             // Bookmark
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-bookmark' })
                 )
             ),
