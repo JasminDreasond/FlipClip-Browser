@@ -65,7 +65,7 @@ var browserSettings = {
         });
     },
 
-    // Theme
+    // Theme (dark - light)
     theme: 'dark',
 
     // Address Bar
