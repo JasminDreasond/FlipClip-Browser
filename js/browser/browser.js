@@ -1,3 +1,21 @@
+// Domains Servers
+var domains = {
+
+    unstoppabledomains: [
+        '.crypto',
+        '.zil',
+        '.coin',
+        '.wallet',
+        '.bitcoin',
+        '.x',
+        '.888',
+        '.nft',
+        '.dao',
+        '.blockchain'
+    ]
+
+};
+
 function generateHexString(length) {
     // Use crypto.getRandomValues if available
     if (
@@ -22,6 +40,30 @@ function generateHexString(length) {
 
 // Browser Scripts
 var browserSettings = {
+
+    readDomainData: function(domain, type, data) {
+        return new Promise(function(resolve, reject) {
+
+            // UD
+            if (domains.unstoppabledomains.find(domainName => domain.endsWith(domainName))) {
+
+                if (type === 'ipfsHash') {
+                    resolution.ipfsHash(domain).then(resolve).catch(reject);
+                } else if (type === 'addr') {
+                    resolution.addr(domain, data).then(resolve).catch(reject);
+                } else {
+                    reject(new Error('Invalid Read Domain Request!'));
+                }
+
+            }
+
+            // Nothing
+            else {
+                reject(new Error('Invalid DNS App!'));
+            }
+
+        });
+    },
 
     // Theme
     theme: 'light',
@@ -93,7 +135,7 @@ var startBrowser = function(fn) {
     // Domain Validator
     params.domain = browserSettings.fixDomain(params.domain);
     if (typeof params.domain === "string" && params.domain.length > 0 && params.domain !== null && params.domain !== 'null') {
-        resolution.ipfsHash(params.domain).then((cid) => {
+        browserSettings.readDomainData(params.domain, 'ipfsHash').then((cid) => {
 
             // Insert Browser Window
             $('#browser').append(
