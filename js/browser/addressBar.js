@@ -22,6 +22,16 @@ $(window).on('resize scroll focus mousedown mouseenter mouseleave mousemove mous
     }
 });
 
+// Reload Window
+var reloadNFTPage = function() {
+    if (browserSettings.tabs[browserSettings.active]) {
+        browserSettings.tabs[browserSettings.active].iframe.attr('src', '');
+        browserSettings.tabs[browserSettings.active].iframe.attr('src', browserSettings.urlGenerator(
+            browserSettings.tabs[browserSettings.active].cid
+        ) + '/' + browserSettings.tabs[browserSettings.active].path);
+    }
+};
+
 var startAddressBar = function(fn) {
 
     // Prepare Nav
@@ -131,14 +141,7 @@ var startAddressBar = function(fn) {
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
-                ).click(function() {
-                    if (browserSettings.tabs[browserSettings.active]) {
-                        browserSettings.tabs[browserSettings.active].iframe.attr('src', '');
-                        browserSettings.tabs[browserSettings.active].iframe.attr('src', browserSettings.urlGenerator(
-                            browserSettings.tabs[browserSettings.active].cid
-                        ) + '/' + browserSettings.tabs[browserSettings.active].path);
-                    }
-                })
+                ).click(reloadNFTPage)
             ),
 
             // Home

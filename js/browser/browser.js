@@ -92,11 +92,7 @@ var browserSettings = {
     },
 
     // Page Load Detector
-    pageLoaded: function() {
-
-
-
-    },
+    pageLoaded: function() {},
 
     windowSecret: generateHexString(200),
 
@@ -127,6 +123,7 @@ var browserSettings = {
 
         // Change Page
 
+        browserSettings.tabs[browserSettings.lastTab].iframe.on('load', browserSettings.pageLoaded);
         browserSettings.tabs[browserSettings.lastTab].iframe.bind('keypress keydown keyup', cancelRefresh);
         browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
 
@@ -177,16 +174,11 @@ var startBrowser = function(fn) {
 
 // Cancel Refresh
 const cancelRefresh = function(e) {
-    if (e.which === 116) {
-        console.log('blocked');
-        return false;
-    }
-    if (e.which === 82 && e.ctrlKey) {
-        console.log('blocked');
-        return false;
-    }
+    reloadNFTPage();
 };
 
-$(document).bind('keypress keydown keyup', cancelRefresh);
+// Reload App
+/* $(document).bind('keypress keydown keyup', cancelRefresh);
 $(window).bind('keypress keydown keyup', cancelRefresh);
-$('*').bind('keypress keydown keyup', cancelRefresh);
+$('*').bind('keypress keydown keyup', cancelRefresh); */
+$(window).bind('beforeunload', function() { return false; });
