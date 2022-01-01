@@ -72,7 +72,8 @@ var browserSettings = {
     addressBar: {
         size: 67,
         buttonSize: 25,
-        marginButtonFix: -5
+        marginButtonFix: -5,
+        barFix: 30
     },
 
     // Domain URL Fix

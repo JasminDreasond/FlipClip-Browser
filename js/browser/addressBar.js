@@ -73,11 +73,12 @@ var startAddressBar = function(fn) {
 
             // Address Bar
             $('<form>', { class: 'd-inline m-0 w-100' }).append(
-                $('<div>', { class: 'input-group mr-2 ml-2' }).append(
-                    $('<div>', { class: 'input-group-prepend' }).append(
-                        $('<span>', { class: 'input-group-text bg-' + bgAdress, id: 'page-status' }).text(':3')
+                $('<div>', { class: 'input-group mr-2 ml-2' }).css('height', browserSettings.addressBar.barFix).append(
+                    $('<div>', { class: 'input-group-prepend h-100' }).append(
+                        $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
+                        .css('font-size', 'small').text(':3')
                     ),
-                    $('<input>', { class: 'form-control shadow-none', type: 'text', id: 'addressbar' })
+                    $('<input>', { class: 'form-control shadow-none h-100', type: 'text', id: 'addressbar' })
                 )
             )
 
