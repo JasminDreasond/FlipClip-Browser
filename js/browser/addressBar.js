@@ -65,7 +65,7 @@ var startAddressBar = function(fn) {
 
             // Address Bar
             $('<form>', { class: 'd-inline m-0' }).append(
-                $('<input>', { class: 'form-control mr-2 ml-2 h-100', type: 'text' }).
+                $('<input>', { class: 'form-control mr-2 ml-2 h-100', type: 'text' })
             )
 
         )
