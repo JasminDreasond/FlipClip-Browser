@@ -1,3 +1,5 @@
+/* Base */
+
 .browser-window {
     min-height: 100%;
     min-width: 100%;
@@ -10,6 +12,13 @@
     cursor: default !important;
 }
 
+
+/* Light Theme */
+
 .navbar-tab-light {
     background-color: #b6b6b6 !important;
+}
+
+.domain-name-dark {
+    color: #fff;
 }
