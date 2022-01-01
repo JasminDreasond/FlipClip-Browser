@@ -8,14 +8,14 @@ var startAddressBar = function(fn) {
 
     $('#browser').append(
         $('<div>', { id: 'address-bar' }).append(
-            $('<nav>', { class: 'navbar navbar-expand-lg navbar-light bg-light' }).css('height', browserSettings.addressBarSize / 2 - 3).append(
+            $('<nav>', { class: 'navbar navbar-expand-lg navbar-light bg-light', id: 'tabs' }).css('height', browserSettings.addressBarSize / 2 - 3).append(
                 $('<ul>', { class: 'navbar-nav mr-auto' }).append(
                     $('<li>', { class: 'nav-item active' }).append(
                         $('<a>', { class: 'nav-link', href: '#' }).text('Test')
                     )
                 )
             ),
-            $('<nav>', { class: 'navbar navbar-expand-lg navbar-light bg-light' }).css('height', browserSettings.addressBarSize / 2 + 3).append(
+            $('<nav>', { class: 'navbar navbar-expand-lg navbar-light bg-light', id: 'menu' }).css('height', browserSettings.addressBarSize / 2 + 3).append(
                 $('<ul>', { class: 'navbar-nav mr-auto' }).append(
                     $('<li>', { class: 'nav-item active' }).append(
                         $('<a>', { class: 'nav-link', href: '#' }).text('Test')
