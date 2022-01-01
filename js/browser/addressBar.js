@@ -25,6 +25,7 @@ var startAddressBar = function(fn) {
     }
 
     // Bar
+    browserSettings.addressBar.bar = {};
     browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).append(
         $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
         .css('font-size', 'small').text(':3')
