@@ -92,7 +92,13 @@ var browserSettings = {
     },
 
     // Page Load Detector
-    pageLoaded: function() {},
+    pageLoaded: function() {
+        const url = browserSettings.tabs[browserSettings.active].iframe.attr('refreshdata');
+        if (url) {
+            browserSettings.tabs[browserSettings.active].iframe.attr('refreshdata', '');
+            browserSettings.tabs[browserSettings.active].iframe.attr('src', url);
+        }
+    },
 
     windowSecret: generateHexString(200),
 
