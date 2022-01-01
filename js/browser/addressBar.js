@@ -4,7 +4,9 @@ browserSettings.updateAddressBarData = function() {
     const url = 'ipfs://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
 
     // Update Address Bar
-    browserSettings.addressBar.bar.text.view.find('span').text(url);
+    browserSettings.addressBar.bar.text.view.find('#text').empty().append(
+        'ipfs://', $('<span>', { class: 'domain-name-' + browserSettings.theme }).text(browserSettings.tabs[browserSettings.active].domain), '/' + browserSettings.tabs[browserSettings.active].path
+    );
     browserSettings.addressBar.bar.text.input.val(url);
 
 };
@@ -56,7 +58,7 @@ var startAddressBar = function(fn) {
     }).css({
         cursor: 'text',
         left: -1
-    }).append($('<span>').css({
+    }).append($('<span>', { id: 'text' }).css({
         'font-size': browserSettings.addressBar.fontSize + 'pt',
         position: 'absolute',
         top: 3,
