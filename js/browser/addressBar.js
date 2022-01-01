@@ -45,16 +45,14 @@ var startAddressBar = function(fn) {
     // Bar
     browserSettings.addressBar.bar = {};
     browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).append(
-        $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
+        $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress + ' border-' + browserSettings.theme, id: 'page-status' })
         .css('font-size', 'small').text(':3')
     );
 
     browserSettings.addressBar.bar.text = {};
 
     browserSettings.addressBar.bar.text.view = $('<div>', {
-        class: 'form-control h-100 addressbar',
-        type: 'text',
-        id: 'addressbar'
+        class: 'form-control h-100 addressbar border-' + browserSettings.theme
     }).css({
         cursor: 'text',
         left: -1
@@ -70,7 +68,7 @@ var startAddressBar = function(fn) {
     });
 
     browserSettings.addressBar.bar.text.input = $('<input>', {
-        class: 'form-control shadow-none h-100 d-none addressbar',
+        class: 'form-control shadow-none h-100 d-none addressbar border-' + browserSettings.theme,
         type: 'text',
         id: 'addressbar',
         autocomplete: 'off'
@@ -88,7 +86,7 @@ var startAddressBar = function(fn) {
         }
     });
 
-    browserSettings.addressBar.bar.base = $('<div>', { class: 'input-group mr-2 ml-2' }).css('height', browserSettings.addressBar.barFix).append(
+    browserSettings.addressBar.bar.base = $('<div>', { class: 'input-group mr-2 ml-2 addressbar-' + browserSettings.theme }).css('height', browserSettings.addressBar.barFix).append(
         browserSettings.addressBar.bar.icon,
         browserSettings.addressBar.bar.text.view,
         browserSettings.addressBar.bar.text.input

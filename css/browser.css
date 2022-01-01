@@ -29,3 +29,13 @@
 .domain-name-dark {
     color: #fff;
 }
+
+#page-status.bg-dark,
+.addressbar.border-dark {
+    background-color: #181A21 !important;
+    color: #909192;
+}
+
+#addressbar.border-dark {
+    color: #fff;
+}
