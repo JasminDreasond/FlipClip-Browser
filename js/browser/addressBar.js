@@ -45,7 +45,8 @@ var startAddressBar = function(fn) {
     browserSettings.addressBar.bar.text.input = $('<input>', {
         class: 'form-control shadow-none h-100 d-none addressbar',
         type: 'text',
-        id: 'addressbar'
+        id: 'addressbar',
+        autocomplete: 'off'
     }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
 
     browserSettings.addressBar.bar.text.input.blur(function() {
