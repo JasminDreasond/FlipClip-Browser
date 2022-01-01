@@ -54,11 +54,11 @@ var startAddressBar = function(fn) {
     browserSettings.addressBar.bar.text = {};
 
     browserSettings.addressBar.bar.text.view = $('<div>', {
-        class: 'form-control h-100 addressbar border-' + browserSettings.theme
+        class: 'form-control h-100 addressbar text-truncate border-' + browserSettings.theme
     }).css({
         'border-left': 0,
         cursor: 'text',
-        left: -1
+        left: -11
     }).append($('<span>', { id: 'text' }).css({
         'font-size': browserSettings.addressBar.fontSize + 'pt',
         position: 'absolute',
@@ -76,6 +76,7 @@ var startAddressBar = function(fn) {
         id: 'addressbar',
         autocomplete: 'off'
     }).css({
+        left: -10,
         'font-size': browserSettings.addressBar.fontSize + 'pt',
         'border-left': 0
     });
