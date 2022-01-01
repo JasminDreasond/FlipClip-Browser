@@ -24,6 +24,26 @@ var startAddressBar = function(fn) {
         bgAdress = 'dark';
     }
 
+    // Bar
+    browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).append(
+        $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
+        .css('font-size', 'small').text(':3')
+    );
+
+    browserSettings.addressBar.bar.text = {};
+
+    browserSettings.addressBar.bar.text.view = $('<div>', {
+        class: 'form-control h-100 addressbar',
+        type: 'text',
+        id: 'addressbar'
+    }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
+
+    browserSettings.addressBar.bar.text.input = $('<input>', {
+        class: 'form-control shadow-none h-100 d-none addressbar',
+        type: 'text',
+        id: 'addressbar'
+    }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
+
     // Items
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
@@ -74,11 +94,9 @@ var startAddressBar = function(fn) {
             // Address Bar
             $('<form>', { class: 'd-inline m-0 w-100' }).append(
                 $('<div>', { class: 'input-group mr-2 ml-2' }).css('height', browserSettings.addressBar.barFix).append(
-                    $('<div>', { class: 'input-group-prepend h-100' }).append(
-                        $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
-                        .css('font-size', 'small').text(':3')
-                    ),
-                    $('<input>', { class: 'form-control shadow-none h-100', type: 'text', id: 'addressbar' }).css('font-size', browserSettings.addressBar.fontSize + 'pt')
+                    browserSettings.addressBar.bar.icon,
+                    browserSettings.addressBar.bar.text.view,
+                    browserSettings.addressBar.bar.text.input
                 )
             )
 
