@@ -20,6 +20,7 @@ var startAddressBar = function(fn) {
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
 
+            // Previous
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-left' }).css({
@@ -30,6 +31,7 @@ var startAddressBar = function(fn) {
                 )
             ),
 
+            // Next
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-right' }).css({
@@ -40,22 +42,30 @@ var startAddressBar = function(fn) {
                 )
             ),
 
+            // Refresh
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
                 )
             ),
 
+            // Home
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-home' })
                 )
             ),
 
+            // Bookmark
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-bookmark' })
                 )
+            ),
+
+            // Address Bar
+            $('<form>', { class: 'd-inline m-0' }).append(
+                $('<input>', { class: 'form-control mr-2 ml-2 h-100', type: 'text' }).
             )
 
         )
