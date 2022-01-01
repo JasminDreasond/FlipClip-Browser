@@ -12,6 +12,12 @@
     cursor: default !important;
 }
 
+#page-status {
+    z-index: 10;
+    border-right: 0px;
+    margin-right: 2px;
+}
+
 
 /* Light Theme */
 
@@ -40,4 +46,6 @@
     color: #fff;
 }
 
-#page-status {}
+#page-status.bg-dark:hover {
+    background-color: #2F3037 !important
+}
