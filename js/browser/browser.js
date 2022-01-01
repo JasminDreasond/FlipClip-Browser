@@ -73,7 +73,7 @@ var browserSettings = {
         size: 67,
         buttonSize: 25,
         marginButtonFix: -5,
-        barFix: 30
+        barFix: 31
     },
 
     // Domain URL Fix
