@@ -4,8 +4,11 @@ browserSettings.updateAddressBar = function() {
 
 };
 
-$(window).resize(function() {
-    console.log($(document).width() - browserSettings.addressBar.iconsSpace);
+// Address Bar Resize
+$(window).on('resize scroll focus mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup keyup keypress keydown hover blur click change', function() {
+    if (browserSettings.addressBar.bar.base) {
+        browserSettings.addressBar.bar.base.css('width', $(document).width() - browserSettings.addressBar.iconsSpace - 300)
+    }
 });
 
 var startAddressBar = function(fn) {
@@ -64,6 +67,12 @@ var startAddressBar = function(fn) {
         }
     });
 
+    browserSettings.addressBar.bar.base = $('<div>', { class: 'input-group mr-2 ml-2' }).css('height', browserSettings.addressBar.barFix).append(
+        browserSettings.addressBar.bar.icon,
+        browserSettings.addressBar.bar.text.view,
+        browserSettings.addressBar.bar.text.input
+    );
+
     // Items
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
@@ -113,11 +122,7 @@ var startAddressBar = function(fn) {
 
             // Address Bar
             $('<form>', { class: 'd-inline m-0 w-100' }).append(
-                $('<div>', { class: 'input-group mr-2 ml-2' }).css('height', browserSettings.addressBar.barFix).append(
-                    browserSettings.addressBar.bar.icon,
-                    browserSettings.addressBar.bar.text.view,
-                    browserSettings.addressBar.bar.text.input
-                )
+                browserSettings.addressBar.bar.base
             )
 
             // Submit New Web Page
@@ -131,6 +136,7 @@ var startAddressBar = function(fn) {
     );
 
     // Set Browser Items
+    $(window).trigger('resize');
     $('#browser').append(
         $('<div>', { id: 'address-bar' }).append(
             browserSettings.addressBar.nav.tabs,
