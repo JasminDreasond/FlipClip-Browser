@@ -101,12 +101,13 @@ var browserSettings = {
     framesId: {},
 
     // Create Tab
-    createTab: function(cid, path, active = false) {
+    createTab: function(domain, cid, path, active = false) {
 
         // Update Settings
         browserSettings.lastTab++;
         if (active) { browserSettings.active = browserSettings.lastTab; }
         browserSettings.tabs[browserSettings.lastTab] = {
+            domain: domain,
             cid: cid,
             path: path,
             iframe: $('<iframe>', {
@@ -126,7 +127,7 @@ var browserSettings = {
     },
 
     // Redirect Tab
-    redirectTab: function(cid, path, id) {
+    redirectTab: function(domain, cid, path, id) {
 
     }
 
@@ -142,7 +143,7 @@ var startBrowser = function(fn) {
 
             // Insert Browser Window
             $('#browser').append(
-                browserSettings.createTab(cid, params.path, true)
+                browserSettings.createTab(params.domain, cid, params.path, true)
             );
 
             // Complete

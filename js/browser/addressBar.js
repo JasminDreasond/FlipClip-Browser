@@ -1,7 +1,16 @@
+browserSettings.updateAddressBarData = function() {
+
+    // URL
+    const url = 'ipfs://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
+
+    // Update Address Bar
+    browserSettings.addressBar.bar.text.view.text(url);
+    browserSettings.addressBar.bar.text.input.val(url);
+
+};
+
 browserSettings.updateAddressBar = function() {
-
-    console.log(browserSettings);
-
+    browserSettings.updateAddressBarData();
 };
 
 // Address Bar Resize
@@ -45,8 +54,9 @@ var startAddressBar = function(fn) {
         type: 'text',
         id: 'addressbar'
     }).css({ 'font-size': browserSettings.addressBar.fontSize + 'pt', cursor: 'text' }).click(function() {
+        browserSettings.updateAddressBarData();
         browserSettings.addressBar.bar.text.view.addClass('d-none');
-        browserSettings.addressBar.bar.text.input.removeClass('d-none').focus();
+        browserSettings.addressBar.bar.text.input.removeClass('d-none').focus().select();
     });
 
     browserSettings.addressBar.bar.text.input = $('<input>', {
@@ -63,6 +73,7 @@ var startAddressBar = function(fn) {
 
     browserSettings.addressBar.bar.text.input.blur(inputAdressBarEnd).keyup(function(e) {
         if (e.key === "Escape") { // escape key maps to keycode `27`
+            browserSettings.updateAddressBarData();
             browserSettings.addressBar.bar.text.input.blur();
         }
     });
