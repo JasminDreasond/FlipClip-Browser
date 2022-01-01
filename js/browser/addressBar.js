@@ -78,7 +78,7 @@ var startAddressBar = function(fn) {
                         $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress, id: 'page-status' })
                         .css('font-size', 'small').text(':3')
                     ),
-                    $('<input>', { class: 'form-control shadow-none h-100', type: 'text', id: 'addressbar' })
+                    $('<input>', { class: 'form-control shadow-none h-100', type: 'text', id: 'addressbar' }).css('font-size', browserSettings.addressBar.fontSize + 'pt')
                 )
             )
 
