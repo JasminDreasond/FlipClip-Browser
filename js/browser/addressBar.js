@@ -37,7 +37,15 @@ var startAddressBar = function(fn) {
         class: 'form-control h-100 addressbar',
         type: 'text',
         id: 'addressbar'
-    }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
+    }).css('font-size', browserSettings.addressBar.fontSize + 'pt').click(function() {
+        browserSettings.addressBar.bar.text.view.addClass('d-none');
+        browserSettings.addressBar.bar.text.input.removeClass('d-none').focus();
+    });
+
+    browserSettings.addressBar.bar.text.input.blur(function() {
+        browserSettings.addressBar.bar.text.view.removeClass('d-none');
+        browserSettings.addressBar.bar.text.input.addClass('d-none');
+    });
 
     browserSettings.addressBar.bar.text.input = $('<input>', {
         class: 'form-control shadow-none h-100 d-none addressbar',
