@@ -19,14 +19,14 @@ var startAddressBar = function(fn) {
                 $('<ul>', { class: 'navbar-nav mr-auto' }).append(
 
                     $('<li>', { class: 'nav-item' }).append(
-                        $('<a>', { class: 'nav-link', href: '#' }).append(
-                            $('<i>', { class: 'fas fa-caret-left' }).css('font-size', 25)
+                        $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                            $('<i>', { class: 'fas fa-caret-left' }).css('font-size', browserSettings.addressBar.buttonSize)
                         )
                     ),
 
                     $('<li>', { class: 'nav-item' }).append(
-                        $('<a>', { class: 'nav-link', href: '#' }).append(
-                            $('<i>', { class: 'fas fa-caret-right' }).css('font-size', 25)
+                        $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                            $('<i>', { class: 'fas fa-caret-right' }).css('font-size', browserSettings.addressBar.buttonSize)
                         )
                     )
 
