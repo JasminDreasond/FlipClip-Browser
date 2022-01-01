@@ -27,7 +27,9 @@ var browserSettings = {
     theme: 'light',
 
     // Address Bar
-    addressBarSize: 67,
+    addressBar: {
+        size: 67
+    },
 
     // Domain URL Fix
     fixDomain: function(domain) {
@@ -64,7 +66,7 @@ var browserSettings = {
                 tab: browserSettings.lastTab,
                 class: 'browser-window',
                 frameBorder: 0,
-                style: 'padding-bottom: ' + browserSettings.addressBarSize + 'px;'
+                style: 'padding-bottom: ' + browserSettings.addressBar.size + 'px;'
             })
         };
 
