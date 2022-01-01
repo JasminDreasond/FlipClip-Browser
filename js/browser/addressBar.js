@@ -37,7 +37,7 @@ var startAddressBar = function(fn) {
         class: 'form-control h-100 addressbar',
         type: 'text',
         id: 'addressbar'
-    }).css('font-size', browserSettings.addressBar.fontSize + 'pt').click(function() {
+    }).css({ 'font-size': browserSettings.addressBar.fontSize + 'pt', cursor: 'text' }).click(function() {
         browserSettings.addressBar.bar.text.view.addClass('d-none');
         browserSettings.updateAddressBar();
         browserSettings.addressBar.bar.text.input.removeClass('d-none').focus();
