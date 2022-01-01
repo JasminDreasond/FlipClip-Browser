@@ -44,7 +44,9 @@ var startAddressBar = function(fn) {
 
     // Bar
     browserSettings.addressBar.bar = {};
-    browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).append(
+    browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).css({
+        'border-right': 0
+    }).append(
         $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress + ' border-' + browserSettings.theme, id: 'page-status' })
         .css('font-size', 'small').text(':3')
     );
@@ -54,6 +56,7 @@ var startAddressBar = function(fn) {
     browserSettings.addressBar.bar.text.view = $('<div>', {
         class: 'form-control h-100 addressbar border-' + browserSettings.theme
     }).css({
+        'border-left': 0,
         cursor: 'text',
         left: -1
     }).append($('<span>', { id: 'text' }).css({
@@ -72,7 +75,10 @@ var startAddressBar = function(fn) {
         type: 'text',
         id: 'addressbar',
         autocomplete: 'off'
-    }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
+    }).css({
+        'font-size': browserSettings.addressBar.fontSize + 'pt',
+        'border-left': 0
+    });
 
     const inputAdressBarEnd = function() {
         browserSettings.addressBar.bar.text.view.removeClass('d-none');
