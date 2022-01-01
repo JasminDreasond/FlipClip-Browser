@@ -68,8 +68,8 @@ var startAddressBar = function(fn) {
     // Set Browser Items
     $('#browser').append(
         $('<div>', { id: 'address-bar' }).append(
-            browserSettings.addressBar.nav.tabs.tabs,
-            browserSettings.addressBar.nav.tabs.items
+            browserSettings.addressBar.nav.tabs,
+            browserSettings.addressBar.nav.items
         )
     );
 
