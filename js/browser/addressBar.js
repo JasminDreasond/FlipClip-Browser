@@ -114,7 +114,10 @@ var startAddressBar = function(fn) {
                     browserSettings.addressBar.bar.text.view,
                     browserSettings.addressBar.bar.text.input
                 )
-            ).submit(function() {
+            )
+
+            // Submit New Web Page
+            .submit(function() {
                 browserSettings.updateAddressBar();
                 browserSettings.addressBar.bar.text.input.blur();
                 return false;
