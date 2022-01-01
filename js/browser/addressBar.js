@@ -53,7 +53,10 @@ var startAddressBar = function(fn) {
         class: 'form-control h-100 addressbar',
         type: 'text',
         id: 'addressbar'
-    }).css('cursor', 'text').append($('<span>').css({
+    }).css({
+        cursor: 'text',
+        left: -1
+    }).append($('<span>').css({
         'font-size': browserSettings.addressBar.fontSize + 'pt',
         position: 'absolute',
         top: 3,
