@@ -66,7 +66,7 @@ var browserSettings = {
     },
 
     // Theme (dark - light)
-    theme: 'dark',
+    theme: 'light',
 
     // Address Bar
     addressBar: {
@@ -132,6 +132,11 @@ var browserSettings = {
     }
 
 };
+
+// Dark Mode Enable
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    browserSettings.theme = 'dark';
+}
 
 // Start Browser
 var startBrowser = function(fn) {
