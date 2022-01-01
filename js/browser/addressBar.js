@@ -109,7 +109,7 @@ var startAddressBar = function(fn) {
                     browserSettings.addressBar.bar.text.view,
                     browserSettings.addressBar.bar.text.input
                 )
-            )
+            ).submit(function() { browserSettings.addressBar.bar.text.input.blur(); return false; })
 
         )
     );
