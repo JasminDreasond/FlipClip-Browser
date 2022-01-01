@@ -42,16 +42,16 @@ var startAddressBar = function(fn) {
         browserSettings.addressBar.bar.text.input.removeClass('d-none').focus();
     });
 
-    browserSettings.addressBar.bar.text.input.blur(function() {
-        browserSettings.addressBar.bar.text.view.removeClass('d-none');
-        browserSettings.addressBar.bar.text.input.addClass('d-none');
-    });
-
     browserSettings.addressBar.bar.text.input = $('<input>', {
         class: 'form-control shadow-none h-100 d-none addressbar',
         type: 'text',
         id: 'addressbar'
     }).css('font-size', browserSettings.addressBar.fontSize + 'pt');
+
+    browserSettings.addressBar.bar.text.input.blur(function() {
+        browserSettings.addressBar.bar.text.view.removeClass('d-none');
+        browserSettings.addressBar.bar.text.input.addClass('d-none');
+    });
 
     // Items
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
