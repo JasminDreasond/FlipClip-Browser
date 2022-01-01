@@ -1,7 +1,7 @@
 browserSettings.updateAddressBarData = function() {
 
     // URL
-    const url = 'ipfs://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
+    const url = 'https://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
 
     // Update Address Bar
     browserSettings.addressBar.bar.text.view.find('#text').empty().append(
