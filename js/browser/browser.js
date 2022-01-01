@@ -24,7 +24,7 @@ function generateHexString(length) {
 var browserSettings = {
 
     // Address Bar
-    addressBarSize: 56,
+    addressBarSize: 67,
 
     // Domain URL Fix
     fixDomain: function(domain) {
