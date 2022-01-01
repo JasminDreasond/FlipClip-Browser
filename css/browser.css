@@ -5,3 +5,7 @@
     width: 100%;
     position: fixed;
 }
+
+.browser-button {
+    cursor: default !important;
+}

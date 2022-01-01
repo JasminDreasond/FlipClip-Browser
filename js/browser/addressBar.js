@@ -21,7 +21,7 @@ var startAddressBar = function(fn) {
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
 
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-left' }).css({
                         'font-size': browserSettings.addressBar.buttonSize,
                         'margin': browserSettings.addressBar.marginButtonFix,
@@ -31,7 +31,7 @@ var startAddressBar = function(fn) {
             ),
 
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-caret-right' }).css({
                         'font-size': browserSettings.addressBar.buttonSize,
                         'margin': browserSettings.addressBar.marginButtonFix,
@@ -41,19 +41,19 @@ var startAddressBar = function(fn) {
             ),
 
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
                 )
             ),
 
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-home' })
                 )
             ),
 
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1', href: '#' }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', href: '#', draggable: false }).append(
                     $('<i>', { class: 'fas fa-bookmark' })
                 )
             )
