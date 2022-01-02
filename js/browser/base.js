@@ -67,7 +67,21 @@ const messages = {
 
             }
 
+
+
+
+
+
+
             /* CRIAR DETECTOR DE NOVO DOMINIO ABERTO AQUIIIIIIIIIIIII */
+
+
+
+
+
+
+
+
 
             // Failed
             else {

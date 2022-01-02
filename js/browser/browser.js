@@ -142,7 +142,15 @@ var browserSettings = {
 
     // Add History
     addHistory: function(id, cid, path, domain) {
-        if (browserSettings.tabs[id] && Array.isArray(browserSettings.tabs[id].history)) {
+        if (
+            browserSettings.tabs[id] &&
+            Array.isArray(browserSettings.tabs[id].history) &&
+            (
+                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].cid !== cid ||
+                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].path !== path ||
+                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].domain !== domain
+            )
+        ) {
             browserSettings.tabs[id].history.push({
                 cid: cid,
                 path: path,
