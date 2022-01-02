@@ -14,5 +14,69 @@
     "close": {
         "message": "Close",
         "description": "Close"
+    },
+    "automaticDownloads": {
+        "message": "Automatic Downloads",
+        "description": "Automatic Downloads"
+    },
+    "camera": {
+        "message": "Camera",
+        "description": "Camera"
+    },
+    "cookies": {
+        "message": "Cookies",
+        "description": "Cookies"
+    },
+    "fullscreen": {
+        "message": "Full Screen",
+        "description": "Full Screen"
+    },
+    "images": {
+        "message": "Close",
+        "description": "Close"
+    },
+    "javascript": {
+        "message": "JavaScript",
+        "description": "JavaScript"
+    },
+    "location": {
+        "message": "Location",
+        "description": "Location"
+    },
+    "microphone": {
+        "message": "Microphone",
+        "description": "Microphone"
+    },
+    "mouselock": {
+        "message": "Mouse Lock",
+        "description": "Mouse Lock"
+    },
+    "notifications": {
+        "message": "Notifications",
+        "description": "Notifications"
+    },
+    "plugins": {
+        "message": "Plugins",
+        "description": "Plugins"
+    },
+    "popups": {
+        "message": "Popups",
+        "description": "Popups"
+    },
+    "unsandboxedPlugins": {
+        "message": "Unsandboxed Plugins",
+        "description": "Unsandboxed Plugins"
+    },
+    "allow": {
+        "message": "Allow",
+        "description": "Allow"
+    },
+    "block": {
+        "message": "Block",
+        "description": "Block"
+    },
+    "ask": {
+        "message": "Ask",
+        "description": "Ask"
     }
 }

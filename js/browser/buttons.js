@@ -53,14 +53,14 @@ browserSettings.buttons.settings = function() {
 
             // Select
             const select = $('<select>', { class: 'form-control', id: settingsList[item].value }).append(
-                $('<option>', { value: 'ask' }).text('Ask'),
-                $('<option>', { value: 'allow' }).text('Allow'),
-                $('<option>', { value: 'block' }).text('Block')
+                $('<option>', { value: 'ask' }).text(chrome.i18n.getMessage('ask')),
+                $('<option>', { value: 'allow' }).text(chrome.i18n.getMessage('allow')),
+                $('<option>', { value: 'block' }).text(chrome.i18n.getMessage('block'))
             );
 
             // Insert Cfg
             optionsBase.append(
-                $('<label>', { for: settingsList[item].value, class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item].value),
+                $('<label>', { for: settingsList[item].value, class: 'col-sm-6 col-form-label my-2' }).text(chrome.i18n.getMessage(settingsList[item].value)),
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
                     select.change(async function() {
 
