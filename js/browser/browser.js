@@ -93,11 +93,13 @@ var browserSettings = {
 
     // Page Load Detector
     pageLoaded: function() {
-        const url = browserSettings.tabs[browserSettings.active].iframe.attr('refreshdata');
+        const id = $(this).attr('tab');
+        const url = browserSettings.tabs[id].iframe.attr('refreshdata');
         if (url) {
-            browserSettings.tabs[browserSettings.active].iframe.attr('refreshdata', '');
-            browserSettings.tabs[browserSettings.active].iframe.attr('src', url);
+            browserSettings.tabs[id].iframe.attr('refreshdata', '');
+            browserSettings.tabs[id].iframe.attr('src', url);
         }
+        browserSettings.tabCallback.execute(id);
     },
 
     windowSecret: generateHexString(200),
@@ -108,6 +110,33 @@ var browserSettings = {
     // Tabs
     tabs: {},
     framesId: {},
+
+    // Tabs Callback
+    tabCallback: {
+
+        // Items
+        items: {},
+
+        // Execute Items
+        execute: async function(id) {
+            if (Array.isArray(browserSettings.tabCallback.items[id])) {
+
+                for (const item in browserSettings.tabCallback.items[id]) {
+                    await browserSettings.tabCallback.items[id][item]();
+                }
+
+                delete browserSettings.tabCallback.items[id];
+
+            }
+        },
+
+        // Add Item
+        add: function(callback, id) {
+            if (!Array.isArray(browserSettings.tabCallback.items[id])) { browserSettings.tabCallback.items[id] = []; }
+            browserSettings.tabCallback.items[id].push(callback);
+        }
+
+    },
 
     // Create Tab
     createTab: function(domain, cid, path, active = false) {
@@ -139,7 +168,17 @@ var browserSettings = {
     },
 
     // Redirect Tab
-    redirectTab: function(domain, cid, path, id, callback) {
+    redirectTab: function(domain, cid, path, id, callback, callbackNow = false) {
+
+        // Add Function
+        if (typeof callback === 'function') {
+            if (callbackNow) { callback(); } else {
+                browserSettings.tabCallback.add(callback, id);
+            }
+        }
+
+        // Run Iframe
+        browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', browserSettings.urlGenerator(cid) + path);
 
     }
 

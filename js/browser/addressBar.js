@@ -183,7 +183,7 @@ var startAddressBar = function(fn) {
 
             // Submit New Web Page
             .submit(function() {
-                browserSettings.updateTab($('#addressbar').val(), browserSettings.active);
+                browserSettings.updateTab(browserSettings.fixDomain($('#addressbar').val()), browserSettings.active, true);
                 browserSettings.addressBar.bar.text.input.blur();
                 return false;
             })
