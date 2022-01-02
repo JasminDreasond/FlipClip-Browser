@@ -152,7 +152,7 @@ var browserSettings = {
             )
         ) {
             browserSettings.tabs[id].history.push({
-                cid32 = CIDTool.base32(cid),
+                cid32: CIDTool.base32(cid),
                 cid: cid,
                 path: path,
                 domain: domain
