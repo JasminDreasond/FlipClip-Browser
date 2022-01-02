@@ -75,7 +75,7 @@ browserSettings.buttons.settings = function() {
                                 setting: tinyThis.val()
                             });
                             select.data('oldOption', tinyThis.val());
-                            storage[tinyThis.attr('id')].setting = tinyThis.val();
+                            storage[id][tinyThis.attr('id')].setting = tinyThis.val();
 
                         } catch (err) {
                             alert(err.message);
