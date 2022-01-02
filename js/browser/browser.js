@@ -93,13 +93,15 @@ var browserSettings = {
 
     // Page Load Detector
     pageLoaded: function() {
-        const id = $(this).attr('tab');
-        const url = browserSettings.tabs[id].iframe.attr('refreshdata');
-        if (url) {
-            browserSettings.tabs[id].iframe.attr('refreshdata', '');
-            browserSettings.tabs[id].iframe.attr('src', url);
+        const id = $(this).data('tab');
+        if (id) {
+            const url = browserSettings.tabs[id].iframe.data('refreshData');
+            if (url) {
+                browserSettings.tabs[id].iframe.data('refreshData', null);
+                browserSettings.tabs[id].iframe.attr('src', url);
+            }
+            browserSettings.tabCallback.execute(id);
         }
-        browserSettings.tabCallback.execute(id);
     },
 
     windowSecret: generateHexString(200),
@@ -149,7 +151,6 @@ var browserSettings = {
             cid: cid,
             path: path,
             iframe: $('<iframe>', {
-                tab: browserSettings.lastTab,
                 class: 'browser-window',
                 frameBorder: 0,
                 style: 'padding-bottom: ' + browserSettings.addressBar.size + 'px;'
@@ -157,7 +158,7 @@ var browserSettings = {
         };
 
         // Change Page
-
+        browserSettings.tabs[browserSettings.lastTab].iframe.data('tab', browserSettings.lastTab);
         browserSettings.tabs[browserSettings.lastTab].iframe.on('load', browserSettings.pageLoaded);
         browserSettings.tabs[browserSettings.lastTab].iframe.bind('keypress keydown keyup', cancelRefresh);
         browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
