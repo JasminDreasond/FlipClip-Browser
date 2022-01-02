@@ -55,6 +55,7 @@ const messages = {
             // Verification
             if (domain.endsWith(domainCheck)) {
 
+                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain = domain;
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
                 browserSettings.updateAddressBar();
@@ -70,6 +71,7 @@ const messages = {
                 });
 
                 browserSettings.redirectTab(
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain,
                     browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
                     browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path,
                     browserSettings.framesId[message.data.frameId]
