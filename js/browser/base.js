@@ -52,6 +52,9 @@ const messages = {
             // Fix URL
             url = url.join('/');
 
+            //const domain32 = CIDTool.base32(cid);
+            //if(cid === )
+
             // Verification
             if (domain.endsWith(domainCheck)) {
 

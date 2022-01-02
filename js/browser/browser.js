@@ -152,6 +152,7 @@ var browserSettings = {
             )
         ) {
             browserSettings.tabs[id].history.push({
+                cid32 = CIDTool.base32(cid),
                 cid: cid,
                 path: path,
                 domain: domain
@@ -168,6 +169,7 @@ var browserSettings = {
         browserSettings.tabs[browserSettings.lastTab] = {
 
             history: [{
+                cid32: CIDTool.base32(cid),
                 cid: cid,
                 path: path,
                 domain: domain
@@ -175,6 +177,7 @@ var browserSettings = {
 
             domain: domain,
             cid: cid,
+            cid32: CIDTool.base32(cid),
             path: path,
 
             iframe: $('<iframe>', {
@@ -202,6 +205,7 @@ var browserSettings = {
 
             // Update Data
             browserSettings.tabs[id].path = path;
+            browserSettings.tabs[id].cid32 = CIDTool.base32(cid);
             browserSettings.tabs[id].cid = cid;
             browserSettings.tabs[id].domain = domain;
             browserSettings.addHistory(id, cid, path, domain);
