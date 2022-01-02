@@ -70,7 +70,7 @@ var startAddressBar = function(fn) {
             $('<div>', { class: 'modal-content' }).append(
 
                 $('<div>', { class: 'modal-header' }).append(
-                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text('Website Settings'),
+                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text(chrome.i18n.getMessage('websiteSettings')),
                     $('<button>', { type: 'button', class: 'close browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).append(
                         $('<span>', { 'aria-hidden': 'true' }).text('×')
                     )
@@ -79,7 +79,7 @@ var startAddressBar = function(fn) {
                 $('<div>', { class: 'modal-body' }),
 
                 $('<div>', { class: 'modal-footer' }).append(
-                    $('<button>', { type: 'button', class: 'btn btn-secondary browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).text('Close')
+                    $('<button>', { type: 'button', class: 'btn btn-secondary browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).text(chrome.i18n.getMessage('close'))
                 )
 
             )
@@ -204,9 +204,34 @@ var startAddressBar = function(fn) {
 
             // Settings
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', 'data-toggle': 'modal', 'data-target': '#settings', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-cog' })
-                )
+                ).click(function() {
+
+                    $('#settings .modal-body').empty();
+                    chrome.storage.local.get([browserSettings.tabs[browserSettings.active].domain], function(storage) {
+                        chrome.contentSettings.javascript.get({
+                            primaryUrl: browserSettings.urlGenerator(
+                                browserSettings.tabs[browserSettings.active].cid
+                            ) + '*'
+                        }, function(data) {
+
+                            console.log(data);
+                            console.log(storage);
+
+                            $('#settings .modal-body').empty().append(
+
+
+
+                            );
+
+                            $('#settings').modal('show');
+
+
+                        });
+                    });
+
+                })
             ),
 
             // Bookmark
