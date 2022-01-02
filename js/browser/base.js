@@ -55,8 +55,12 @@ const messages = {
             // Verification
             if (domain.endsWith(domainCheck)) {
 
-                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].history.push({
+                    cid: browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
+                    path: url,
+                    domain: browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
+                });
 
                 browserSettings.updateAddressBar();
 
