@@ -1,6 +1,10 @@
 CRIAR SISTEMA DE ENDEREÇO INVÁLIDO
 É UM IFRAME QUE RECEBE PARAMETOS PARA EXIBIR A PÁGINA DE ERROR
 
+==============================================================
+
+Fazer um ícone de load quando uma página está sendo carregada.
+
 Fazer uma página para caso o endereço não tenha website hospedado.
 
 Fazer sistema de adicionar nos favoritos.
