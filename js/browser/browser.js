@@ -94,7 +94,7 @@ var browserSettings = {
     // Page Load Detector
     pageLoaded: function() {
         const id = $(this).data('tab');
-        if (id) {
+        if (typeof id === 'number' && browserSettings.tabs[id]) {
             const url = browserSettings.tabs[id].iframe.data('refreshData');
             if (url) {
                 browserSettings.tabs[id].iframe.data('refreshData', null);
@@ -220,7 +220,7 @@ var startBrowser = function(fn) {
 
 // Cancel Refresh
 const cancelRefresh = function(e) {
-    reloadNFTPage();
+    //reloadNFTPage();
 };
 
 // Reload App
