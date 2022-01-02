@@ -173,8 +173,9 @@ var browserSettings = {
 
         // Update Settings
         browserSettings.lastTab++;
-        if (active) { browserSettings.active = browserSettings.lastTab; }
-        browserSettings.tabs[browserSettings.lastTab] = {
+        const id = browserSettings.lastTab;
+        if (active) { browserSettings.active = id; }
+        browserSettings.tabs[id] = {
 
             history: [{
                 cid32: CIDTool.base32(cid),
@@ -197,13 +198,13 @@ var browserSettings = {
         };
 
         // Change Page
-        browserSettings.tabs[browserSettings.lastTab].iframe.data('tab', browserSettings.lastTab);
-        browserSettings.tabs[browserSettings.lastTab].iframe.on('load', browserSettings.pageLoaded);
-        //browserSettings.tabs[browserSettings.lastTab].iframe.bind('keypress keydown keyup', cancelRefresh);
-        browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
+        browserSettings.tabs[id].iframe.data('tab', id);
+        browserSettings.tabs[id].iframe.on('load', browserSettings.pageLoaded);
+        //browserSettings.tabs[id].iframe.bind('keypress keydown keyup', cancelRefresh);
+        browserSettings.tabs[id].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + id);
 
         // Complete
-        return browserSettings.tabs[browserSettings.lastTab].iframe;
+        return browserSettings.tabs[id].iframe;
 
     },
 
