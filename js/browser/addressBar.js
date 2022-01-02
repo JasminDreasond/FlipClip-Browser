@@ -44,9 +44,15 @@ $(window).on('resize scroll focus mousedown mouseenter mouseleave mousemove mous
 // Reload Window
 var reloadNFTPage = function() {
     if (browserSettings.tabs[browserSettings.active] && browserSettings.tabs[browserSettings.active].iframe && !browserSettings.tabs[browserSettings.active].iframe.data('refreshData')) {
-        browserSettings.tabs[browserSettings.active].iframe.data('refreshData', browserSettings.urlGenerator(
-            browserSettings.tabs[browserSettings.active].cid
-        ) + '/' + browserSettings.tabs[browserSettings.active].path).attr('src', '');
+
+        browserSettings.tabs[browserSettings.active].iframe.data('refreshData',
+            browserSettings.urlGenerator(
+                browserSettings.tabs[browserSettings.active].cid
+            ) + browserSettings.tabs[browserSettings.active].path
+        );
+
+        browserSettings.tabs[browserSettings.active].iframe.attr('src', '');
+
     }
 };
 
