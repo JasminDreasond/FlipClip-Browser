@@ -142,6 +142,8 @@ var browserSettings = {
 
     // Add History
     addHistory: function(id, cid, path, domain) {
+
+        // Validator
         if (
             browserSettings.tabs[id] &&
             Array.isArray(browserSettings.tabs[id].history) &&
@@ -151,12 +153,18 @@ var browserSettings = {
                 browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].domain !== domain
             )
         ) {
+
+            // Add First History
             browserSettings.tabs[id].history.push({
                 cid32: CIDTool.base32(cid),
                 cid: cid,
                 path: path,
                 domain: domain
             });
+
+            // Add Browser History
+            chrome.history.addUrl({ url: `https://${domain}/${path}` });
+
         }
     },
 
