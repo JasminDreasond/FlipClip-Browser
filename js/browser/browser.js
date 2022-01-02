@@ -272,16 +272,30 @@ var startBrowser = function(fn) {
     // Insert Browser Window
     browserSettings.startDomain(params.domain).then(cid => {
 
-        // Add Browser History
-        chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: params.domain, path: params.path } });
+        const id = params.domain + '__privacy';
+        chrome.storage.local.get([id], async function(storage) {
 
-        $('#browser').append(
-            browserSettings.createTab(params.domain, cid, params.path, true)
-        );
+            for (const item in settingsList) {
+                if (storage[id][settingsList[item]] && storage[id][settingsList[item]].setting) {
+                    await chrome.contentSettings[settingsList[item]].set({
+                        primaryPattern: url.primaryUrl,
+                        setting: storage[id][settingsList[item]].setting
+                    });
+                }
+            }
 
-        // Complete
-        fn();
-        return;
+            // Add Browser History
+            chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: params.domain, path: params.path } });
+
+            $('#browser').append(
+                browserSettings.createTab(params.domain, cid, params.path, true)
+            );
+
+            // Complete
+            fn();
+            return;
+
+        });
 
     }).catch(err => {
         console.error(err);
