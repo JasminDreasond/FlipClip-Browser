@@ -249,6 +249,10 @@ const messages = {
 
     removeHistory: function(sender, sendResponse, data) {
         chrome.history.deleteUrl({ url: `https://${data.domain}/${data.path}` });
+    },
+
+    searchHistory: function(sender, sendResponse, data) {
+        chrome.history.search(data, sendResponse);
     }
 
 };
