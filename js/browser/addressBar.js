@@ -189,9 +189,17 @@ var startAddressBar = function(fn) {
 
             // Submit New Web Page
             .submit(function() {
-                browserSettings.updateTab(browserSettings.fixDomain($('#addressbar').val()), browserSettings.active, true);
-                browserSettings.addressBar.bar.text.input.blur();
+
+                // Prepare URL
+                let url = $('#addressbar').val();
+                if (typeof url === 'string' && url.length > 0) {
+                    if (!url.startsWith('https://') && !url.startsWith('https://')) { url = 'https://' + url; }
+                    browserSettings.updateTab(browserSettings.fixDomain(url), browserSettings.active, true);
+                    browserSettings.addressBar.bar.text.input.blur();
+                }
+
                 return false;
+
             })
 
         )
