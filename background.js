@@ -186,24 +186,6 @@ chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: ["<all_urls>"]
 });
 
-chrome.webRequest.onErrorOccurred.addListener(function(details) {
-
-    // Delete History Page
-    if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0 && urlValidator(details.url)) {
-        chrome.runtime.sendMessage(null, {
-            type: 'requestDeleteHistory',
-            data: details
-        }, (data) => {
-            if (data) {
-                chrome.history.removeUrl({ url: `https://${data.domain}/${data.path}` });
-            }
-        });
-    }
-
-}, {
-    urls: ["<all_urls>"]
-});
-
 // Delete Window Data
 chrome.windows.onRemoved.addListener(function(windowID) {
     if (windows[windowID]) {
