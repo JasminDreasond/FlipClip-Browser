@@ -20,6 +20,12 @@ const settingsList = [
 
 browserSettings.buttons.settings = function() {
 
+    // Dark Mode
+    let darkMode;
+    if (browserSettings.theme === 'dark') {
+        darkMode = ' bg-dark text-white';
+    }
+
     // Get Data
     $('#settings .modal-body').empty();
     const id = browserSettings.tabs[browserSettings.active].domain + '__privacy';
@@ -57,7 +63,7 @@ browserSettings.buttons.settings = function() {
             if (!storage[id][settingsList[item].value]) { storage[id][settingsList[item].value] = {}; }
 
             // Select
-            const select = $('<select>', { class: 'form-control', id: settingsList[item].value }).append(
+            const select = $('<select>', { class: 'form-control' + darkMode, id: settingsList[item].value }).append(
                 $('<option>', { value: 'ask', class: 'text-warning' }).text(chrome.i18n.getMessage('ask')),
                 $('<option>', { value: 'allow', class: 'text-success' }).text(chrome.i18n.getMessage('allow')),
                 $('<option>', { value: 'block', class: 'text-danger' }).text(chrome.i18n.getMessage('block'))

@@ -63,11 +63,17 @@ var reloadNFTPage = function() {
 
 var startAddressBar = function(fn) {
 
+    // Dark Mode
+    let darkMode;
+    if (browserSettings.theme === 'dark') {
+        darkMode = ' bg-dark text-white';
+    }
+
     // Settings
     browserSettings.settings = {};
     browserSettings.settings.base = $('<div>', { class: 'modal fade', id: 'settings', tabindex: '-1', 'aria-hidden': 'true' }).append(
         $('<div>', { class: 'modal-dialog' }).append(
-            $('<div>', { class: 'modal-content' }).append(
+            $('<div>', { class: 'modal-content' + darkMode }).append(
 
                 $('<div>', { class: 'modal-header' }).append(
                     $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text(chrome.i18n.getMessage('websiteSettings')),
