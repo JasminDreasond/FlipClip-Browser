@@ -177,10 +177,10 @@ var startAddressBar = function(fn) {
                 ).click(reloadNFTPage)
             ),
 
-            // Home
+            // Settings
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
-                    $('<i>', { class: 'fas fa-home' })
+                    $('<i>', { class: 'fas fa-cog' })
                 )
             ),
 
