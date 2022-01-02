@@ -8,10 +8,17 @@ var params = Object.fromEntries(urlSearchParams.entries());
 // Messages
 const messages = {
 
+    // New Tab
     newTab: function(message) {
         console.log(message);
     },
 
+    // Load Page Complete
+    onComplete: function(message) {
+        console.log(message.data);
+    },
+
+    // Frame Update
     frameUpdate: function(message) {
 
         // ID
