@@ -186,6 +186,20 @@ chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: ["<all_urls>"]
 });
 
+chrome.webRequest.onCompleted.addListener(function(details) {
+
+    // Send Frame Data
+    if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
+        chrome.runtime.sendMessage(null, {
+            type: 'onComplete',
+            data: details
+        });
+    }
+
+}, {
+    urls: ["<all_urls>"]
+});
+
 // Delete Window Data
 chrome.windows.onRemoved.addListener(function(windowID) {
     if (windows[windowID]) {
