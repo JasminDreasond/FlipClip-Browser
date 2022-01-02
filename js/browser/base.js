@@ -45,30 +45,15 @@ const messages = {
             // Get Domain
             const domain = url[0];
             const domainCheck = urlBase[0].replace('{cid}', '').replace('{cid32}', '');
-            //const cid = domain.split('.')[0]; CIDTool.base32(cid);
+            const cid = domain.split('.')[0];
             url.shift();
             urlBase.shift();
 
             // Fix URL
             url = url.join('/');
 
-            // Verification
-            if (domain.endsWith(domainCheck)) {
-
-                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
-                browserSettings.addHistory(
-                    browserSettings.framesId[message.data.frameId],
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
-                    url,
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
-                );
-
-                browserSettings.updateAddressBar();
-
-            }
-
-            // Failed
-            else {
+            // Redirect Normal Web
+            const redirectNormalWeb = function() {
 
                 chrome.windows.create({
                     type: 'normal',
@@ -81,6 +66,51 @@ const messages = {
                     browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path,
                     browserSettings.framesId[message.data.frameId]
                 );
+
+            };
+
+            // Verification
+            if (domain.endsWith(domainCheck)) {
+
+                // Same Domain
+                if (browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid32 === cid) {
+
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+                    browserSettings.addHistory(
+                        browserSettings.framesId[message.data.frameId],
+                        browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
+                        url,
+                        browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
+                    );
+
+                    browserSettings.updateAddressBar();
+
+                }
+
+                // New Domain
+                else {
+                    redirectNormalWeb();
+                }
+
+            }
+
+            // Failed
+            else {
+
+                // Insert Browser Window
+                browserSettings.startDomain(domain).then(cid => {
+
+                    $('#browser').append(
+                        browserSettings.createTab(params.domain, cid, params.path, true)
+                    );
+
+                    // Complete
+                    fn();
+                    return;
+
+                }).catch(() => {
+                    redirectNormalWeb();
+                });
 
             }
 

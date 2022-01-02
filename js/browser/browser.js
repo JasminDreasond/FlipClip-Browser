@@ -230,31 +230,51 @@ if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     browserSettings.theme = 'dark';
 }
 
+// Start Domain
+browserSettings.startDomain = function(domain) {
+    return new Promise(function(resolve, reject) {
+
+        // Domain Validator
+        if (typeof domain === "string") {
+            domain = browserSettings.fixDomain(domain);
+            if (typeof domain === "string" && domain.length > 0 && domain !== null && domain !== 'null') {
+                browserSettings.readDomainData(domain, 'ipfsHash').then(resolve).catch(reject);
+            } else {
+
+                // Complete
+                reject(new Error('Invalid Domain'));
+                return;
+
+            }
+        } else {
+
+            // Complete
+            reject(new Error('Invalid Domain Value'));
+            return;
+
+        }
+
+    });
+};
+
 // Start Browser
 var startBrowser = function(fn) {
 
-    // Domain Validator
-    params.domain = browserSettings.fixDomain(params.domain);
-    if (typeof params.domain === "string" && params.domain.length > 0 && params.domain !== null && params.domain !== 'null') {
-        browserSettings.readDomainData(params.domain, 'ipfsHash').then((cid) => {
+    // Insert Browser Window
+    browserSettings.startDomain(params.domain).then(cid => {
 
-            // Insert Browser Window
-            $('#browser').append(
-                browserSettings.createTab(params.domain, cid, params.path, true)
-            );
-
-            // Complete
-            fn();
-            return;
-
-        });
-    } else {
+        $('#browser').append(
+            browserSettings.createTab(params.domain, cid, params.path, true)
+        );
 
         // Complete
         fn();
         return;
 
-    }
+    }).catch(err => {
+        console.error(err);
+        alert(err.message);
+    });
 
 };
 
