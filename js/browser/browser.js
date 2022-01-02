@@ -163,7 +163,7 @@ var browserSettings = {
             });
 
             // Add Browser History
-            chrome.history.addUrl({ url: `https://${domain}/${path}` });
+            chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: domain, path: path } });
 
         }
     },
@@ -270,6 +270,9 @@ var startBrowser = function(fn) {
 
     // Insert Browser Window
     browserSettings.startDomain(params.domain).then(cid => {
+
+        // Add Browser History
+        chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: params.domain, path: params.path } });
 
         $('#browser').append(
             browserSettings.createTab(params.domain, cid, params.path, true)

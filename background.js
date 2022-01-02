@@ -213,18 +213,29 @@ chrome.windows.onFocusChanged.addListener(function(windowID) {
 // Messages
 const messages = {
 
-    connectWindow: function(message, sender, sendResponse) {
+    connectWindow: function(sender, sendResponse) {
         if (!windows[sender.tab.windowId]) { windows[sender.tab.windowId] = {}; }
         windows[sender.tab.windowId].storage = {};
         windows[sender.tab.windowId].sender = sender;
         sendResponse(true);
+    },
+
+    addHistory: function(sender, sendResponse, data) {
+
+        // Add Browser History
+        chrome.history.addUrl({ url: `https://${data.domain}/${data.path}` });
+
     }
 
 };
 
 // Window Connection
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (typeof messages[message] === 'function') { messages[message](message, sender, sendResponse); }
+    if (typeof message === 'string') {
+        if (typeof messages[message] === 'function') { messages[message](sender, sendResponse); }
+    } else {
+        if (typeof messages[message.type] === 'function') { messages[message.type](sender, sendResponse, message.data); }
+    }
 });
 
 // Show the demo page once the extension is installed
