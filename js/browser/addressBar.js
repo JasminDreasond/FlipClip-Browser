@@ -206,32 +206,7 @@ var startAddressBar = function(fn) {
             $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-cog' })
-                ).click(function() {
-
-                    $('#settings .modal-body').empty();
-                    chrome.storage.local.get([browserSettings.tabs[browserSettings.active].domain], function(storage) {
-                        chrome.contentSettings.javascript.get({
-                            primaryUrl: browserSettings.urlGenerator(
-                                browserSettings.tabs[browserSettings.active].cid
-                            ) + '*'
-                        }, function(data) {
-
-                            console.log(data);
-                            console.log(storage);
-
-                            $('#settings .modal-body').empty().append(
-
-
-
-                            );
-
-                            $('#settings').modal('show');
-
-
-                        });
-                    });
-
-                })
+                ).click(browserSettings.buttons.settings)
             ),
 
             // Bookmark
