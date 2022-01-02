@@ -42,6 +42,8 @@ browserSettings.buttons.settings = function() {
 
         // Get Data
         const data = {};
+        const optionsBase = $('<div>', { class: 'form-group row my-2' });
+        $('#settings .modal-body').append(optionsBase);
         for (const item in settingsList) {
 
             // Insert Default Data
@@ -49,15 +51,18 @@ browserSettings.buttons.settings = function() {
             if (!storage[id][settingsList[item]]) { storage[id][settingsList[item]] = data[settingsList[item]]; }
 
             // Insert Cfg
-            $('#settings .modal-body').append(
-                $('<select>').change(function() {
+            optionsBase.append(
+                $('<label>', { for: settingsList[item], class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item]),
+                $('<div>', { class: 'col-sm-4 my-2' }).append(
+                    $('<select>', { class: 'form-control', id: settingsList[item] }).change(function() {
 
-                    // Prepare Save
-                    chrome.storage.local.set(storage, function() {
-                        console.log('Value is set to ' + value);
-                    });
+                        // Prepare Save
+                        chrome.storage.local.set(storage, function() {
+                            console.log('Value is set to ' + value);
+                        });
 
-                })
+                    })
+                )
             );
 
         }
