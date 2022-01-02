@@ -40,6 +40,11 @@ browserSettings.buttons.settings = function() {
             ) + '*'
         };
 
+        const changeOptionColor = function(tinyThis, value) {
+            tinyThis.removeClass('text-warning').removeClass('text-success').removeClass('text-danger');
+            if (value === 'ask') { tinyThis.addClass('text-warning'); } else if (value === 'block') { tinyThis.addClass('text-danger'); } else if (value === 'allow') { tinyThis.addClass('text-success'); }
+        }
+
         // Get Data
         const data = {};
         const optionsBase = $('<div>', { class: 'form-group row my-2' });
@@ -53,9 +58,9 @@ browserSettings.buttons.settings = function() {
 
             // Select
             const select = $('<select>', { class: 'form-control', id: settingsList[item].value }).append(
-                $('<option>', { value: 'ask' }).text(chrome.i18n.getMessage('ask')),
-                $('<option>', { value: 'allow' }).text(chrome.i18n.getMessage('allow')),
-                $('<option>', { value: 'block' }).text(chrome.i18n.getMessage('block'))
+                $('<option>', { value: 'ask', class: 'text-warning' }).text(chrome.i18n.getMessage('ask')),
+                $('<option>', { value: 'allow', class: 'text-success' }).text(chrome.i18n.getMessage('allow')),
+                $('<option>', { value: 'block', class: 'text-danger' }).text(chrome.i18n.getMessage('block'))
             );
 
             // Insert Cfg
@@ -64,21 +69,24 @@ browserSettings.buttons.settings = function() {
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
                     select.change(async function() {
 
+                        const value = $(this).val();
                         const tinyThis = $(this);
-                        const oldValue = $(this).val();
+                        changeOptionColor(tinyThis, value);
+
                         select.prop('disabled', true);
 
                         try {
 
                             await chrome.contentSettings[tinyThis.attr('id')].set({
                                 primaryPattern: url.primaryUrl,
-                                setting: tinyThis.val()
+                                setting: value
                             });
-                            select.data('oldOption', tinyThis.val());
-                            storage[id][tinyThis.attr('id')].setting = tinyThis.val();
+                            select.data('oldOption', value);
+                            storage[id][tinyThis.attr('id')].setting = value;
 
                         } catch (err) {
                             alert(err.message);
+                            changeOptionColor(select, select.data('oldOption'));
                             select.val(select.data('oldOption'));
                         }
 
@@ -91,6 +99,7 @@ browserSettings.buttons.settings = function() {
 
             // Insert Config
             if (storage[id][settingsList[item].value].setting) { select.val(storage[id][settingsList[item].value].setting); }
+            changeOptionColor(select, select.val());
             select.data('oldOption', select.val());
 
         }
