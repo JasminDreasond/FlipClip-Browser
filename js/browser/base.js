@@ -14,6 +14,9 @@ const messages = {
 
     frameUpdate: function(message) {
 
+        // ID
+        const id = browserSettings.framesId[message.data.frameId];
+
         // New iFrame Data
         if (message.data.url.startsWith(chrome.runtime.getURL('validator.html') + '?secret=')) {
             const urlData = new URL(message.data.url);
@@ -28,7 +31,7 @@ const messages = {
         }
 
         // Set New Tab Address
-        else if (browserSettings.framesId[message.data.frameId] && browserSettings.tabs[browserSettings.framesId[message.data.frameId]]) {
+        else if (id && browserSettings.tabs[id]) {
 
             // Prepare Data
             let url = message.data.url.split('/');
@@ -61,10 +64,10 @@ const messages = {
                 });
 
                 browserSettings.redirectTab(
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain,
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path,
-                    browserSettings.framesId[message.data.frameId]
+                    browserSettings.tabs[id].domain,
+                    browserSettings.tabs[id].cid,
+                    browserSettings.tabs[id].path,
+                    id
                 );
 
             };
@@ -73,14 +76,14 @@ const messages = {
             if (domain.endsWith(domainCheck)) {
 
                 // Same Domain
-                if (browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid32 === cid) {
+                if (browserSettings.tabs[id].cid32 === cid) {
 
-                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+                    browserSettings.tabs[id].path = url;
                     browserSettings.addHistory(
-                        browserSettings.framesId[message.data.frameId],
-                        browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
+                        id,
+                        browserSettings.tabs[id].cid,
                         url,
-                        browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
+                        browserSettings.tabs[id].domain
                     );
 
                     browserSettings.updateAddressBar();
@@ -100,12 +103,13 @@ const messages = {
                 // Insert Browser Window
                 browserSettings.startDomain(domain).then(cid => {
 
-                    $('#browser').append(
-                        browserSettings.createTab(params.domain, cid, params.path, true)
-                    );
+                    browserSettings.tabs[id].cid = cid;
+                    browserSettings.tabs[id].cid32 = CIDTool.base32(cid);
+                    browserSettings.tabs[id].domain = domain;
+                    browserSettings.tabs[id].path = url;
+                    browserSettings.addHistory(id, cid, url, domain);
 
                     // Complete
-                    fn();
                     return;
 
                 }).catch(() => {
