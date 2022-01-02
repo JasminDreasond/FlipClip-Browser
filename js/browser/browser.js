@@ -178,7 +178,7 @@ var browserSettings = {
             browserSettings.tabs[id].cid = cid;
             browserSettings.tabs[id].domain = domain;
 
-            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].history.push({
+            browserSettings.tabs[id].history.push({
                 cid: cid,
                 path: path,
                 domain: domain
