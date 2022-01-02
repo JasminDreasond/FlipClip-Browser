@@ -31,6 +31,24 @@ const domains = {
 
 };
 
+// URL Validator
+const urlValidator = function(vanillaURL) {
+
+    // URL
+    let url = vanillaURL.split('/');
+
+    return (
+
+        // URL Base
+        (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
+        url[1] === '' &&
+
+        // Domains
+        (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
+    );
+
+};
+
 // Open NFT Script
 const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
@@ -77,16 +95,7 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
     };
 
     // URL Checker
-    if (
-
-        // URL Base
-        (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
-        url[1] === '' &&
-
-        // Domains
-        (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
-
-    ) {
+    if (urlValidator(vanillaURL)) {
 
         try {
 
@@ -174,6 +183,24 @@ const webRequestValidator = function(details) {
 
 chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
 chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
+    urls: ["<all_urls>"]
+});
+
+chrome.webRequest.onErrorOccurred.addListener(function(details) {
+
+    // Delete History Page
+    if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0 && urlValidator(details.url)) {
+        chrome.runtime.sendMessage(null, {
+            type: 'requestDeleteHistory',
+            data: details
+        }, (data) => {
+            if (data) {
+                chrome.history.removeUrl({ url: `https://${data.domain}/${data.path}` });
+            }
+        });
+    }
+
+}, {
     urls: ["<all_urls>"]
 });
 
