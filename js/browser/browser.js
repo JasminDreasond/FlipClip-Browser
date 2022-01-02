@@ -147,15 +147,23 @@ var browserSettings = {
         browserSettings.lastTab++;
         if (active) { browserSettings.active = browserSettings.lastTab; }
         browserSettings.tabs[browserSettings.lastTab] = {
-            history: [],
+
+            history: [{
+                cid: cid,
+                path: path,
+                domain: domain
+            }],
+
             domain: domain,
             cid: cid,
             path: path,
+
             iframe: $('<iframe>', {
                 class: 'browser-window',
                 frameBorder: 0,
                 style: 'padding-bottom: ' + browserSettings.addressBar.size + 'px;'
             })
+
         };
 
         // Change Page
