@@ -45,15 +45,12 @@ const messages = {
             // Get Domain
             const domain = url[0];
             const domainCheck = urlBase[0].replace('{cid}', '').replace('{cid32}', '');
-            const cid = domain.split('.')[0];
+            //const cid = domain.split('.')[0]; CIDTool.base32(cid);
             url.shift();
             urlBase.shift();
 
             // Fix URL
             url = url.join('/');
-
-            //const domain32 = CIDTool.base32(cid);
-            //if(cid === )
 
             // Verification
             if (domain.endsWith(domainCheck)) {
@@ -69,22 +66,6 @@ const messages = {
                 browserSettings.updateAddressBar();
 
             }
-
-
-
-
-
-
-
-            /* CRIAR DETECTOR DE NOVO DOMINIO ABERTO AQUIIIIIIIIIIIII */
-
-
-
-
-
-
-
-
 
             // Failed
             else {
