@@ -56,15 +56,18 @@ const messages = {
             if (domain.endsWith(domainCheck)) {
 
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
-                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].history.push({
-                    cid: browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
-                    path: url,
-                    domain: browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
-                });
+                browserSettings.addHistory(
+                    browserSettings.framesId[message.data.frameId],
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid,
+                    url,
+                    browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
+                );
 
                 browserSettings.updateAddressBar();
 
             }
+
+            /* CRIAR DETECTOR DE NOVO DOMINIO ABERTO AQUIIIIIIIIIIIII */
 
             // Failed
             else {

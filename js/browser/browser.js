@@ -140,6 +140,17 @@ var browserSettings = {
 
     },
 
+    // Add History
+    addHistory: function(id, cid, path, domain) {
+        if (browserSettings.tabs[id] && Array.isArray(browserSettings.tabs[id].history)) {
+            browserSettings.tabs[id].history.push({
+                cid: cid,
+                path: path,
+                domain: domain
+            });
+        }
+    },
+
     // Create Tab
     createTab: function(domain, cid, path, active = false) {
 
@@ -185,12 +196,7 @@ var browserSettings = {
             browserSettings.tabs[id].path = path;
             browserSettings.tabs[id].cid = cid;
             browserSettings.tabs[id].domain = domain;
-
-            browserSettings.tabs[id].history.push({
-                cid: cid,
-                path: path,
-                domain: domain
-            });
+            browserSettings.addHistory(id, cid, path, domain);
 
             // Add Function
             if (typeof callback === 'function') {
