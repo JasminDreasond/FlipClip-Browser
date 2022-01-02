@@ -49,12 +49,20 @@ browserSettings.buttons.settings = function() {
             // Insert Default Data
             data[settingsList[item]] = await chrome.contentSettings[settingsList[item]].get(url);
             if (!storage[id][settingsList[item]]) { storage[id][settingsList[item]] = data[settingsList[item]]; }
+            if (!storage[id][settingsList[item]]) { storage[id][settingsList[item]] = {}; }
+
+            // Select
+            const select = $('<select>', { class: 'form-control', id: settingsList[item] }).append(
+                $('<option>', { value: 'ask' }).text('Ask'),
+                $('<option>', { value: 'allow' }).text('Allow'),
+                $('<option>', { value: 'block' }).text('Block')
+            );
 
             // Insert Cfg
             optionsBase.append(
                 $('<label>', { for: settingsList[item], class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item]),
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
-                    $('<select>', { class: 'form-control', id: settingsList[item] }).change(function() {
+                    select.change(function() {
 
                         // Prepare Save
                         chrome.storage.local.set(storage, function() {
@@ -65,9 +73,13 @@ browserSettings.buttons.settings = function() {
                 )
             );
 
+            // Insert Config
+            if (storage[id][settingsList[item]].setting) { select.val(storage[id][settingsList[item]].setting); }
+
         }
 
         // Prepare Save
+        console.log(data);
         await chrome.storage.local.set(storage);
         return;
 
