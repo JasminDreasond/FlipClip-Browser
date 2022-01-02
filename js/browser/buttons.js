@@ -64,9 +64,15 @@ browserSettings.buttons.settings = function() {
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
                     select.change(function() {
 
-                        // Prepare Save
-                        chrome.storage.local.set(storage, function() {
-                            console.log('Value is set to ' + value);
+                        const tinyThis = $(this);
+                        select.prop('disabled', true);
+                        chrome.contentSettings[tinyThis.attr('id')].set({
+                            primaryPattern: url.primaryUrl,
+                            setting: tinyThis.val()
+                        }, function() {
+                            chrome.storage.local.set(storage, function() {
+                                select.prop('disabled', false);
+                            });
                         });
 
                     })
