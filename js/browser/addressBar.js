@@ -1,4 +1,4 @@
-browserSettings.updateAddressBarData = function() {
+browserSettings.updateAddressBar = function() {
 
     // URL
     const url = 'https://' + browserSettings.tabs[browserSettings.active].domain + '/' + browserSettings.tabs[browserSettings.active].path;
@@ -7,12 +7,25 @@ browserSettings.updateAddressBarData = function() {
     browserSettings.addressBar.bar.text.view.find('#text').empty().append(
         'ipfs://', $('<span>', { class: 'domain-name-' + browserSettings.theme }).text(browserSettings.tabs[browserSettings.active].domain), '/' + browserSettings.tabs[browserSettings.active].path
     );
+
     browserSettings.addressBar.bar.text.input.val(url);
 
 };
 
-browserSettings.updateAddressBar = function() {
-    browserSettings.updateAddressBarData();
+browserSettings.updateTab = function(newURL, tabID) {
+
+    // Params
+    const url = new URL(newURL);
+
+    browserSettings.readDomainData(url.host, 'ipfsHash').then((cid) => {
+
+        // Complete
+        return;
+
+    });
+
+    browserSettings.updateAddressBar();
+
 };
 
 // Address Bar Resize
@@ -76,7 +89,7 @@ var startAddressBar = function(fn) {
         top: 3,
         left: 12
     })).click(function() {
-        browserSettings.updateAddressBarData();
+        browserSettings.updateAddressBar();
         browserSettings.addressBar.bar.text.view.addClass('d-none');
         browserSettings.addressBar.bar.text.input.removeClass('d-none').focus().select();
     });
@@ -99,7 +112,7 @@ var startAddressBar = function(fn) {
 
     browserSettings.addressBar.bar.text.input.blur(inputAdressBarEnd).keyup(function(e) {
         if (e.key === "Escape") { // escape key maps to keycode `27`
-            browserSettings.updateAddressBarData();
+            browserSettings.updateAddressBar();
             browserSettings.addressBar.bar.text.input.blur();
         }
     });
@@ -164,7 +177,7 @@ var startAddressBar = function(fn) {
 
             // Submit New Web Page
             .submit(function() {
-                browserSettings.updateAddressBar();
+                browserSettings.updateTab($('#addressbar').val(), browserSettings.active);
                 browserSettings.addressBar.bar.text.input.blur();
                 return false;
             })
