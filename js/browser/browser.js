@@ -140,6 +140,13 @@ var browserSettings = {
 
     },
 
+    // Update Click History
+    updateHistory: function() {
+
+        console.log('refresh history');
+
+    },
+
     // Add History
     addHistory: function(id, cid, path, domain) {
 
@@ -164,8 +171,10 @@ var browserSettings = {
 
             // Add Browser History
             chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: domain, path: path } });
+            browserSettings.updateHistory();
 
         }
+
     },
 
     // Create Tab
@@ -202,6 +211,7 @@ var browserSettings = {
         browserSettings.tabs[id].iframe.on('load', browserSettings.pageLoaded);
         //browserSettings.tabs[id].iframe.bind('keypress keydown keyup', cancelRefresh);
         browserSettings.tabs[id].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + id);
+        browserSettings.updateHistory();
 
         // Complete
         return browserSettings.tabs[id].iframe;
@@ -228,6 +238,7 @@ var browserSettings = {
 
             // Run Iframe
             browserSettings.tabs[id].iframe.attr('src', browserSettings.urlGenerator(cid) + path);
+            browserSettings.updateHistory();
 
         }
     }
@@ -292,6 +303,7 @@ var startBrowser = function(fn) {
             );
 
             // Complete
+            browserSettings.updateHistory();
             fn();
             return;
 
@@ -306,6 +318,7 @@ var startBrowser = function(fn) {
 
 // Cancel Refresh
 const cancelRefresh = function(e) {
+    browserSettings.updateHistory();
     //reloadNFTPage();
 };
 

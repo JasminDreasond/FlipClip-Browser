@@ -11,6 +11,7 @@ const messages = {
     // New Tab
     newTab: function(message) {
         console.log(message);
+        browserSettings.updateHistory();
     },
 
     // Load Page Complete
@@ -42,6 +43,7 @@ const messages = {
 
                 // Remove Browser History
                 chrome.runtime.sendMessage({ type: 'removeHistory', data: { domain: browserSettings.tabs[id].domain, path: url } });
+                browserSettings.updateHistory();
 
             }
 
@@ -157,6 +159,8 @@ const messages = {
             }
 
         }
+
+        browserSettings.updateHistory();
 
     }
 
