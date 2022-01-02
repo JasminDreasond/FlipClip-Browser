@@ -62,18 +62,28 @@ browserSettings.buttons.settings = function() {
             optionsBase.append(
                 $('<label>', { for: settingsList[item], class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item]),
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
-                    select.change(function() {
+                    select.change(async function() {
 
                         const tinyThis = $(this);
+                        const oldValue = $(this).val();
                         select.prop('disabled', true);
-                        chrome.contentSettings[tinyThis.attr('id')].set({
-                            primaryPattern: url.primaryUrl,
-                            setting: tinyThis.val()
-                        }, function() {
-                            chrome.storage.local.set(storage, function() {
-                                select.prop('disabled', false);
+
+                        try {
+
+                            await chrome.contentSettings[tinyThis.attr('id')].set({
+                                primaryPattern: url.primaryUrl,
+                                setting: tinyThis.val()
                             });
-                        });
+                            select.data('oldOption', tinyThis.val());
+                            storage[tinyThis.attr('id')].setting = tinyThis.val();
+
+                        } catch (err) {
+                            alert(err.message);
+                            select.val(select.data('oldOption'));
+                        }
+
+                        await chrome.storage.local.set(storage);
+                        select.prop('disabled', false);
 
                     })
                 )
@@ -81,6 +91,7 @@ browserSettings.buttons.settings = function() {
 
             // Insert Config
             if (storage[id][settingsList[item]].setting) { select.val(storage[id][settingsList[item]].setting); }
+            select.data('oldOption', select.val());
 
         }
 
