@@ -230,10 +230,11 @@ const messages = {
     },
 
     addHistory: function(sender, sendResponse, data) {
-
-        // Add Browser History
         chrome.history.addUrl({ url: `https://${data.domain}/${data.path}` });
+    },
 
+    removeHistory: function(sender, sendResponse, data) {
+        chrome.history.removeUrl({ url: `https://${data.domain}/${data.path}` });
     }
 
 };
