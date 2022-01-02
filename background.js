@@ -120,14 +120,16 @@ const openNFTPage = async function(tabID, vanillaURL, newTab) {
                     // Exist Window
                     else {
 
-                        // Detect Window
-                        detectWindow();
+                        /*                         // Detect Window
+                                                detectWindow();
 
-                        // Complete
-                        if (windowDetected) { resolve(); }
+                                                // Complete
+                                                if (windowDetected) { resolve(); }
 
-                        // Nope
-                        else { createWindow(resolve); }
+                                                // Nope
+                                                else { createWindow(resolve); } */
+
+                        createWindow(resolve);
 
                     }
 
@@ -181,7 +183,7 @@ const webRequestValidator = function(details) {
 
 };
 
-chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); });
+/* chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); }); */
 chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
     urls: ["<all_urls>"]
 });
@@ -252,7 +254,11 @@ const messages = {
     },
 
     searchHistory: function(sender, sendResponse, data) {
-        chrome.history.search(data, sendResponse);
+        chrome.history.search(data).then(search => {
+            sendResponse(null, search);
+        }).catch(err => {
+            sendResponse(err);
+        });
     }
 
 };
@@ -264,9 +270,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     } else {
         if (typeof messages[message.type] === 'function') { messages[message.type](sender, sendResponse, message.data); }
     }
-});
-
-// Show the demo page once the extension is installed
-chrome.runtime.onInstalled.addListener((_reason) => {
-    return openNFTPage(null, '', true);
 });

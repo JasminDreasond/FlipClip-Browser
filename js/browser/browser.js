@@ -70,7 +70,7 @@ var browserSettings = {
 
     // Address Bar
     addressBar: {
-        size: 67,
+        size: 67 / 2,
         buttonSize: 25,
         marginButtonFix: -5,
         barFix: 31,

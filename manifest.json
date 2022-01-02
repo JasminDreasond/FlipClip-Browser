@@ -11,12 +11,6 @@
     "background": {
         "service_worker": "background.js"
     },
-    "action": {
-        "default_icon": {
-            "19": "icons/icon.png",
-            "38": "icons/icon_38.png"
-        }
-    },
     "permissions": [
         "contentSettings",
         "webNavigation",

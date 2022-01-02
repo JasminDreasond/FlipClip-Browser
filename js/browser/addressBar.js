@@ -69,7 +69,10 @@ var startAddressBar = function(fn) {
     // Tabs
     browserSettings.addressBar.tabs = $('<ul>', { class: 'navbar-nav mr-auto' });
 
-    browserSettings.addressBar.nav.tabs = $('<nav>', { class: 'navbar navbar-expand navbar-tab-' + browserSettings.theme + ' navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'tabs' }).css('height', browserSettings.addressBar.size / 2 - 3).append(
+    /* browserSettings.addressBar.nav.tabs = $('<nav>', { class: 'navbar navbar-expand navbar-tab-' + browserSettings.theme + ' navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'tabs' }).css('height', browserSettings.addressBar.size / 2 - 3).append(
+        browserSettings.addressBar.tabs
+    ); */
+    browserSettings.addressBar.nav.tabs = $('<nav>', { class: 'navbar navbar-expand navbar-tab-' + browserSettings.theme + ' navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'tabs' }).css('height', browserSettings.addressBar.size - 3).append(
         browserSettings.addressBar.tabs
     );
 
@@ -141,7 +144,8 @@ var startAddressBar = function(fn) {
     );
 
     // Items
-    browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append(
+    /* browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append( */
+    browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
 
             // Previous
@@ -192,6 +196,34 @@ var startAddressBar = function(fn) {
                 browserSettings.addressBar.bar.base
             )
 
+            // Search
+            /* .on('keyup', function(e) {
+
+                chrome.runtime.sendMessage({
+                    type: 'searchHistory',
+                    data: {
+                        text: browserSettings.addressBar.bar.text.input.val()
+                    }
+                }, function(err, data) {
+
+                    // Complete
+                    if (!err) {
+                        if (data) {
+
+
+
+                        } else {
+                            console.error('NO SEARCH DATA FOUND!');
+                        }
+                    }
+
+                    // Error
+                    else { console.err(err); }
+
+                });
+
+            }) */
+
             // Submit New Web Page
             .submit(function() {
 
@@ -214,7 +246,7 @@ var startAddressBar = function(fn) {
     $(window).trigger('resize');
     $('#browser').append(
         $('<div>', { id: 'address-bar' }).append(
-            browserSettings.addressBar.nav.tabs,
+            /* browserSettings.addressBar.nav.tabs, */
             browserSettings.addressBar.nav.items
         )
     );
