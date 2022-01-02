@@ -276,10 +276,10 @@ var startBrowser = function(fn) {
         chrome.storage.local.get([id], async function(storage) {
 
             for (const item in settingsList) {
-                if (storage[id][settingsList[item]] && storage[id][settingsList[item]].setting) {
-                    await chrome.contentSettings[settingsList[item]].set({
-                        primaryPattern: url.primaryUrl,
-                        setting: storage[id][settingsList[item]].setting
+                if (storage[id] && storage[id][settingsList[item].value] && storage[id][settingsList[item].value].setting) {
+                    await chrome.contentSettings[settingsList[item].value].set({
+                        primaryPattern: browserSettings.urlGenerator(cid) + '*',
+                        setting: storage[id][settingsList[item].value].setting
                     });
                 }
             }
