@@ -20,11 +20,17 @@ browserSettings.updateTab = function(newURL, tabID) {
     browserSettings.readDomainData(url.host, 'ipfsHash').then((cid) => {
 
         // Complete
+        browserSettings.redirectTab(
+            url.host,
+            cid,
+            url.pathname.substring(1) + url.search,
+            tabID,
+            browserSettings.updateAddressBar
+        );
+
         return;
 
     });
-
-    browserSettings.updateAddressBar();
 
 };
 

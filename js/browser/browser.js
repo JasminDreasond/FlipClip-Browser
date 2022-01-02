@@ -139,7 +139,7 @@ var browserSettings = {
     },
 
     // Redirect Tab
-    redirectTab: function(domain, cid, path, id) {
+    redirectTab: function(domain, cid, path, id, callback) {
 
     }
 
