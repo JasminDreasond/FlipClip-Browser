@@ -63,6 +63,31 @@ var reloadNFTPage = function() {
 
 var startAddressBar = function(fn) {
 
+    // Settings
+    browserSettings.settings = {};
+    browserSettings.settings.base = $('<div>', { class: 'modal fade', id: 'settings', tabindex: '-1', 'aria-hidden': 'true' }).append(
+        $('<div>', { class: 'modal-dialog' }).append(
+            $('<div>', { class: 'modal-content' }).append(
+
+                $('<div>', { class: 'modal-header' }).append(
+                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text('Website Settings'),
+                    $('<button>', { type: 'button', class: 'close browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).append(
+                        $('<span>', { 'aria-hidden': 'true' }).text('×')
+                    )
+                ),
+
+                $('<div>', { class: 'modal-body' }),
+
+                $('<div>', { class: 'modal-footer' }).append(
+                    $('<button>', { type: 'button', class: 'btn btn-secondary browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).text('Close')
+                )
+
+            )
+        )
+    );
+
+    $('body').prepend(browserSettings.settings.base);
+
     // Prepare Nav
     browserSettings.addressBar.nav = {};
 
@@ -179,7 +204,7 @@ var startAddressBar = function(fn) {
 
             // Settings
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', 'data-toggle': 'modal', 'data-target': '#settings', draggable: false }).append(
                     $('<i>', { class: 'fas fa-cog' })
                 )
             ),
