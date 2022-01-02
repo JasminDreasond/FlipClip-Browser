@@ -15,7 +15,39 @@ const messages = {
 
     // Load Page Complete
     onComplete: function(message) {
-        console.log(message.data);
+
+        // ID
+        const id = browserSettings.framesId[message.data.frameId];
+
+        // Exist the Tab Here
+        if (id && browserSettings.tabs[id]) {
+
+            // Detect Error
+            if (message.data.statusCode >= 400 && message.data.statusCode < 500) {
+
+                // Prepare Data
+                let url = message.data.url.split('/');
+
+                // Remove Protocol
+                url.shift();
+
+                // Remove Blank
+                url.shift();
+
+                // Get Domain
+                const domain = url[0];
+                url.shift();
+
+                // Fix URL
+                url = url.join('/');
+
+                // Remove Browser History
+                chrome.runtime.sendMessage({ type: 'removeHistory', data: { domain: domain, path: url } });
+
+            }
+
+        }
+
     },
 
     // Frame Update
