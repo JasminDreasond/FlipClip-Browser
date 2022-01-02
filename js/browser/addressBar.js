@@ -17,6 +17,7 @@ browserSettings.updateTab = function(newURL, tabID) {
     // Params
     const url = new URL(newURL);
 
+    // Read Domain Data
     browserSettings.readDomainData(url.host, 'ipfsHash').then((cid) => {
 
         // Complete
@@ -29,6 +30,10 @@ browserSettings.updateTab = function(newURL, tabID) {
         );
 
         return;
+
+    }).catch(err => {
+
+        // FAZER SISTEMA DE ERROR AQUI!
 
     });
 

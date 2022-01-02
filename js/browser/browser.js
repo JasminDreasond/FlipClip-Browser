@@ -170,17 +170,24 @@ var browserSettings = {
 
     // Redirect Tab
     redirectTab: function(domain, cid, path, id, callback, callbackNow = false) {
+        if (browserSettings.tabs[id]) {
 
-        // Add Function
-        if (typeof callback === 'function') {
-            if (callbackNow) { callback(); } else {
-                browserSettings.tabCallback.add(callback, id);
+            // Update Data
+            browserSettings.tabs[id].path = path;
+            browserSettings.tabs[id].cid = cid;
+            browserSettings.tabs[id].domain = domain;
+
+            // Add Function
+            if (typeof callback === 'function') {
+                if (callbackNow) { callback(); } else {
+                    browserSettings.tabCallback.add(callback, id);
+                }
             }
+
+            // Run Iframe
+            browserSettings.tabs[id].iframe.attr('src', browserSettings.urlGenerator(cid) + path);
+
         }
-
-        // Run Iframe
-        browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', browserSettings.urlGenerator(cid) + path);
-
     }
 
 };
