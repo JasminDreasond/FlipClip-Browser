@@ -3,19 +3,19 @@ browserSettings.buttons = {};
 
 // Settings Button
 const settingsList = [
-    'automaticDownloads',
-    'camera',
-    'cookies',
-    'fullscreen',
-    'images',
-    'javascript',
-    'location',
-    'microphone',
-    'mouselock',
-    'notifications',
-    'plugins',
-    'popups',
-    'unsandboxedPlugins'
+    { value: 'automaticDownloads' },
+    { value: 'camera' },
+    { value: 'cookies' },
+    { value: 'fullscreen' },
+    { value: 'images' },
+    { value: 'javascript' },
+    { value: 'location' },
+    { value: 'microphone' },
+    { value: 'mouselock' },
+    { value: 'notifications' },
+    { value: 'plugins' },
+    { value: 'popups' },
+    { value: 'unsandboxedPlugins' }
 ];
 
 browserSettings.buttons.settings = function() {
@@ -47,12 +47,12 @@ browserSettings.buttons.settings = function() {
         for (const item in settingsList) {
 
             // Insert Default Data
-            data[settingsList[item]] = await chrome.contentSettings[settingsList[item]].get(url);
-            if (!storage[id][settingsList[item]]) { storage[id][settingsList[item]] = data[settingsList[item]]; }
-            if (!storage[id][settingsList[item]]) { storage[id][settingsList[item]] = {}; }
+            data[settingsList[item].value] = await chrome.contentSettings[settingsList[item].value].get(url);
+            if (!storage[id][settingsList[item].value]) { storage[id][settingsList[item].value] = data[settingsList[item].value]; }
+            if (!storage[id][settingsList[item].value]) { storage[id][settingsList[item].value] = {}; }
 
             // Select
-            const select = $('<select>', { class: 'form-control', id: settingsList[item] }).append(
+            const select = $('<select>', { class: 'form-control', id: settingsList[item].value }).append(
                 $('<option>', { value: 'ask' }).text('Ask'),
                 $('<option>', { value: 'allow' }).text('Allow'),
                 $('<option>', { value: 'block' }).text('Block')
@@ -60,7 +60,7 @@ browserSettings.buttons.settings = function() {
 
             // Insert Cfg
             optionsBase.append(
-                $('<label>', { for: settingsList[item], class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item]),
+                $('<label>', { for: settingsList[item].value, class: 'col-sm-6 col-form-label my-2' }).text(settingsList[item].value),
                 $('<div>', { class: 'col-sm-4 my-2' }).append(
                     select.change(async function() {
 
@@ -90,7 +90,7 @@ browserSettings.buttons.settings = function() {
             );
 
             // Insert Config
-            if (storage[id][settingsList[item]].setting) { select.val(storage[id][settingsList[item]].setting); }
+            if (storage[id][settingsList[item].value].setting) { select.val(storage[id][settingsList[item].value].setting); }
             select.data('oldOption', select.val());
 
         }
