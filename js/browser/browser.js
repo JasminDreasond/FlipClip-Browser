@@ -160,7 +160,7 @@ var browserSettings = {
         // Change Page
         browserSettings.tabs[browserSettings.lastTab].iframe.data('tab', browserSettings.lastTab);
         browserSettings.tabs[browserSettings.lastTab].iframe.on('load', browserSettings.pageLoaded);
-        browserSettings.tabs[browserSettings.lastTab].iframe.bind('keypress keydown keyup', cancelRefresh);
+        //browserSettings.tabs[browserSettings.lastTab].iframe.bind('keypress keydown keyup', cancelRefresh);
         browserSettings.tabs[browserSettings.lastTab].iframe.attr('src', chrome.runtime.getURL('validator.html') + '?secret=' + browserSettings.windowSecret + '&id=' + browserSettings.lastTab);
 
         // Complete
