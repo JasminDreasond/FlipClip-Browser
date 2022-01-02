@@ -147,6 +147,7 @@ var browserSettings = {
         browserSettings.lastTab++;
         if (active) { browserSettings.active = browserSettings.lastTab; }
         browserSettings.tabs[browserSettings.lastTab] = {
+            history: [],
             domain: domain,
             cid: cid,
             path: path,
@@ -176,6 +177,12 @@ var browserSettings = {
             browserSettings.tabs[id].path = path;
             browserSettings.tabs[id].cid = cid;
             browserSettings.tabs[id].domain = domain;
+
+            browserSettings.tabs[browserSettings.framesId[message.data.frameId]].history.push({
+                cid: cid,
+                path: path,
+                domain: domain
+            });
 
             // Add Function
             if (typeof callback === 'function') {

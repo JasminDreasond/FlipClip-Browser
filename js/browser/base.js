@@ -57,6 +57,13 @@ const messages = {
 
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].cid = cid;
                 browserSettings.tabs[browserSettings.framesId[message.data.frameId]].path = url;
+
+                browserSettings.tabs[browserSettings.framesId[message.data.frameId]].history.push({
+                    cid: cid,
+                    path: url,
+                    domain: browserSettings.tabs[browserSettings.framesId[message.data.frameId]].domain
+                });
+
                 browserSettings.updateAddressBar();
 
             }
