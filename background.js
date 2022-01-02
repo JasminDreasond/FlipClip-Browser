@@ -248,6 +248,7 @@ const messages = {
     },
 
     removeHistory: function(sender, sendResponse, data) {
+        console.log(data);
         chrome.history.removeUrl({ url: `https://${data.domain}/${data.path}` });
     }
 

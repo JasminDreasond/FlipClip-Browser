@@ -34,15 +34,14 @@ const messages = {
                 // Remove Blank
                 url.shift();
 
-                // Get Domain
-                const domain = url[0];
+                // Remove Domain
                 url.shift();
 
                 // Fix URL
                 url = url.join('/');
 
                 // Remove Browser History
-                chrome.runtime.sendMessage({ type: 'removeHistory', data: { domain: domain, path: url } });
+                chrome.runtime.sendMessage({ type: 'removeHistory', data: { domain: browserSettings.tabs[id].domain, path: url } });
 
             }
 
