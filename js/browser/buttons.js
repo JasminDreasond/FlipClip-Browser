@@ -111,7 +111,6 @@ browserSettings.buttons.settings = function() {
         }
 
         // Prepare Save
-        console.log(data);
         await chrome.storage.local.set(storage);
         return;
 
