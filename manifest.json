@@ -17,7 +17,6 @@
         "background",
         "storage",
         "unlimitedStorage",
-        "activeTab",
         "webRequest",
         "tabs",
         "history"
