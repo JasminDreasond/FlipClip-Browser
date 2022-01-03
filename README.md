@@ -41,4 +41,4 @@ global.window.CIDTool = CIDTool;
 
 ## Compatible DNS
 
-Unstoppable Domains
+<a href="https://unstoppabledomains.com/" target="_blank">Unstoppable Domains</a>
