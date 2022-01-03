@@ -219,7 +219,7 @@ var startAddressBar = function(fn) {
             typeof browserSettings.tabs[id].activeHistory === 'number' &&
             browserSettings.tabs[id].activeHistory > 0
         ) {
-            browserSettings.tabs[id].activeHistor--;
+            browserSettings.tabs[id].activeHistory--;
             nextPrevAction(id);
         }
 
@@ -244,7 +244,7 @@ var startAddressBar = function(fn) {
             typeof browserSettings.tabs[id].activeHistory === 'number' &&
             browserSettings.tabs[id].activeHistory < browserSettings.tabs[id].history.length - 1
         ) {
-            browserSettings.tabs[id].activeHistor++;
+            browserSettings.tabs[id].activeHistory++;
             nextPrevAction(id);
         }
 
