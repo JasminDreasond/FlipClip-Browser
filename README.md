@@ -1,4 +1,4 @@
-<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/icon/icon_large.png?raw=true" height="300" />
+<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/icons/icon_large.png?raw=true" height="300" />
 
 # FlipClip-Browser
 Browser Emulator for open NFT websites freely using your browser.
