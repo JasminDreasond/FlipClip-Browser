@@ -98,5 +98,29 @@
     "pageSettingsInfo": {
         "message": "Website Privacy Settings",
         "description": "Website Privacy Settings"
+    },
+    "ipfsConnectionTitle": {
+        "message": "IPFS Proxy Connection",
+        "description": "IPFS Proxy Connection"
+    },
+    "ipfsConnectionInfo": {
+        "message": "This NFT domain is linked to an IPFS protocol. This extension is using a proxy connection to connect to the IPFS server for this website.",
+        "description": "This NFT domain is linked to an IPFS protocol. This extension is using a proxy connection to connect to the IPFS server for this website."
+    },
+    "proxyURL": {
+        "message": "Proxy URL:",
+        "description": "Proxy URL:"
+    },
+    "domainURL": {
+        "message": "Domain:",
+        "description": "Domain:"
+    },
+    "cidURL": {
+        "message": "CID:",
+        "description": "CID:"
+    },
+    "cid32URL": {
+        "message": "CID32:",
+        "description": "CID32:"
     }
 }

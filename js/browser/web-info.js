@@ -23,20 +23,20 @@ browserSettings.webinfo.open = function() {
     }
 
     // Title
-    $('#webicon .modal-title').addClass('text-success').text('IPFS Proxy Connection');
+    $('#webicon .modal-title').addClass('text-success').text(chrome.i18n.getMessage('ipfsConnectionTitle'));
 
     // Body
     $('#webicon .modal-body').empty().append(
 
         // Info
-        $('<p>', { class: 'm-0' }).text('This NFT domain is linked to an IPFS protocol. This extension is using a proxy connection to connect to the IPFS server for this website.'),
+        $('<p>', { class: 'm-0' }).text(chrome.i18n.getMessage('ipfsConnectionInfo')),
 
         $('<hr>', { class: 'my-4' }),
 
         // Proxy
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text('Proxy URL:'),
+            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('proxyURL')),
             $('<a>', { href: browserSettings.proxyHomepage, target: '_blank' }).text(browserSettings.proxy)
 
         ),
@@ -44,7 +44,7 @@ browserSettings.webinfo.open = function() {
         // Domain
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text('Domain:'),
+            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('domainURL')),
             $('<a>', { href: domainPage, target: '_blank' }).text(browserSettings.tabs[id].domain)
 
         ),
@@ -52,7 +52,7 @@ browserSettings.webinfo.open = function() {
         // CID
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text('CID:'),
+            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('cidURL')),
             $('<span>').text(browserSettings.tabs[id].cid)
 
         ),
@@ -60,7 +60,7 @@ browserSettings.webinfo.open = function() {
         // CID32
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text('CID32:'),
+            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('cid32URL')),
             $('<span>').text(browserSettings.tabs[id].cid32)
 
         )
