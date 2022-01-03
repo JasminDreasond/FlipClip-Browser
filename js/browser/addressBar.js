@@ -174,32 +174,46 @@ var startAddressBar = function(fn) {
         browserSettings.addressBar.bar.text.input
     );
 
+    // Previous
+    browserSettings.addressBar.previous = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+        $('<i>', { class: 'fas fa-caret-left' }).css({
+            'font-size': browserSettings.addressBar.buttonSize,
+            'margin': browserSettings.addressBar.marginButtonFix,
+            'margin-right': 1
+        })
+    );
+
+    browserSettings.addressBar.previous.click(function() {
+
+    }).on("contextmenu", function() {
+
+    });
+
+    // Next
+    browserSettings.addressBar.next = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+        $('<i>', { class: 'fas fa-caret-right' }).css({
+            'font-size': browserSettings.addressBar.buttonSize,
+            'margin': browserSettings.addressBar.marginButtonFix,
+            'margin-left': 1
+        })
+    );
+
+    browserSettings.addressBar.next.click(function() {
+
+    }).on("contextmenu", function() {
+
+    });
+
     // Items
     /* browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append( */
     browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size + 3).append(
         $('<ul>', { class: 'navbar-nav mr-auto' }).append(
 
             // Previous
-            $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
-                    $('<i>', { class: 'fas fa-caret-left' }).css({
-                        'font-size': browserSettings.addressBar.buttonSize,
-                        'margin': browserSettings.addressBar.marginButtonFix,
-                        'margin-right': 1
-                    })
-                )
-            ),
+            $('<li>', { class: 'nav-item' }).append(browserSettings.addressBar.previous),
 
             // Next
-            $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
-                    $('<i>', { class: 'fas fa-caret-right' }).css({
-                        'font-size': browserSettings.addressBar.buttonSize,
-                        'margin': browserSettings.addressBar.marginButtonFix,
-                        'margin-left': 1
-                    })
-                )
-            ),
+            $('<li>', { class: 'nav-item' }).append(browserSettings.addressBar.next),
 
             // Refresh
             $('<li>', { class: 'nav-item' }).append(

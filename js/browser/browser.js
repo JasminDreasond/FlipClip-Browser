@@ -143,6 +143,10 @@ var browserSettings = {
     // Update Click History
     updateHistory: function() {
 
+        // Disable Items
+        browserSettings.addressBar.next.addClass('disabled').prop('disabled', true);
+        browserSettings.addressBar.previous.addClass('disabled').prop('disabled', true);
+
         // Exist Items
         const id = browserSettings.active;
         if (
@@ -151,10 +155,7 @@ var browserSettings = {
             browserSettings.tabs[id].history.length > 0
         ) {
 
-        }
 
-        // Nope
-        else {
 
         }
 
