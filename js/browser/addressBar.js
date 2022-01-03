@@ -1,3 +1,19 @@
+browserSettings.updateTitle = function() {
+
+    if (
+        typeof browserSettings.active === 'number' &&
+        browserSettings.tabs[browserSettings.active] &&
+        browserSettings.tabs[browserSettings.active].iframe &&
+        browserSettings.tabs[browserSettings.active].iframe[0] &&
+        browserSettings.tabs[browserSettings.active].iframe[0].contentWindow &&
+        browserSettings.tabs[browserSettings.active].iframe[0].contentWindow.document
+    ) {
+        const title = browserSettings.tabs[browserSettings.active].iframe[0].contentWindow.document.title.trim();
+        if (typeof title === 'string' && title.length > 0) { $(document).find("title").text(title); }
+    }
+
+};
+
 browserSettings.updateAddressBar = function() {
 
     // URL
@@ -9,6 +25,7 @@ browserSettings.updateAddressBar = function() {
     );
 
     browserSettings.addressBar.bar.text.input.val(url);
+    browserSettings.updateTitle();
 
 };
 
@@ -32,9 +49,8 @@ browserSettings.updateTab = function(newURL, tabID) {
         return;
 
     }).catch(err => {
-
-        // FAZER SISTEMA DE ERROR AQUI!
-
+        alert(err.message);
+        console.error(err);
     });
 
 };

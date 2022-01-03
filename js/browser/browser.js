@@ -167,6 +167,8 @@ var browserSettings = {
 
         }
 
+        browserSettings.updateTitle();
+
     },
 
     // Add History
