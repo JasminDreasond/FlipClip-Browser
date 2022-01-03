@@ -1,6 +1,6 @@
 browserSettings.updateTitle = function() {
 
-    if (
+    /* if (
         typeof browserSettings.active === 'number' &&
         browserSettings.tabs[browserSettings.active] &&
         browserSettings.tabs[browserSettings.active].iframe &&
@@ -10,7 +10,7 @@ browserSettings.updateTitle = function() {
     ) {
         const title = browserSettings.tabs[browserSettings.active].iframe[0].contentWindow.document.title.trim();
         if (typeof title === 'string' && title.length > 0) { $(document).find("title").text(title); }
-    }
+    } */
 
 };
 
