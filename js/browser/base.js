@@ -14,6 +14,18 @@ const messages = {
         browserSettings.updateHistory();
     },
 
+    // Window Bound
+    onBoundsChanged: function() {
+        $(window).trigger('resize');
+    },
+
+    // Page Update
+    onUpdated: function(message) {
+
+        console.log(message.data);
+
+    },
+
     // Load Page Complete
     onComplete: function(message) {
 

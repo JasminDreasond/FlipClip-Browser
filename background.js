@@ -202,6 +202,18 @@ chrome.webRequest.onCompleted.addListener(function(details) {
     urls: ["<all_urls>"]
 });
 
+chrome.windows.onBoundsChanged.addListener(function(window) {
+
+    // Send Frame Data
+    if (windows[window.id]) {
+        chrome.runtime.sendMessage(null, {
+            type: 'onBoundsChanged',
+            data: window
+        });
+    }
+
+});
+
 // Delete Window Data
 chrome.windows.onRemoved.addListener(function(windowID) {
     if (windows[windowID]) {

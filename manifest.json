@@ -19,6 +19,7 @@
         "unlimitedStorage",
         "activeTab",
         "webRequest",
+        "tabs",
         "history"
     ],
     "icons": {
