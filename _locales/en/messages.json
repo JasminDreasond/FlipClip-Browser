@@ -32,8 +32,8 @@
         "description": "Full Screen"
     },
     "images": {
-        "message": "Close",
-        "description": "Close"
+        "message": "Images",
+        "description": "Images"
     },
     "javascript": {
         "message": "JavaScript",
