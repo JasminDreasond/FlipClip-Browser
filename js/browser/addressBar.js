@@ -116,7 +116,7 @@ var startAddressBar = function(fn) {
             $('<div>', { class: 'modal-content' + darkMode }).append(
 
                 $('<div>', { class: 'modal-header' }).append(
-                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text(),
+                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }),
                     $('<button>', { type: 'button', class: 'close browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).append(
                         $('<span>', { 'aria-hidden': 'true' }).text('×')
                     )
