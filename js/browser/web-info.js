@@ -1,8 +1,26 @@
+// Base
 browserSettings.webinfo = {};
+
+// Domain Info Data
+browserSettings.webinfo.dns = {
+    unstoppabledomains: {
+        page: 'https://unstoppabledomains.com/d/{domain}'
+    }
+};
+
+// Open
 browserSettings.webinfo.open = function() {
 
     // ID
     const id = browserSettings.active;
+
+    let domainPage = '';
+    if (
+        browserSettings.webinfo.dns[browserSettings.tabs[id].dns] &&
+        browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page
+    ) {
+        domainPage = browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page.replace(/\{domain\}/g, browserSettings.tabs[id].domain).replace(/\{domainURI\}/g, encodeURIComponent(browserSettings.tabs[id].domain));
+    }
 
     // Title
     $('#webicon .modal-title').addClass('text-success').text('IPFS Proxy Connection');
@@ -27,7 +45,7 @@ browserSettings.webinfo.open = function() {
         $('<p>').append(
 
             $('<strong>', { class: 'mr-1' }).text('Domain:'),
-            $('<a>', { href: browserSettings.proxyHomepage, target: '_blank' }).text(browserSettings.tabs[id].domain)
+            $('<a>', { href: domainPage, target: '_blank' }).text(browserSettings.tabs[id].domain)
 
         ),
 
