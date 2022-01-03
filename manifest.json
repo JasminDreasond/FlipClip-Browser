@@ -4,7 +4,7 @@
     "description": "__MSG_appDesc__",
     "author": "Yasmin Seidel (JasminDreasond)",
     "default_locale": "en",
-    "version": "1.0",
+    "version": "0.1.0",
     "manifest_version": 3,
     "offline_enabled": false,
     "homepage_url": "https://puddy.club",
