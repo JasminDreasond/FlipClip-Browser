@@ -204,9 +204,18 @@ var startAddressBar = function(fn) {
 
     browserSettings.addressBar.previous.click(function() {
 
-    }).on("contextmenu", function() {
+        // Get ID
+        const id = browserSettings.active;
 
-    });
+        // Validator
+        if (
+            typeof browserSettings.tabs[id].activeHistory === 'number' &&
+            browserSettings.tabs[id].activeHistory > 0
+        ) {
+
+        }
+
+    }).on("contextmenu", function() {});
 
     // Next
     browserSettings.addressBar.next = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
@@ -219,9 +228,18 @@ var startAddressBar = function(fn) {
 
     browserSettings.addressBar.next.click(function() {
 
-    }).on("contextmenu", function() {
+        // Get ID
+        const id = browserSettings.active;
 
-    });
+        // Validator
+        if (
+            typeof browserSettings.tabs[id].activeHistory === 'number' &&
+            browserSettings.tabs[id].activeHistory < browserSettings.tabs[id].history.length - 1
+        ) {
+
+        }
+
+    }).on("contextmenu", function() {});
 
     // Items
     /* browserSettings.addressBar.nav.items = $('<nav>', { class: 'navbar navbar-expand navbar-' + browserSettings.theme + ' bg-' + browserSettings.theme, id: 'menu' }).css('height', browserSettings.addressBar.size / 2 + 3).append( */
