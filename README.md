@@ -1,5 +1,5 @@
 # FlipClip-Browser
-Browse Emulator NFT websites freely using your browser.
+Browser Emulator for open NFT websites freely using your browser.
 
 <hr/>
 
