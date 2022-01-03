@@ -68,10 +68,15 @@ browserSettings.webinfo.open = function() {
                                 const symbol = $(this).data('WALLET_SYMBOL');
                                 $('#wallet_' + symbol).prop('disabled', true)
                                 browserSettings.readDomainData(browserSettings.tabs[id].domain, 'addr', symbol).then((data) => {
-                                    console.log(data);
+
+                                    $('#wallet_' + symbol).replaceWith(
+                                        $('<span>').text(data.data)
+                                    );
+
                                 }).catch(err => {
                                     alert(err.message);
                                     console.error(err);
+                                    $('#wallet_' + symbol).removeClass('btn-primary').addClass('btn-danger');
                                 });
 
                             })
