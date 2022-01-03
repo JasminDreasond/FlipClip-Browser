@@ -47,11 +47,11 @@ browserSettings.webinfo.open = function() {
         if (browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet) {
 
             // Prepare Base
-            buttonsWallet[
+            buttonsWallet = [
                 $('<hr>', { class: 'my-4' }),
 
                 // Wallet
-                $('<h5>', { class: 'm-0' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
+                $('<h5>', { class: 'm-0 mb-4' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
             ];
 
             for (const item in browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet) {
@@ -61,7 +61,9 @@ browserSettings.webinfo.open = function() {
 
                         $('<strong>', { class: 'mr-1' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
                         $('<span>').append(
-                            $('<button>', { class: 'btn btn-primary' }).data('WALLET_SYMBOL', browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol).click(function() {
+                            $('<button>', { class: 'btn btn-primary' }).append(
+                                $('<i>', { class: 'fas fa-eye' })
+                            ).data('WALLET_SYMBOL', browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol).click(function() {
 
                                 console.log($(this).data('WALLET_SYMBOL'));
 
