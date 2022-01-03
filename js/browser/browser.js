@@ -185,6 +185,18 @@ var browserSettings = {
             )
         ) {
 
+            // Remove OLD History
+            if (
+                typeof browserSettings.tabs[id].activeHistory === 'number' &&
+                browserSettings.tabs[id].activeHistory > browserSettings.tabs[id].history.length - 1
+            ) {
+                for (let i = browserSettings.tabs[id].activeHistory + 1; i < browserSettings.tabs[id].history.length; i++) {
+                    if (browserSettings.tabs[id].history[i]) {
+                        browserSettings.tabs[id].history.pop();
+                    }
+                }
+            }
+
             // Add First History
             browserSettings.tabs[id].history.push({
                 cid32: CIDTool.base32(cid),
