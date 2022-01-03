@@ -164,7 +164,7 @@ var startAddressBar = function(fn) {
         .css('font-size', 'small').append(
             $('<i>', { class: 'fas fa-lock' })
         )
-    ).click(function() { $('#webicon').modal(); });
+    ).click(function() { browserSettings.webinfo.open(); });
 
     browserSettings.addressBar.bar.text = {};
 
