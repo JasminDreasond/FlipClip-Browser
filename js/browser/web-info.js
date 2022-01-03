@@ -11,17 +11,10 @@ browserSettings.webinfo.dns = {
             }, {
                 name: 'Ethereum',
                 symbol: 'ETH'
-            }, {
-                name: 'Tether',
-                symbol: 'USDT'
             },
             {
                 name: 'Doge',
                 symbol: 'DOGE'
-            },
-            {
-                name: 'Shiba Inu',
-                symbol: 'SHIB'
             }
         ]
     }
