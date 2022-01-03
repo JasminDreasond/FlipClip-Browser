@@ -78,5 +78,21 @@
     "ask": {
         "message": "Ask",
         "description": "Ask"
+    },
+    "webInfo": {
+        "message": "View Website Information",
+        "description": "View Website Information"
+    },
+    "refreshInfo": {
+        "message": "Reload Page",
+        "description": "Reload Page"
+    },
+    "nextPageInfo": {
+        "message": "Go to the next page",
+        "description": "Go to the next page"
+    },
+    "previousPageInfo": {
+        "message": "Go to the previous page",
+        "description": "Go to the previous page"
     }
 }

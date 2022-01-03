@@ -111,7 +111,28 @@ var startAddressBar = function(fn) {
         )
     );
 
-    $('body').prepend(browserSettings.settings.base);
+    browserSettings.settings.webicon = $('<div>', { class: 'modal fade', id: 'webicon', tabindex: '-1', 'aria-hidden': 'true' }).append(
+        $('<div>', { class: 'modal-dialog' }).append(
+            $('<div>', { class: 'modal-content' + darkMode }).append(
+
+                $('<div>', { class: 'modal-header' }).append(
+                    $('<h5>', { class: 'modal-title browser-button noselect', draggable: false }).text(),
+                    $('<button>', { type: 'button', class: 'close browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).append(
+                        $('<span>', { 'aria-hidden': 'true' }).text('×')
+                    )
+                ),
+
+                $('<div>', { class: 'modal-body' }),
+
+                $('<div>', { class: 'modal-footer' }).append(
+                    $('<button>', { type: 'button', class: 'btn btn-secondary browser-button noselect', draggable: false, 'data-dismiss': 'modal' }).text(chrome.i18n.getMessage('close'))
+                )
+
+            )
+        )
+    );
+
+    $('body').prepend(browserSettings.settings.base, browserSettings.settings.webicon);
 
     // Prepare Nav
     browserSettings.addressBar.nav = {};
@@ -136,14 +157,14 @@ var startAddressBar = function(fn) {
 
     // Bar
     browserSettings.addressBar.bar = {};
-    browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100' }).css({
+    browserSettings.addressBar.bar.icon = $('<div>', { class: 'input-group-prepend h-100', title: chrome.i18n.getMessage('webInfo') }).css({
         'border-right': 0
     }).append(
         $('<span>', { class: 'input-group-text h-100 bg-' + bgAdress + ' border-' + browserSettings.theme, id: 'page-status' })
         .css('font-size', 'small').append(
             $('<i>', { class: 'fas fa-lock' })
         )
-    );
+    ).click(function() { $('#webicon').modal(); });
 
     browserSettings.addressBar.bar.text = {};
 
@@ -215,7 +236,7 @@ var startAddressBar = function(fn) {
     };
 
     // Previous
-    browserSettings.addressBar.previous = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+    browserSettings.addressBar.previous = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false, title: chrome.i18n.getMessage('previousPageInfo') }).append(
         $('<i>', { class: 'fas fa-caret-left' }).css({
             'font-size': browserSettings.addressBar.buttonSize,
             'margin': browserSettings.addressBar.marginButtonFix,
@@ -240,7 +261,7 @@ var startAddressBar = function(fn) {
     }).on("contextmenu", function() {});
 
     // Next
-    browserSettings.addressBar.next = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+    browserSettings.addressBar.next = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false, title: chrome.i18n.getMessage('nextPageInfo') }).append(
         $('<i>', { class: 'fas fa-caret-right' }).css({
             'font-size': browserSettings.addressBar.buttonSize,
             'margin': browserSettings.addressBar.marginButtonFix,
@@ -277,7 +298,7 @@ var startAddressBar = function(fn) {
 
             // Refresh
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false, title: chrome.i18n.getMessage('refreshInfo') }).append(
                     $('<i>', { class: 'fas fa-redo-alt' })
                 ).click(reloadNFTPage)
             ),
