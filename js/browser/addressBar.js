@@ -193,6 +193,13 @@ var startAddressBar = function(fn) {
         browserSettings.addressBar.bar.text.input
     );
 
+    // Next and Previous Action
+    const nextPrevAction = function(id) {
+
+        console.log(browserSettings.tabs[id]);
+
+    };
+
     // Previous
     browserSettings.addressBar.previous = $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
         $('<i>', { class: 'fas fa-caret-left' }).css({
@@ -212,7 +219,8 @@ var startAddressBar = function(fn) {
             typeof browserSettings.tabs[id].activeHistory === 'number' &&
             browserSettings.tabs[id].activeHistory > 0
         ) {
-
+            browserSettings.tabs[id].activeHistor--;
+            nextPrevAction(id);
         }
 
     }).on("contextmenu", function() {});
@@ -236,7 +244,8 @@ var startAddressBar = function(fn) {
             typeof browserSettings.tabs[id].activeHistory === 'number' &&
             browserSettings.tabs[id].activeHistory < browserSettings.tabs[id].history.length - 1
         ) {
-
+            browserSettings.tabs[id].activeHistor++;
+            nextPrevAction(id);
         }
 
     }).on("contextmenu", function() {});
