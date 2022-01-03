@@ -196,7 +196,21 @@ var startAddressBar = function(fn) {
     // Next and Previous Action
     const nextPrevAction = function(id) {
 
-        console.log(browserSettings.tabs[id]);
+        // Get New Window Index
+        const newPage = browserSettings.tabs[id].activeHistory;
+
+        // Redirect
+        if (browserSettings.tabs[id].history[newPage]) {
+            browserSettings.redirectTab(
+                browserSettings.tabs[id].history[newPage].domain,
+                browserSettings.tabs[id].history[newPage].cid,
+                browserSettings.tabs[id].history[newPage].path,
+                id
+            );
+        }
+
+        // Complete
+        browserSettings.updateHistory();
 
     };
 
