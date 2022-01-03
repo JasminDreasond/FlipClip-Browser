@@ -1,6 +1,9 @@
 # FlipClip-Browser
-Browser to browse NFT domains.
+Browse NFT websites freely using your browser.
 
+
+## Browserify used on this extension
+Scripts for these modules were extracted using this command.
 ```js
 var CIDTool = require('cid-tool');
 var unResolution = require('@unstoppabledomains/resolution');
