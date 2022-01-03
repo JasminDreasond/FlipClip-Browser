@@ -94,5 +94,9 @@
     "previousPageInfo": {
         "message": "Go to the previous page",
         "description": "Go to the previous page"
+    },
+    "pageSettingsInfo": {
+        "message": "Website Privacy Settings",
+        "description": "Website Privacy Settings"
     }
 }

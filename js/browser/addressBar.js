@@ -305,7 +305,7 @@ var startAddressBar = function(fn) {
 
             // Settings
             $('<li>', { class: 'nav-item' }).append(
-                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
+                $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false, title: chrome.i18n.getMessage('pageSettingsInfo') }).append(
                     $('<i>', { class: 'fas fa-cog' })
                 ).click(browserSettings.buttons.settings)
             ),
