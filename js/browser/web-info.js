@@ -1,6 +1,9 @@
 browserSettings.webinfo = {};
 browserSettings.webinfo.open = function() {
 
+    // ID
+    const id = browserSettings.active;
+
     // Title
     $('#webicon .modal-title').addClass('text-success').text('IPFS Proxy Connection');
 
@@ -12,11 +15,35 @@ browserSettings.webinfo.open = function() {
 
         $('<hr>', { class: 'my-4' }),
 
-        // Address
+        // Proxy
         $('<p>').append(
 
             $('<strong>', { class: 'mr-1' }).text('Proxy URL:'),
-            $('<span>').text(browserSettings.proxy)
+            $('<a>', { href: browserSettings.proxyHomepage, target: '_blank' }).text(browserSettings.proxy)
+
+        ),
+
+        // Domain
+        $('<p>').append(
+
+            $('<strong>', { class: 'mr-1' }).text('Domain:'),
+            $('<span>').text(browserSettings.tabs[id].domain)
+
+        ),
+
+        // CID
+        $('<p>').append(
+
+            $('<strong>', { class: 'mr-1' }).text('CID:'),
+            $('<span>').text(browserSettings.tabs[id].cid)
+
+        ),
+
+        // CID32
+        $('<p>').append(
+
+            $('<strong>', { class: 'mr-1' }).text('CID32:'),
+            $('<span>').text(browserSettings.tabs[id].cid32)
 
         )
 

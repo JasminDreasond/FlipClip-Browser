@@ -112,7 +112,7 @@ var startAddressBar = function(fn) {
     );
 
     browserSettings.settings.webicon = $('<div>', { class: 'modal fade', id: 'webicon', tabindex: '-1', 'aria-hidden': 'true' }).append(
-        $('<div>', { class: 'modal-dialog' }).append(
+        $('<div>', { class: 'modal-dialog modal-lg' }).append(
             $('<div>', { class: 'modal-content' + darkMode }).append(
 
                 $('<div>', { class: 'modal-header' }).append(
