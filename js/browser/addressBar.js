@@ -290,11 +290,11 @@ var startAddressBar = function(fn) {
             ),
 
             // Bookmark
-            $('<li>', { class: 'nav-item' }).append(
+            /* $('<li>', { class: 'nav-item' }).append(
                 $('<a>', { class: 'nav-link mx-1 browser-button', draggable: false }).append(
                     $('<i>', { class: 'fas fa-bookmark' })
                 )
-            ),
+            ), */
 
             // Address Bar
             $('<form>', { class: 'd-inline m-0 w-100' }).append(
