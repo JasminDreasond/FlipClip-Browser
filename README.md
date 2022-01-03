@@ -3,6 +3,8 @@ Browser Emulator for open NFT websites freely using your browser.
 
 <hr/>
 
+## Description
+
 This browser emulator uses the dweb.link proxy to convert IPFS protocols to be read over HTTPS. After the protocol converted, the extension loads the page inside iFrame.
 
 The purpose of this extension is to facilitate common users to have a first experience with NFT domains without having to install a new browser.
@@ -13,6 +15,8 @@ To open an NFT page, you just need to type it on a common HTTPS address.
 
 <hr/>
 
+## Images
+
 <img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/img/browser-example.png?raw=true" height="500" />
 
 <img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/img/web-privacy-settings.png?raw=true" height="500" />
@@ -22,6 +26,7 @@ To open an NFT page, you just need to type it on a common HTTPS address.
 <hr/>
 
 ## Browserify used on this extension
+
 Scripts for these modules were extracted using this command.
 ```js
 var CIDTool = require('cid-tool');
@@ -31,3 +36,9 @@ global.window.CIDTool = CIDTool;
 
 // browserify main.js -o bundle.js
 ```
+
+<hr/>
+
+## Compatible DNS
+
+Unstoppable Domains
