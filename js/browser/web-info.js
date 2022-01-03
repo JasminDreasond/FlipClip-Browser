@@ -54,6 +54,7 @@ browserSettings.webinfo.open = function() {
                 $('<h5>', { class: 'm-0 mb-4' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
             ];
 
+            // Get Wallet Buttons
             for (const item in browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet) {
 
                 buttonsWallet.push(
