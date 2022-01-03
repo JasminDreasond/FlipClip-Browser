@@ -13,6 +13,14 @@ To open an NFT page, you just need to type it on a common HTTPS address.
 
 <hr/>
 
+<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/img/browser-example.png?raw=true" height="500" />
+
+<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/img/web-privacy-settings.png?raw=true" height="500" />
+
+<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/img/website-info-example.png?raw=true" height="500" />
+
+<hr/>
+
 ## Browserify used on this extension
 Scripts for these modules were extracted using this command.
 ```js
