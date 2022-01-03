@@ -16,7 +16,7 @@ const messages = {
 
     // Window Bound
     onBoundsChanged: function() {
-        $(window).trigger('resize');
+        setTimeout(function() { $(window).trigger('resize'); }, 300);
     },
 
     // Page Update
