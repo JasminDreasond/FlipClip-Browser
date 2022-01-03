@@ -152,10 +152,18 @@ var browserSettings = {
         if (
             typeof browserSettings.tabs[id].activeHistory === 'number' &&
             browserSettings.tabs[id] &&
-            browserSettings.tabs[id].history.length > 0
+            browserSettings.tabs[id].history.length > 1
         ) {
 
+            // Enable Previous
+            if (browserSettings.tabs[id].activeHistory > 0) {
+                browserSettings.addressBar.previous.removeClass('disabled').prop('disabled', false);
+            }
 
+            // Enable Next
+            if (browserSettings.tabs[id].activeHistory !== browserSettings.tabs[id].history.length - 1) {
+                browserSettings.addressBar.next.removeClass('disabled').prop('disabled', false);
+            }
 
         }
 
