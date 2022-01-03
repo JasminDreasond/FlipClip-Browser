@@ -61,11 +61,18 @@ browserSettings.webinfo.open = function() {
 
                         $('<strong>', { class: 'mr-1' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
                         $('<span>').append(
-                            $('<button>', { class: 'btn btn-primary browser-button' }).append(
+                            $('<button>', { class: 'btn btn-primary browser-button', id: 'wallet_' + browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol }).append(
                                 $('<i>', { class: 'fas fa-eye' })
                             ).data('WALLET_SYMBOL', browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol).click(function() {
 
-                                console.log($(this).data('WALLET_SYMBOL'));
+                                const symbol = $(this).data('WALLET_SYMBOL');
+                                $('#wallet_' + symbol).prop('disabled', true)
+                                browserSettings.readDomainData(browserSettings.tabs[id].domain, 'addr', symbol).then((data) => {
+                                    console.log(data);
+                                }).catch(err => {
+                                    alert(err.message);
+                                    console.error(err);
+                                });
 
                             })
                         )
