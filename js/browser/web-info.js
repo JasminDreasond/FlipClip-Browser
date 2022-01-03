@@ -27,7 +27,7 @@ browserSettings.webinfo.open = function() {
         $('<p>').append(
 
             $('<strong>', { class: 'mr-1' }).text('Domain:'),
-            $('<span>').text(browserSettings.tabs[id].domain)
+            $('<a>', { href: browserSettings.proxyHomepage, target: '_blank' }).text(browserSettings.tabs[id].domain)
 
         ),
 

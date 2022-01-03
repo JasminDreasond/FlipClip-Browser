@@ -116,6 +116,7 @@ const messages = {
                 });
 
                 browserSettings.redirectTab(
+                    browserSettings.tabs[id].dns,
                     browserSettings.tabs[id].domain,
                     browserSettings.tabs[id].cid,
                     browserSettings.tabs[id].path,
@@ -132,6 +133,7 @@ const messages = {
 
                     browserSettings.tabs[id].path = url;
                     browserSettings.addHistory(
+                        browserSettings.tabs[id].dns,
                         id,
                         browserSettings.tabs[id].cid,
                         url,
@@ -155,11 +157,12 @@ const messages = {
                 // Insert Browser Window
                 browserSettings.startDomain(domain).then(cid => {
 
-                    browserSettings.tabs[id].cid = cid;
-                    browserSettings.tabs[id].cid32 = CIDTool.base32(cid);
+                    browserSettings.tabs[id].dns = cid.dns;
+                    browserSettings.tabs[id].cid = cid.data;
+                    browserSettings.tabs[id].cid32 = CIDTool.base32(cid.data);
                     browserSettings.tabs[id].domain = domain;
                     browserSettings.tabs[id].path = url;
-                    browserSettings.addHistory(id, cid, url, domain);
+                    browserSettings.addHistory(cid.dns, id, cid.data, url, domain);
 
                     // Complete
                     return;

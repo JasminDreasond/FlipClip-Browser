@@ -39,8 +39,9 @@ browserSettings.updateTab = function(newURL, tabID) {
 
         // Complete
         browserSettings.redirectTab(
+            cid.dns,
             url.host,
-            cid,
+            cid.data,
             url.pathname.substring(1) + url.search,
             tabID,
             browserSettings.updateAddressBar
@@ -223,6 +224,7 @@ var startAddressBar = function(fn) {
         // Redirect
         if (browserSettings.tabs[id].history[newPage]) {
             browserSettings.redirectTab(
+                browserSettings.tabs[id].history[newPage].dns,
                 browserSettings.tabs[id].history[newPage].domain,
                 browserSettings.tabs[id].history[newPage].cid,
                 browserSettings.tabs[id].history[newPage].path,

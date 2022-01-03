@@ -48,9 +48,13 @@ var browserSettings = {
             if (domains.unstoppabledomains.find(domainName => domain.endsWith(domainName))) {
 
                 if (type === 'ipfsHash') {
-                    resolution.ipfsHash(domain).then(resolve).catch(reject);
+                    resolution.ipfsHash(domain).then((cid) => {
+                        return resolve({ data: cid, dns: 'unstoppabledomains' });
+                    }).catch(reject);
                 } else if (type === 'addr') {
-                    resolution.addr(domain, data).then(resolve).catch(reject);
+                    resolution.addr(domain, data).then((addr) => {
+                        return resolve({ data: addr, dns: 'unstoppabledomains' });
+                    }).catch(reject);
                 } else {
                     reject(new Error('Invalid Read Domain Request!'));
                 }
@@ -173,7 +177,7 @@ var browserSettings = {
     },
 
     // Add History
-    addHistory: function(id, cid, path, domain) {
+    addHistory: function(dns, id, cid, path, domain) {
 
         // Prepare Number
         if (typeof browserSettings.tabs[id].activeHistory !== 'number') {
@@ -205,6 +209,7 @@ var browserSettings = {
 
             // Add First History
             browserSettings.tabs[id].history.push({
+                dns: dns,
                 cid32: CIDTool.base32(cid),
                 cid: cid,
                 path: path,
@@ -222,7 +227,7 @@ var browserSettings = {
     },
 
     // Create Tab
-    createTab: function(domain, cid, path, active = false) {
+    createTab: function(dns, domain, cid, path, active = false) {
 
         // Update Settings
         browserSettings.lastTab++;
@@ -231,6 +236,7 @@ var browserSettings = {
         browserSettings.tabs[id] = {
 
             history: [{
+                dns: dns,
                 cid32: CIDTool.base32(cid),
                 cid: cid,
                 path: path,
@@ -238,6 +244,7 @@ var browserSettings = {
             }],
 
             domain: domain,
+            dns: dns,
             cid: cid,
             cid32: CIDTool.base32(cid),
             path: path,
@@ -263,7 +270,7 @@ var browserSettings = {
     },
 
     // Redirect Tab
-    redirectTab: function(domain, cid, path, id, callback, callbackNow = false) {
+    redirectTab: function(dns, domain, cid, path, id, callback, callbackNow = false) {
         if (browserSettings.tabs[id]) {
 
             // Update Data
@@ -271,7 +278,8 @@ var browserSettings = {
             browserSettings.tabs[id].cid32 = CIDTool.base32(cid);
             browserSettings.tabs[id].cid = cid;
             browserSettings.tabs[id].domain = domain;
-            browserSettings.addHistory(id, cid, path, domain);
+            browserSettings.tabs[id].dns = dns;
+            browserSettings.addHistory(dns, id, cid, path, domain);
 
             // Add Function
             if (typeof callback === 'function') {
@@ -333,7 +341,7 @@ var startBrowser = function(fn) {
             for (const item in settingsList) {
                 if (storage[id] && storage[id][settingsList[item].value] && storage[id][settingsList[item].value].setting) {
                     await chrome.contentSettings[settingsList[item].value].set({
-                        primaryPattern: browserSettings.urlGenerator(cid) + '*',
+                        primaryPattern: browserSettings.urlGenerator(cid.data) + '*',
                         setting: storage[id][settingsList[item].value].setting
                     });
                 }
@@ -343,7 +351,7 @@ var startBrowser = function(fn) {
             chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: params.domain, path: params.path } });
 
             $('#browser').append(
-                browserSettings.createTab(params.domain, cid, params.path, true)
+                browserSettings.createTab(cid.dns, params.domain, cid.data, params.path, true)
             );
 
             // Complete
