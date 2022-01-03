@@ -175,6 +175,7 @@ $(function() {
             console.log('FlipClip Browser Started!');
             startAddressBar(function() {
                 startBrowser(function() {
+                    $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
                     $('#appstart').fadeOut(500, function() {
                         $('#appstart').remove();
                     });

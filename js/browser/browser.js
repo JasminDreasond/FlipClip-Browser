@@ -143,7 +143,20 @@ var browserSettings = {
     // Update Click History
     updateHistory: function() {
 
-        console.log('refresh history');
+        // Exist Items
+        const id = browserSettings.active;
+        if (
+            typeof browserSettings.tabs[id].activeHistory === 'number' &&
+            browserSettings.tabs[id] &&
+            browserSettings.tabs[id].history.length > 0
+        ) {
+
+        }
+
+        // Nope
+        else {
+
+        }
 
     },
 
@@ -168,6 +181,8 @@ var browserSettings = {
                 path: path,
                 domain: domain
             });
+
+            browserSettings.tabs[id].activeHistory = browserSettings.tabs[id].history.length - 1;
 
             // Add Browser History
             chrome.runtime.sendMessage({ type: 'addHistory', data: { domain: domain, path: path } });
