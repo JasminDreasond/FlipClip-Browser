@@ -174,15 +174,15 @@ var browserSettings = {
     // Add History
     addHistory: function(id, cid, path, domain) {
 
+        // Prepare Number
+        if (typeof browserSettings.tabs[id].activeHistory !== 'number') {
+            browserSettings.tabs[id].activeHistory = 0;
+        }
+
         // Validator
         if (
             browserSettings.tabs[id] &&
-            Array.isArray(browserSettings.tabs[id].history) &&
-            (
-                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].cid !== cid ||
-                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].path !== path ||
-                browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].domain !== domain
-            ) && (
+            Array.isArray(browserSettings.tabs[id].history) && (
                 typeof browserSettings.tabs[id].activeHistory !== 'number' ||
                 browserSettings.tabs[id].history[browserSettings.tabs[id].activeHistory].cid !== cid ||
                 browserSettings.tabs[id].history[browserSettings.tabs[id].activeHistory].path !== path ||
@@ -193,7 +193,7 @@ var browserSettings = {
             // Remove OLD History
             if (
                 typeof browserSettings.tabs[id].activeHistory === 'number' &&
-                browserSettings.tabs[id].activeHistory > browserSettings.tabs[id].history.length - 1
+                browserSettings.tabs[id].activeHistory < browserSettings.tabs[id].history.length - 1
             ) {
                 for (let i = browserSettings.tabs[id].activeHistory + 1; i < browserSettings.tabs[id].history.length; i++) {
                     if (browserSettings.tabs[id].history[i]) {
