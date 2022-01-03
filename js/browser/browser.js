@@ -182,6 +182,11 @@ var browserSettings = {
                 browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].cid !== cid ||
                 browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].path !== path ||
                 browserSettings.tabs[id].history[browserSettings.tabs[id].history.length - 1].domain !== domain
+            ) && (
+                typeof browserSettings.tabs[id].activeHistory !== 'number' ||
+                browserSettings.tabs[id].history[browserSettings.tabs[id].activeHistory].cid !== cid ||
+                browserSettings.tabs[id].history[browserSettings.tabs[id].activeHistory].path !== path ||
+                browserSettings.tabs[id].history[browserSettings.tabs[id].activeHistory].domain !== domain
             )
         ) {
 
