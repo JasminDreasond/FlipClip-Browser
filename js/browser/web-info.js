@@ -4,7 +4,26 @@ browserSettings.webinfo = {};
 // Domain Info Data
 browserSettings.webinfo.dns = {
     unstoppabledomains: {
-        page: 'https://unstoppabledomains.com/d/{domain}'
+        page: 'https://unstoppabledomains.com/d/{domain}',
+        wallet: [{
+                name: 'Bitcoin',
+                symbol: 'BTC'
+            }, {
+                name: 'Ethereum',
+                symbol: 'ETH'
+            }, {
+                name: 'Tether',
+                symbol: 'USDT'
+            },
+            {
+                name: 'Doge',
+                symbol: 'DOGE'
+            },
+            {
+                name: 'Shiba Inu',
+                symbol: 'SHIB'
+            }
+        ]
     }
 };
 
@@ -14,12 +33,47 @@ browserSettings.webinfo.open = function() {
     // ID
     const id = browserSettings.active;
 
+    // Prepare Domain Info
     let domainPage = '';
-    if (
-        browserSettings.webinfo.dns[browserSettings.tabs[id].dns] &&
-        browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page
-    ) {
-        domainPage = browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page.replace(/\{domain\}/g, browserSettings.tabs[id].domain).replace(/\{domainURI\}/g, encodeURIComponent(browserSettings.tabs[id].domain));
+    let buttonsWallet = [];
+    if (browserSettings.webinfo.dns[browserSettings.tabs[id].dns]) {
+
+        // Domain URL
+        if (browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page) {
+            domainPage = browserSettings.webinfo.dns[browserSettings.tabs[id].dns].page.replace(/\{domain\}/g, browserSettings.tabs[id].domain).replace(/\{domainURI\}/g, encodeURIComponent(browserSettings.tabs[id].domain));
+        }
+
+        // Domain Wallets
+        if (browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet) {
+
+            // Prepare Base
+            buttonsWallet[
+                $('<hr>', { class: 'my-4' }),
+
+                // Wallet
+                $('<h5>', { class: 'm-0' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
+            ];
+
+            for (const item in browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet) {
+
+                buttonsWallet.push(
+                    $('<p>').append(
+
+                        $('<strong>', { class: 'mr-1' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
+                        $('<span>').append(
+                            $('<button>', { class: 'btn btn-primary' }).data('WALLET_SYMBOL', browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol).click(function() {
+
+                                console.log($(this).data('WALLET_SYMBOL'));
+
+                            })
+                        )
+
+                    ))
+
+            }
+
+        }
+
     }
 
     // Title
@@ -65,10 +119,8 @@ browserSettings.webinfo.open = function() {
 
         ),
 
-        $('<hr>', { class: 'my-4' }),
-
         // Wallet
-        $('<h5>', { class: 'm-0' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' })),
+        buttonsWallet,
 
     );
 
