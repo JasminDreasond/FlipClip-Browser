@@ -27,10 +27,5 @@
         "16": "icons/icon_16.png",
         "48": "icons/icon_48.png"
     },
-    "content_scripts": [{
-        "js": ["startPage.js"],
-        "matches": ["<all_urls>"],
-        "run_at": "document_start"
-    }],
     "host_permissions": ["<all_urls>"]
 }
