@@ -61,7 +61,7 @@ browserSettings.webinfo.open = function() {
 
                         $('<strong>', { class: 'mr-1' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
                         $('<span>').append(
-                            $('<button>', { class: 'btn btn-primary' }).append(
+                            $('<button>', { class: 'btn btn-primary browser-button' }).append(
                                 $('<i>', { class: 'fas fa-eye' })
                             ).data('WALLET_SYMBOL', browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol).click(function() {
 
