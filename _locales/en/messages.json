@@ -122,5 +122,9 @@
     "cid32URL": {
         "message": "CID32:",
         "description": "CID32:"
+    },
+    "wallet": {
+        "message": "Wallet",
+        "description": "Wallet"
     }
 }

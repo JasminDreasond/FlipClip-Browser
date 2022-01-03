@@ -23,7 +23,7 @@ browserSettings.webinfo.open = function() {
     }
 
     // Title
-    $('#webicon .modal-title').addClass('text-success').text(chrome.i18n.getMessage('ipfsConnectionTitle'));
+    $('#webicon .modal-title').addClass('text-success').empty().text(chrome.i18n.getMessage('ipfsConnectionTitle')).prepend($('<i>', { class: 'fas fa-lock mr-2' }));
 
     // Body
     $('#webicon .modal-body').empty().append(
@@ -63,7 +63,12 @@ browserSettings.webinfo.open = function() {
             $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('cid32URL')),
             $('<span>').text(browserSettings.tabs[id].cid32)
 
-        )
+        ),
+
+        $('<hr>', { class: 'my-4' }),
+
+        // Wallet
+        $('<h5>', { class: 'm-0' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' })),
 
     );
 
