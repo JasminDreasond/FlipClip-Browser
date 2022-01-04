@@ -7,7 +7,7 @@ Browser Emulator for open NFT websites freely using your browser.
 
 ## Description
 
-This browser emulator uses the dweb.link proxy to convert IPFS protocols to be read over HTTPS. After the protocol converted, the extension loads the page inside iFrame.
+This browser emulator uses the dweb.link proxy to convert IPFS protocols from NFT Domains to be read over HTTPS. After the protocol converted, the extension loads the page inside iFrame.
 
 The purpose of this extension is to facilitate common users to have a first experience with NFT domains without having to install a new browser.
 
