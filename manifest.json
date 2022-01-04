@@ -13,12 +13,10 @@
     },
     "permissions": [
         "contentSettings",
-        "webNavigation",
         "background",
         "storage",
         "unlimitedStorage",
         "webRequest",
-        "tabs",
         "history"
     ],
     "icons": {
