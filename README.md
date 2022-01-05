@@ -16,7 +16,7 @@ This browser emulator uses the dweb.link proxy to convert IPFS protocols from NF
 
 The purpose of this extension is to facilitate common users to have a first experience with NFT domains without having to install a new browser.
 
-This browser is completely simple to use. It uses the tools of the native browser to manage the history of visited websites and it allow NFT Domains to have improved synchronization of website privacy settings provided by NFT Domains CIDs.
+This browser is completely simple to use. The extension supports history logging of the NFT Domains you visit, recording their domains instead of the CID URL, making it easier for your browser to recognize NFTs domains when you are looking for the same site again and it allow NFT Domains to have improved synchronization of website privacy settings provided by NFT Domains CIDs.
 
 Remember that this system depends on the blockchain where the domain data is registered. If the blockchain network has problems, the domain does not work.
 
