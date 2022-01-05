@@ -1,9 +1,25 @@
+## Description
+To open an NFT page, you just need to type it on a common HTTPS address.
+When typing one the NFT domain, always type in HTTPS in your address bar. Example: https://jasmindreasond.crypto/
+
+The extension will close its tab (because your browser's native system cannot read this website, our emulator will make this domain work) and port it to our browser and will use the NFTs DNS server to convert it to a CID (the same way traditional domains are converted to IP) and then proxy it to the browser to read the web page.
+
+This browser emulator uses the dweb.link proxy to convert IPFS protocols from NFT Domains to be read over HTTPS. After the protocol converted, the extension loads the page inside iFrame.
+
+The purpose of this extension is to facilitate common users to have a first experience with NFT domains without having to install a new browser.
+
+This browser is completely simple to use. It uses the tools of the native browser to manage the history of visited websites and it allow NFT Domains to have improved synchronization of website privacy settings provided by NFT Domains CIDs.
+
+
+
 
 ## Descrição do único propósito
 
-This browser emulator uses the dweb.link proxy to convert IPFS from NFT Domains protocols to HTTPS. The first NFT Domains server programmed into the extension is the unstoppabledomains.com
+When typing one the NFT domain, always type in HTTPS in your address bar. Example: https://jasmindreasond.crypto/
 
-To test the service, you can use my domain jasmindreasond.crypto
+The extension will close its tab (because your browser's native system cannot read this website, our emulator will make this domain work) and port it to our browser and will use the NFTs DNS server to convert it to a CID (the same way traditional domains are converted to IP) and then proxy it to the browser to read the web page on the dweb.link.
+
+This browser emulator uses the dweb.link proxy to convert IPFS from NFT Domains protocols to HTTPS. The first NFT Domains server programmed into the extension is the unstoppabledomains.com
 
 ## Justificativa de contentSettings
 
