@@ -5,11 +5,11 @@ Browser Emulator for open NFT websites freely using your browser.
 
 <hr/>
 
-<hr/>
-
 ## Crypto Donations
 
 <a href="https://unstoppabledomains.com/d/jasmindreasond.crypto" target="_blank">The list of all my cryptocurrency addresses are registered here.</a>
+
+<hr/>
 
 ## Description
 
