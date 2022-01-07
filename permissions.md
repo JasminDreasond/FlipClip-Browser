@@ -34,11 +34,11 @@ All browser pages of the extension have their URLs saved in the user's history t
 
 ## <a href="https://developer.chrome.com/docs/extensions/reference/contextMenus/" target="_blank">contextMenus</a>
 
-
+Add right click buttons so the user can simply enter wallet addresses just by domain name.
 
 ## <a href="https://developer.chrome.com/docs/extensions/reference/scripting/" target="_blank">scripting</a>
 
-
+Run all scripts that are sent by contextMenus permission.
 
 ## Host Permission
 
