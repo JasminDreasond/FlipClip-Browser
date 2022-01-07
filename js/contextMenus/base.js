@@ -10,7 +10,7 @@ chrome.contextMenus.create({
     title: 'Insert Wallet Address'
 });
 
-const insertAddress = function(data, tab, symbol) {
+const insertAddress = async function(data, tab, symbol) {
 
     // Exist Selection
     if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
