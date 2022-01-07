@@ -1,20 +1,5 @@
 // Domains Servers
-var domains = {
-
-    unstoppabledomains: [
-        '.crypto',
-        '.zil',
-        '.coin',
-        '.wallet',
-        '.bitcoin',
-        '.x',
-        '.888',
-        '.nft',
-        '.dao',
-        '.blockchain'
-    ]
-
-};
+var domains = {};
 
 function generateHexString(length) {
     // Use crypto.getRandomValues if available

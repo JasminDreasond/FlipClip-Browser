@@ -1,3 +1,6 @@
+if (!global) { var global = {}; }
+if (!global.window) { global.window = {}; }
+
 // Windows
 const windows = {};
 
@@ -14,22 +17,12 @@ const domains = {
             }
         }
         return result;
-    },
-
-    unstoppabledomains: [
-        '.crypto',
-        '.zil',
-        '.coin',
-        '.wallet',
-        '.bitcoin',
-        '.x',
-        '.888',
-        '.nft',
-        '.dao',
-        '.blockchain'
-    ]
+    }
 
 };
+
+// Import Domains
+importScripts('/js/ud/domains.js');
 
 // URL Validator
 const urlValidator = function(vanillaURL) {
@@ -281,5 +274,56 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (typeof messages[message] === 'function') { messages[message](sender, sendResponse); }
     } else {
         if (typeof messages[message.type] === 'function') { messages[message.type](sender, sendResponse, message.data); }
+    }
+});
+
+// contextMenus
+
+// Prepare Data
+const contextMenus = {};
+
+// Insert Address
+chrome.contextMenus.create({
+    contexts: ['editable'],
+    id: 'insertAddress',
+    title: 'Insert Wallet Address'
+});
+
+contextMenus.insertAddress = function(data, tab) {
+
+    // Exist Selection
+    if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
+        console.log(data.selectionText);
+        resolution.addr(data.selectionText, 'eth').then((addr) => {
+            console.log(addr);
+        }).catch(err => {
+
+            chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                args: [err.message],
+                func: function(errMessage) {
+                    alert(`FlipClip Error:\n${errMessage}`);
+                }
+            });
+
+            // Print Error
+            console.error(err);
+
+        });
+    }
+
+    // Nope
+    else {
+
+    }
+
+    console.log(data, tab);
+
+};
+
+// Click Menu
+chrome.contextMenus.onClicked.addListener((data, tab) => {
+    if (data && data.menuItemId && contextMenus[data.menuItemId]) {
+        contextMenus[data.menuItemId](data, tab);
     }
 });

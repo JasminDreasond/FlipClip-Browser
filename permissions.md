@@ -32,6 +32,14 @@ Read data from pages running in Chrome to sync with the extension's browser page
 
 All browser pages of the extension have their URLs saved in the user's history to allow these pages to appear in the user's browser suggestions in the future.
 
+## <a href="https://developer.chrome.com/docs/extensions/reference/contextMenus/" target="_blank">contextMenus</a>
+
+
+
+## <a href="https://developer.chrome.com/docs/extensions/reference/scripting/" target="_blank">scripting</a>
+
+
+
 ## Host Permission
 
 Read data from pages running in Chrome to sync with the extension's browser pages.

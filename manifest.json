@@ -17,7 +17,9 @@
         "storage",
         "unlimitedStorage",
         "webRequest",
-        "history"
+        "history",
+        "contextMenus",
+        "scripting"
     ],
     "icons": {
         "128": "icons/icon_128.png",
