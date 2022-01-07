@@ -289,27 +289,34 @@ chrome.contextMenus.create({
     title: 'Insert Wallet Address'
 });
 
-contextMenus.insertAddress = function(data, tab) {
+contextMenus.insertAddress = async function(data, tab) {
 
     // Exist Selection
     if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
-        console.log(data.selectionText);
-        resolution.addr(data.selectionText, 'eth').then((addr) => {
-            console.log(addr);
-        }).catch(err => {
 
-            chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                args: [err.message],
-                func: function(errMessage) {
-                    alert(`FlipClip Error:\n${errMessage}`);
-                }
-            });
-
-            // Print Error
-            console.error(err);
-
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ['/js/ud/resolution.js']
         });
+
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            args: [data.selectionText],
+            func: function(addr) {
+
+                // Module
+                var resolution = new unResolution.Resolution();
+
+                // Execute
+                resolution.addr(addr, 'eth').then((addr) => {
+                    console.log(addr);
+                }).catch(err => {
+                    console.error(err);
+                });
+
+            }
+        });
+
     }
 
     // Nope
@@ -319,11 +326,15 @@ contextMenus.insertAddress = function(data, tab) {
 
     console.log(data, tab);
 
+    // Complete
+    return;
+
 };
 
 // Click Menu
-chrome.contextMenus.onClicked.addListener((data, tab) => {
+chrome.contextMenus.onClicked.addListener(async(data, tab) => {
     if (data && data.menuItemId && contextMenus[data.menuItemId]) {
-        contextMenus[data.menuItemId](data, tab);
+        await contextMenus[data.menuItemId](data, tab);
     }
+    return;
 });
