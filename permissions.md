@@ -1,4 +1,4 @@
-## Descrição do único propósito
+## Description
 
 The purpose of this extension is to facilitate common users to have a first experience with NFT domains without having to install a new browser.
 
@@ -6,33 +6,33 @@ This browser is completely simple to use. The extension supports history logging
 
 Remember that this system depends on the blockchain where the domain data is registered. If the blockchain network has problems, the domain does not work.
 
-## Justificativa de contentSettings
+## contentSettings
 
 NFT domains from unstoppabledomains.com always change CID to be updated and this makes the user need to update privacy settings all the time when it makes the proxy subdomain update. This extension allows it to self-update user-defined privacy permissions on all new subdomains.
 
-## Justificativa de background
+## background
 
 The system that syncs the extension browser page along with Chrome's native systems run here. Mainly to make NFT pages be detected and opened by browser.
 
-## Justificativa de storage
+## storage
 
 Users' privacy settings from contentSettings are all stored here.
 
-## Justificativa de unlimitedStorage
+## unlimitedStorage
 
 Not to limit users' local storage of privacy settings.
 
 
-## Justificativa de webRequest
+## webRequest
 
 Read data from pages running in Chrome to sync with the extension's browser pages.
 
 
-## Justificativa de history
+## history
 
 All browser pages of the extension have their URLs saved in the user's history to allow these pages to appear in the user's browser suggestions in the future.
 
-## Justificativa de Permissão do host
+## Host Permmission
 
 Read data from pages running in Chrome to sync with the extension's browser pages.
 
