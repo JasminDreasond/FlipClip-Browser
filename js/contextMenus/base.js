@@ -17,11 +17,13 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
         console.log(data, tab, symbol, itemClick);
 
+        // Execute Lib
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: ['/js/ud/resolution.js', '/js/jquery.min.js']
         });
 
+        // Execute Script
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
             args: [data.selectionText, symbol],
@@ -30,10 +32,16 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                 // Module
                 var resolution = new unResolution.Resolution();
 
-                // Execute
+                // Get Address
                 resolution.addr(addr, symbol).then((addr) => {
+
+                    // Result
                     console.log(addr);
-                }).catch(err => {
+
+                })
+
+                // Error
+                .catch(err => {
                     console.error(err);
                 });
 
