@@ -10,7 +10,7 @@ Remember that this system depends on the blockchain where the domain data is reg
 
 NFT domains from unstoppabledomains.com always change CID to be updated and this makes the user need to update privacy settings all the time when it makes the proxy subdomain update. This extension allows it to self-update user-defined privacy permissions on all new subdomains.
 
-## <a href="https://developer.chrome.com/docs/extensions/reference/background/" target="_blank">background</a>
+## background
 
 The system that syncs the extension browser page along with Chrome's native systems run here. Mainly to make NFT pages be detected and opened by browser.
 
