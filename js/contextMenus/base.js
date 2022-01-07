@@ -78,12 +78,12 @@ contextMenus.insertAddressETH = async function(data, tab) {
 chrome.contextMenus.create({
     contexts: ['editable'],
     parentId: 'insertAddress',
-    id: 'insertAddressETH',
-    title: 'ETH'
+    id: 'insertAddressDOGE',
+    title: 'DOGE'
 });
 
-contextMenus.insertAddressETH = async function(data, tab) {
-    return insertAddress(data, tab, 'ETH');
+contextMenus.insertAddressDOGE = async function(data, tab) {
+    return insertAddress(data, tab, 'DOGE');
 };
 
 // Click Menu
