@@ -6,15 +6,15 @@ This browser is completely simple to use. The extension supports history logging
 
 Remember that this system depends on the blockchain where the domain data is registered. If the blockchain network has problems, the domain does not work.
 
-## contentSettings
+## <a href="https://developer.chrome.com/docs/extensions/reference/contentSettings/" target="_blank">contentSettings</a>
 
 NFT domains from unstoppabledomains.com always change CID to be updated and this makes the user need to update privacy settings all the time when it makes the proxy subdomain update. This extension allows it to self-update user-defined privacy permissions on all new subdomains.
 
-## background
+## <a href="https://developer.chrome.com/docs/extensions/reference/background/" target="_blank">background</a>
 
 The system that syncs the extension browser page along with Chrome's native systems run here. Mainly to make NFT pages be detected and opened by browser.
 
-## storage
+## <a href="https://developer.chrome.com/docs/extensions/reference/storage/" target="_blank">storage</a>
 
 Users' privacy settings from contentSettings are all stored here.
 
@@ -23,16 +23,16 @@ Users' privacy settings from contentSettings are all stored here.
 Not to limit users' local storage of privacy settings.
 
 
-## webRequest
+## <a href="https://developer.chrome.com/docs/extensions/reference/webRequest/" target="_blank">webRequest</a>
 
 Read data from pages running in Chrome to sync with the extension's browser pages.
 
 
-## history
+## <a href="https://developer.chrome.com/docs/extensions/reference/history/" target="_blank">history</a>
 
 All browser pages of the extension have their URLs saved in the user's history to allow these pages to appear in the user's browser suggestions in the future.
 
-## Host Permmission
+## Host Permission
 
 Read data from pages running in Chrome to sync with the extension's browser pages.
 
