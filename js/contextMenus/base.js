@@ -19,7 +19,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
         await chrome.scripting.executeScript({
             target: { tabId: tab.id },
-            files: ['/js/ud/resolution.js']
+            files: ['/js/ud/resolution.js', '/js/jquery.min.js']
         });
 
         await chrome.scripting.executeScript({
@@ -91,7 +91,7 @@ contextMenus.insertAddressDOGE = async function(data, tab, itemClick) {
 // Click Menu
 chrome.contextMenus.onClicked.addListener((data, tab) => {
     return new Promise(function(resolve, reject) {
-        if (data && data.menuItemId && contextMenus[data.menuItemId]) {
+        if (tab && tab.id && data && data.menuItemId && contextMenus[data.menuItemId]) {
             chrome.tabs.sendMessage(tab.id, "getClickedEl", result => {
                 contextMenus[data.menuItemId](data, tab, result).then(resolve).catch(reject);
             });

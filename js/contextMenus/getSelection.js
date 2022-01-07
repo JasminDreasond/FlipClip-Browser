@@ -1,9 +1,9 @@
 //content script
 var clickedEl = null;
 
-document.addEventListener("contextmenu", function(event) {
-    clickedEl = event.target;
-}, true);
+$(document).on('contextmenu', () => {
+    clickedEl = this.target;
+});
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request == "getClickedEl") {
