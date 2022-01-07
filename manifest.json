@@ -26,5 +26,16 @@
         "16": "icons/icon_16.png",
         "48": "icons/icon_48.png"
     },
-    "host_permissions": ["<all_urls>"]
+    "host_permissions": ["<all_urls>"],
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": [
+            "/js/jquery.min.js",
+            "/js/contextMenus/browser.js",
+            "/js/ud/domains.js",
+            "/js/contextMenus/getSelection.js"
+        ],
+        "all_frames": true,
+        "match_about_blank": true
+    }]
 }

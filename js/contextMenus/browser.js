@@ -1,0 +1,2 @@
+// Domains
+var domains = {};
