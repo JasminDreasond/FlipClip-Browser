@@ -324,8 +324,6 @@ contextMenus.insertAddress = async function(data, tab) {
 
     }
 
-    console.log(data, tab);
-
     // Complete
     return;
 
