@@ -1,5 +1,6 @@
 // Buttons List
 browserSettings.buttons = {};
+browserSettings.webinfo = webinfo;
 
 // Settings Button
 const settingsList = [

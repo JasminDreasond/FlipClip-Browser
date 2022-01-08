@@ -1,25 +1,3 @@
-// Base
-browserSettings.webinfo = {};
-
-// Domain Info Data
-browserSettings.webinfo.dns = {
-    unstoppabledomains: {
-        page: 'https://unstoppabledomains.com/d/{domain}',
-        wallet: [{
-                name: 'Bitcoin',
-                symbol: 'BTC'
-            }, {
-                name: 'Ethereum',
-                symbol: 'ETH'
-            },
-            {
-                name: 'Doge',
-                symbol: 'DOGE'
-            }
-        ]
-    }
-};
-
 // Open
 browserSettings.webinfo.open = function() {
 

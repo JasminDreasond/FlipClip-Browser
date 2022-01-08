@@ -283,11 +283,8 @@ var startBackground = function() {
 
 };
 
-// Start i18
+// Import Script
 importScripts('/js/background/i18.js');
-
-// Import Domains
 importScripts('/js/ud/domains.js');
-
-// Context Menus
 importScripts('/js/contextMenus/base.js');
+importScripts('/js/contextMenus/webInfo.js');

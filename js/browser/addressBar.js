@@ -1,3 +1,4 @@
+// Update Title
 browserSettings.updateTitle = function() {
 
     /* if (
