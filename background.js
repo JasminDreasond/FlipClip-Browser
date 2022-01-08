@@ -143,7 +143,10 @@ var startBackground = function() {
                         });
                     });
 
-                } catch (err) { console.error(err); }
+                } catch (err) {
+                    modal('ERROR ' + err.code, err.message);
+                    console.error(err);
+                }
 
             }
 
@@ -163,7 +166,10 @@ var startBackground = function() {
 
                     });
 
-                } catch (err) { console.error(err); }
+                } catch (err) {
+                    modal('ERROR ' + err.code, err.message);
+                    console.error(err);
+                }
 
             }
 

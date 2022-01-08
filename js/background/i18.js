@@ -41,7 +41,7 @@ const addLanguage = function(lang) {
 fetch(chrome.runtime.getURL('manifest.json'))
     .then(response => {
         if (!response.ok) {
-            throw new Error("i18 HTTP error " + response.status);
+            modal('ERROR MANIFEST', response.status);
         }
         return response.json();
     })
@@ -53,10 +53,10 @@ fetch(chrome.runtime.getURL('manifest.json'))
         }).catch(() => {
             addLanguage(exLang.default_locale).then(() => {
                 startBackground();
-            }).catch(err => { throw err; });
+            }).catch(err => { modal('ERROR ' + err.code, err.message); });
         });
     })
-    .catch(function(err) { throw err; });
+    .catch(function(err) { modal('ERROR ' + err.code, err.message); });
 
 // Get Message
 chrome.i18n.getMessage = function(msgID) { return exLang.data[msgID]; };

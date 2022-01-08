@@ -62,8 +62,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             clickedEl = null;
 
         } catch (err) {
+
+            chrome.runtime.sendMessage({
+                type: 'errorInsertAddress',
+                data: {
+                    code: err.code,
+                    message: err.message
+                }
+            });
+
             console.error(err);
             sendResponse(null);
+
         }
     }
 });
