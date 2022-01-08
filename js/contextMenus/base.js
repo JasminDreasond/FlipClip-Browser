@@ -102,13 +102,8 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
                                     // Loading Settings
                                     const loadingSettings = {
-                                        background: 'rgba(0,0,0, 0.5)'
+                                        background: 'rgba(255,255,255, 0.5)'
                                     };
-
-                                    // Dark Mode Enabled
-                                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                                        loadingSettings.background = 'rgba(255,255,255, 0.5)';
-                                    }
 
                                     // Use Loading
                                     tinyInput.LoadingOverlay("show", loadingSettings);
