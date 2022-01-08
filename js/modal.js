@@ -6,6 +6,14 @@ const resizeFunction = function() {
 $(window).on('scroll focus mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup keyup keypress keydown hover blur click change', resizeFunction);
 $(window).resize(resizeFunction);
 
+// Close Escape
+$(document).keyup(function(e) {
+    if (e.key === "Escape") { // escape key maps to keycode `27`
+        window.close();
+    }
+});
+
+// Start Script
 $(function() {
 
     // Dark Mode Enabled
