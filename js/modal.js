@@ -53,8 +53,21 @@ $(function() {
 
     document.title = params.title;
 
+    // Get Text
+    if (params.type === 'getText') {
+        $('.modal-body').append(
+            $('<input>', { type: 'text', class: 'form-control text-center' })
+            .prop('readOnly', true).val(params.message).click(function() {
+                $(this).focus();
+                $(this).select();
+            })
+        );
+    }
+
     // Insert Data
-    $('.modal-body').text(params.message);
+    else {
+        $('.modal-body').text(params.message);
+    }
 
     // Close Button
     $('#close-modal, .close').click(function() { window.close(); });
