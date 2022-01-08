@@ -34,26 +34,28 @@ var modal = function(title, message, type = 'normal', icon = '') {
 var urlValidator = function(vanillaURL) {
 
     // URL
-    const urlTrim = vanillaURL.trim();
-    if (urlTrim === vanillaURL) {
-        let url = vanillaURL.split('/');
-        if (
-            (
-                url[0].startsWith('ipfs:') ||
-                url[0].startsWith('https:') ||
-                url[0].startsWith('http:')
-            ) &&
-            url[1] === ''
-        ) {
+    if (typeof urlTrim === 'string') {
+        const urlTrim = vanillaURL.trim();
+        if (urlTrim.length === vanillaURL.length) {
+            let url = vanillaURL.split('/');
+            if (
+                (
+                    url[0].startsWith('ipfs:') ||
+                    url[0].startsWith('https:') ||
+                    url[0].startsWith('http:')
+                ) &&
+                url[1] === ''
+            ) {
 
-            // UD
-            if ((domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))) {
-                return 'unstoppabledomains';
-            }
+                // UD
+                if ((domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))) {
+                    return 'unstoppabledomains';
+                }
 
-            // Nothing
-            else { return null; }
+                // Nothing
+                else { return null; }
 
+            } else { return null; }
         } else { return null; }
     } else { return null; }
 
