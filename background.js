@@ -292,7 +292,7 @@ var startBackground = function() {
 
             // Error Insert Address
             errorInsertAddress: function(sender, sendResponse, data) {
-                console.log(data);
+                modal('ERROR ' + data.code, data.message);
             },
 
         };
