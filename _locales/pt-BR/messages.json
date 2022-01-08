@@ -1,0 +1,150 @@
+{
+    "appName": {
+        "message": "Fliclip Crypto Browser",
+        "description": "Fliclip Crypto Browser"
+    },
+    "appDesc": {
+        "message": "Emulador de navegador para sites NFT usando seu navegador.",
+        "description": "Emulador de navegador para sites NFT usando seu navegador."
+    },
+    "websiteSettings": {
+        "message": "Configurações do Website",
+        "description": "Configurações do Website"
+    },
+    "close": {
+        "message": "Fechar",
+        "description": "Fechar"
+    },
+    "automaticDownloads": {
+        "message": "Downloads Automáticos",
+        "description": "Downloads Automáticos"
+    },
+    "camera": {
+        "message": "Câmera",
+        "description": "Câmera"
+    },
+    "cookies": {
+        "message": "Cookies",
+        "description": "Cookies"
+    },
+    "fullscreen": {
+        "message": "Tela Cheia",
+        "description": "Tela Cheia"
+    },
+    "images": {
+        "message": "Imagens",
+        "description": "Imagens"
+    },
+    "javascript": {
+        "message": "JavaScript",
+        "description": "JavaScript"
+    },
+    "location": {
+        "message": "Localização",
+        "description": "Localização"
+    },
+    "microphone": {
+        "message": "Microfone",
+        "description": "Microfone"
+    },
+    "mouselock": {
+        "message": "Congelar Mouse",
+        "description": "Congelar Mouse"
+    },
+    "notifications": {
+        "message": "Notificações",
+        "description": "Notificações"
+    },
+    "plugins": {
+        "message": "Plugins",
+        "description": "Plugins"
+    },
+    "popups": {
+        "message": "Popups",
+        "description": "Popups"
+    },
+    "unsandboxedPlugins": {
+        "message": "Plug-ins sem Sandbox",
+        "description": "Plug-ins sem Sandbox"
+    },
+    "allow": {
+        "message": "Permitir",
+        "description": "Permitir"
+    },
+    "block": {
+        "message": "Bloquear",
+        "description": "Bloquear"
+    },
+    "ask": {
+        "message": "Perguntar",
+        "description": "Perguntar"
+    },
+    "webInfo": {
+        "message": "Ver Informações do Website",
+        "description": "Ver Informações do Website"
+    },
+    "refreshInfo": {
+        "message": "Recarregar Página",
+        "description": "Recarregar Página"
+    },
+    "nextPageInfo": {
+        "message": "Ir para a próxima página",
+        "description": "Ir para a próxima página"
+    },
+    "previousPageInfo": {
+        "message": "Ir para a página anterior",
+        "description": "Ir para a página anterior"
+    },
+    "pageSettingsInfo": {
+        "message": "Configurações de Privacidade do Website",
+        "description": "Configurações de Privacidade do Website"
+    },
+    "ipfsConnectionTitle": {
+        "message": "Conexão do IPFS Proxy",
+        "description": "Conexão do IPFS Proxy"
+    },
+    "ipfsConnectionInfo": {
+        "message": "Este domínio NFT está vinculado a um protocolo IPFS. Esta extensão está usando uma conexão proxy para se conectar ao servidor IPFS neste website.",
+        "description": "Este domínio NFT está vinculado a um protocolo IPFS. Esta extensão está usando uma conexão proxy para se conectar ao servidor IPFS neste website."
+    },
+    "proxyURL": {
+        "message": "Proxy URL:",
+        "description": "Proxy URL:"
+    },
+    "domainURL": {
+        "message": "Domínio:",
+        "description": "Domínio:"
+    },
+    "cidURL": {
+        "message": "CID:",
+        "description": "CID:"
+    },
+    "cid32URL": {
+        "message": "CID32:",
+        "description": "CID32:"
+    },
+    "wallet": {
+        "message": "Carteira",
+        "description": "Carteira"
+    },
+    "get_wallet_address": {
+        "message": "Obter Endereço da Carteira de Domínio",
+        "description": "Obter Endereço da Carteira de Domínio"
+    },
+    "convert_to_wallet": {
+        "message": "Converter Domínio para Endereço de Carteira",
+        "description": "Converter Domínio para Endereço de Carteira"
+    },
+    "invalid_get_domain_title": {
+        "message": "Domínio NFT inválido!",
+        "description": "Domínio NFT inválido!"
+    },
+    "invalid_get_domain_text": {
+        "message": "O domínio \"{domain}\" não pertence a nenhum registro de domínio NFT.",
+        "description": "O domínio \"{domain}\" não pertence a nenhum registro de domínio NFT."
+    },
+    "new_address_from_tab": {
+        "message": "Endereço de {symbol} do domínio \"{domain}\"",
+        "description": "Endereço de {symbol} do domínio \"{domain}\""
+    }
+}
