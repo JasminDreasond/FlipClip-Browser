@@ -36,7 +36,14 @@ const getAddress = async function(data, tab, symbol) {
 
                 // Get Address
                 resolution.addr(addr, symbol).then((cryptoAddr) => {
-                    console.log(cryptoAddr);
+                    chrome.runtime.sendMessage({
+                        type: 'getAddressResult',
+                        data: {
+                            domain: addr,
+                            symbol: symbol,
+                            addr: cryptoAddr
+                        }
+                    });
                 })
 
                 // Error
