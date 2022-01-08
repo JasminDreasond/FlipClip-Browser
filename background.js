@@ -18,6 +18,17 @@ const domains = {
 
 };
 
+// Send Modal
+var modal = function(title, message) {
+    return new Promise(function(resolve, reject) {
+        chrome.windows.create({
+            type: 'popup',
+            url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}`)
+        }).then(resolve).catch(reject);
+    });
+};
+
+// Start Background
 var startBackground = function() {
     if (!started) {
 
