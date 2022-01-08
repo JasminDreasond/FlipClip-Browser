@@ -27,6 +27,7 @@ const getElementData = function(item) {
         result.value = element.val();
         result.text = element.text();
         result.tagName = element.prop("tagName").toLowerCase();
+        result.index = element.index();
 
         // Complete
         return result;
@@ -53,9 +54,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             // Input
             result.base = getElementData(clickedEl);
             result.parent = getElementData(parent[0]);
-
-            // Get Index
-            result.base.index = tinyElement.index();
 
             // Send Response
             sendResponse(result);
