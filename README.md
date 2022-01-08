@@ -40,6 +40,8 @@ https://unstoppable.crypto/
 
 <img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/img/website-info-example.png?raw=true" height="500" />
 
+<img src="https://github.com/JasminDreasond/FlipClip-Browser/blob/main/img/promo/promo2.jpg?raw=true" height="500" />
+
 <hr/>
 
 ## Browserify used on this extension
