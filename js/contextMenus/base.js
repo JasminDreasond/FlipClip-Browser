@@ -271,6 +271,7 @@ var startContextMenus = function() {
         title: chrome.i18n.getMessage('openDomainProfile')
     });
 
+    // Get Domain Profile
     contextMenus['openDomainProfile'] = async function(data) {
         const dns = urlValidator('https://' + data.selectionText + '/');
         if (webinfo.dns[dns] && webinfo.dns[dns].page) {
@@ -278,6 +279,10 @@ var startContextMenus = function() {
                 type: 'normal',
                 url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
             });
+        } else {
+            modal(
+                chrome.i18n.getMessage('invalid_get_domain_title'),
+                chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
         }
         return;
     };
