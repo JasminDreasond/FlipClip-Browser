@@ -13,6 +13,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         // Prepare Result
         const result = { elements: {} };
 
+        // Get Element
+        const element = $(clickedEl);
+
         // Read Elements
         $.each(clickedEl.attributes, function() {
             // this.attributes is not a plain object, but an array
@@ -21,6 +24,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
                 result.elements[this.name] = this.value;
             }
         });
+
+        // Get Value
+        result.value = element.val();
+        result.text = element.text();
 
         // Send Response
         sendResponse(result);
