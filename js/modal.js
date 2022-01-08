@@ -9,10 +9,6 @@ $(function() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     var params = Object.fromEntries(urlSearchParams.entries());
 
-    // Insert Title
-    $('.modal-title').text(params.title);
-    document.title = params.title;
-
     // Icon
     let alertIcon = 'fas fa-exclamation-triangle';
     if (typeof params.icon === 'string' && params.icon.length > 0) {
@@ -34,10 +30,15 @@ $(function() {
 
     }
 
-    // Insert Data
-    $('.modal-body').text(params.message).prepend(
-        $('<i>', { class: alertIcon })
+    // Insert Title
+    $('.modal-title').text(params.title).prepend(
+        $('<i>', { class: alertIcon + ' mr-2' })
     );
+
+    document.title = params.title;
+
+    // Insert Data
+    $('.modal-body').text(params.message);
 
     // Close Button
     $('#close-modal, .close').click(function() { window.close(); });
