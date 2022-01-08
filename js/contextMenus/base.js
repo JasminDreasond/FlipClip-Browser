@@ -53,15 +53,20 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                         var resolution = new unResolution.Resolution();
 
                         // Get Address
-                        resolution.addr(addr, symbol).then((addr) => {
+                        resolution.addr(addr, symbol).then((cryptoAddr) => {
 
                             // Result
                             console.log(insertFullInput, itemClick);
-                            console.log(addr);
+                            console.log(cryptoAddr);
 
                             // Elements
                             const elements = { base: { query: '' }, parent: { query: '' } };
                             const insertElements = function(where) {
+
+                                // Insert Tag Name
+                                elements[where].query += itemClick[where].tagName;
+
+                                // Insert Elements
                                 for (const item in itemClick[where].elements) {
                                     if (item === 'id') {
                                         elements[where].query += '#' + itemClick[where].elements[item];
@@ -71,12 +76,20 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                         elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
                                     }
                                 }
+
                             };
 
                             // Insert Query Data
                             insertElements('base');
                             insertElements('parent');
+                            if (itemClick.base.text.indexOf(addr) > -1) {
+                                elements.base.query += ':contains(\'' + addr + '\')';
+                            }
+
+                            // Get Element
                             console.log(elements);
+                            const tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
+                            console.log(tinyInput);
 
                             // Normal Insert
                             if (!insertFullInput) {
