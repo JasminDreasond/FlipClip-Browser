@@ -296,6 +296,19 @@ var startContextMenus = function() {
         return;
     };
 
+    // Get Domain Profile
+    contextMenus['openDomainPage'] = async function(data) {
+        const url = 'https://' + data.selectionText + '/';
+        if (urlValidator(url)) {
+            openNFTPage(null, url);
+        } else {
+            modal(
+                chrome.i18n.getMessage('invalid_get_domain_title'),
+                chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
+        }
+        return;
+    };
+
     // Read Crypto Data
     for (const dns in webinfo.dns) {
         for (const item in webinfo.dns[dns].wallet) {

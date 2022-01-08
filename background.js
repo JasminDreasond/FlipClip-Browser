@@ -135,15 +135,16 @@ var startBackground = function() {
                     // Fix URL
                     url = url.join('/');
                     await new Promise(function(resolve) {
-                        chrome.tabs.remove(tabID, function() {
+                        if (typeof tabID === 'string' || typeof tabID === 'number') {
+                            chrome.tabs.remove(tabID, function() {
 
-                            // New Window
-                            if (Object.keys(windows).length < 1) { createWindow(resolve); }
+                                // New Window
+                                if (Object.keys(windows).length < 1) { createWindow(resolve); }
 
-                            // Exist Window
-                            else {
+                                // Exist Window
+                                else {
 
-                                /*                         // Detect Window
+                                    /*                         // Detect Window
                                                     detectWindow();
     
                                                     // Complete
@@ -152,11 +153,12 @@ var startBackground = function() {
                                                     // Nope
                                                     else { createWindow(resolve); } */
 
-                                createWindow(resolve);
+                                    createWindow(resolve);
 
-                            }
+                                }
 
-                        });
+                            });
+                        } else { createWindow(resolve); }
                     });
 
                 } catch (err) {
