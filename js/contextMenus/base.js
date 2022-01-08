@@ -212,6 +212,13 @@ var startContextMenus = function() {
                     title: webinfo.dns[dns].wallet[item].name
                 });
 
+                chrome.contextMenus.create({
+                    contexts: ['selection'],
+                    parentId: 'getAddress',
+                    id: 'getAddress' + webinfo.dns[dns].wallet[item].symbol,
+                    title: webinfo.dns[dns].wallet[item].name
+                });
+
                 // Add Callback
                 contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
                     return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
