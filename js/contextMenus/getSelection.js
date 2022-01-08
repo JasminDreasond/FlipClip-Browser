@@ -28,6 +28,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         // Get Value
         result.value = element.val();
         result.text = element.text();
+        result.tagName = element.prop("tagName");
 
         // Send Response
         sendResponse(result);
