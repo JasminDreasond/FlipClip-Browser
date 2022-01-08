@@ -276,8 +276,6 @@ var startContextMenus = function() {
         const dns = urlValidator('https://' + data.selectionText + '/');
         if (webinfo.dns[dns] && webinfo.dns[dns].page) {
             chrome.tabs.create({
-                type: 'normal',
-                state: 'maximized',
                 url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
             });
         } else {
