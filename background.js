@@ -1,3 +1,20 @@
+// Domains Servers
+const domains = {
+
+    filterGenerator: function() {
+        const result = [];
+        for (const where in domains) {
+            if (where !== 'filterGenerator') {
+                for (const item in domains[where]) {
+                    result.push(`*://*${domains[where][item]}/*`);
+                }
+            }
+        }
+        return result;
+    }
+
+};
+
 var startBackground = function() {
 
     if (!global) { var global = {}; }
@@ -5,23 +22,6 @@ var startBackground = function() {
 
     // Windows
     const windows = {};
-
-    // Domains Servers
-    const domains = {
-
-        filterGenerator: function() {
-            const result = [];
-            for (const where in domains) {
-                if (where !== 'filterGenerator') {
-                    for (const item in domains[where]) {
-                        result.push(`*://*${domains[where][item]}/*`);
-                    }
-                }
-            }
-            return result;
-        }
-
-    };
 
     // Import Domains
     importScripts('/js/ud/domains.js');
