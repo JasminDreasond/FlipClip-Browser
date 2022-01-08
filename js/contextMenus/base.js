@@ -275,8 +275,9 @@ var startContextMenus = function() {
     contextMenus['openDomainProfile'] = async function(data) {
         const dns = urlValidator('https://' + data.selectionText + '/');
         if (webinfo.dns[dns] && webinfo.dns[dns].page) {
-            chrome.windows.create({
+            chrome.tabs.create({
                 type: 'normal',
+                state: 'maximized',
                 url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
             });
         } else {
