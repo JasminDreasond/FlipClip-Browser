@@ -42,7 +42,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                 // Execute Lib
                 await chrome.scripting.executeScript({
                     target: { tabId: tab.id },
-                    files: ['/js/ud/resolution.js', '/js/jquery.min.js', 'loadingoverlay.min.js']
+                    files: ['/js/ud/resolution.js', '/js/jquery.min.js', '/js/loadingoverlay.min.js']
                 });
 
                 // Execute Script
@@ -100,11 +100,23 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                     )
                                 ) {
 
+                                    // Loading Settings
+                                    const loadingSettings = {
+                                        background: 'rgba(0,0,0, 0.5)'
+                                    };
+
+                                    // Dark Mode Enabled
+                                    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                                        loadingSettings.background = 'rgba(255,255,255, 0.5)';
+                                    }
+
+                                    // Use Loading
+                                    tinyInput.LoadingOverlay("show", loadingSettings);
+
                                     // Get Address
                                     resolution.addr(addr, symbol).then((cryptoAddr) => {
 
                                         // Get Element
-
                                         console.log(cryptoAddr);
                                         console.log(tinyInput.val());
 
@@ -117,6 +129,9 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                         else {
 
                                         }
+
+                                        // Complete
+                                        tinyInput.LoadingOverlay("hide", true);
 
                                     })
 
@@ -132,6 +147,9 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                         });
 
                                         console.error(err);
+
+                                        // Complete
+                                        tinyInput.LoadingOverlay("hide", true);
 
                                     });
 

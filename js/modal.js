@@ -8,7 +8,7 @@ $(window).resize(resizeFunction);
 
 $(function() {
 
-    // Dark Mode Enable
+    // Dark Mode Enabled
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         $('#modal, .modal-content, body').addClass('bg-dark').addClass('text-white');
     }
