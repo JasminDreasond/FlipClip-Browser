@@ -72,7 +72,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                         elements[where].query += '#' + itemClick[where].elements[item];
                                     } else if (item === 'class') {
                                         elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
-                                    } else {
+                                    } else if (item !== 'value') {
                                         elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
                                     }
                                 }
