@@ -10,14 +10,17 @@ chrome.contextMenus.create({
 
 const insertAddress = async function(data, tab, symbol, itemClick) {
 
-    // Insert Type
-    let insertFullInput = false;
+    // First Validator
+    if (itemClick && itemClick.base && (
+            itemClick.base.tagName === 'input' ||
+            itemClick.base.tagName === 'textarea'
+        )) {
 
-    // Data Validator
-    if (typeof data.selectionText !== 'string' || data.selectionText.length < 1) {
+        // Insert Type
+        let insertFullInput = false;
 
-        // First Validator
-        if (itemClick && itemClick.base) {
+        // Data Validator
+        if (typeof data.selectionText !== 'string' || data.selectionText.length < 1) {
 
             // Check Value
             if (typeof itemClick.base.value === 'string' && itemClick.base.value.length > 0) {
@@ -30,53 +33,53 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
         }
 
-    }
+        // Exist Selection
+        if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
 
-    // Exist Selection
-    if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
+            console.log(data, tab, symbol, itemClick);
 
-        console.log(data, tab, symbol, itemClick);
+            // Execute Lib
+            await chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                files: ['/js/ud/resolution.js', '/js/jquery.min.js']
+            });
 
-        // Execute Lib
-        await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            files: ['/js/ud/resolution.js', '/js/jquery.min.js']
-        });
+            // Execute Script
+            await chrome.scripting.executeScript({
+                target: { tabId: tab.id },
+                args: [data.selectionText, symbol],
+                func: function(addr, symbol) {
 
-        // Execute Script
-        await chrome.scripting.executeScript({
-            target: { tabId: tab.id },
-            args: [data.selectionText, symbol],
-            func: function(addr, symbol) {
+                    // Module
+                    var resolution = new unResolution.Resolution();
 
-                // Module
-                var resolution = new unResolution.Resolution();
+                    // Get Address
+                    resolution.addr(addr, symbol).then((addr) => {
 
-                // Get Address
-                resolution.addr(addr, symbol).then((addr) => {
+                        // Result
+                        console.log(addr);
 
-                    // Result
-                    console.log(addr);
+                        // Normal Insert
+                        if (!insertFullInput) {
 
-                    // Normal Insert
-                    if (!insertFullInput) {
+                        }
 
-                    }
+                        // Full Input
+                        else {
 
-                    // Full Input
-                    else {
+                        }
 
-                    }
+                    })
 
-                })
+                    // Error
+                    .catch(err => {
+                        console.error(err);
+                    });
 
-                // Error
-                .catch(err => {
-                    console.error(err);
-                });
+                }
+            });
 
-            }
-        });
+        }
 
     }
 
