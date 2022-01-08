@@ -127,6 +127,10 @@
         "message": "Wallet",
         "description": "Wallet"
     },
+    "get_wallet_address": {
+        "message": "Get Domain Wallet Address",
+        "description": "Get Domain Wallet Address"
+    },
     "convert_to_wallet": {
         "message": "Convert Domain to Wallet Address",
         "description": "Convert Domain to Wallet Address"

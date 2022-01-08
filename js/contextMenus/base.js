@@ -8,6 +8,12 @@ chrome.contextMenus.create({
     title: 'Loading...'
 });
 
+chrome.contextMenus.create({
+    contexts: ['selection'],
+    id: 'getAddress',
+    title: 'Loading...'
+});
+
 const insertAddress = async function(data, tab, symbol, itemClick) {
 
     // First Validator
@@ -184,6 +190,10 @@ var startContextMenus = function() {
     // Insert Address
     chrome.contextMenus.update('insertAddress', {
         title: chrome.i18n.getMessage('convert_to_wallet') + ' (BETA)'
+    });
+
+    chrome.contextMenus.update('getAddress', {
+        title: chrome.i18n.getMessage('get_wallet_address')
     });
 
     // Read Crypto Data
