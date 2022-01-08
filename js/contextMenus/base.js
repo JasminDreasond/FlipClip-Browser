@@ -1,5 +1,3 @@
-// contextMenus
-
 // Prepare Data
 const contextMenus = {};
 
