@@ -7,6 +7,10 @@
         "message": "Emulador de navegador para sites NFT usando seu navegador.",
         "description": "Emulador de navegador para sites NFT usando seu navegador."
     },
+    "openDomainProfile": {
+        "message": "Abrir o Perfil do Domínio",
+        "description": "Abrir o Perfil do Domínio"
+    },
     "websiteSettings": {
         "message": "Configurações do Website",
         "description": "Configurações do Website"

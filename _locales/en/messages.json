@@ -7,6 +7,10 @@
         "message": "Browser Emulator for open NFT websites freely using your browser.",
         "description": "Browser Emulator for open NFT websites freely using your browser."
     },
+    "openDomainProfile": {
+        "message": "Open the Domain Profile",
+        "description": "Open the Domain Profile"
+    },
     "websiteSettings": {
         "message": "Website Settings",
         "description": "Website Settings"
