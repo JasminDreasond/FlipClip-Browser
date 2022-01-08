@@ -4,6 +4,9 @@ var exLang = {
     data: {}
 };
 
+// Add Manifest
+var manifest = null;
+
 const addLanguage = function(lang) {
     return new Promise(function(resolve, reject) {
 
@@ -43,6 +46,7 @@ fetch(chrome.runtime.getURL('manifest.json'))
         return response.json();
     })
     .then(json => {
+        manifest = json;
         exLang.default_locale = json.default_locale;
         addLanguage(exLang.locale).then(() => {
 
