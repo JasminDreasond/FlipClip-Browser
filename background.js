@@ -276,10 +276,8 @@ var startBackground = function() {
         }
     });
 
-    // Insert Address
-    chrome.contextMenus.update('insertAddress', {
-        title: chrome.i18n.getMessage('convert_to_wallet')
-    });
+    // ContextMenus
+    startContextMenus();
 
 };
 

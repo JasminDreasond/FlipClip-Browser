@@ -55,30 +55,40 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
 };
 
-// Read Crypto Data
-const walletsLoaded = {};
-for (const dns in webinfo.dns) {
-    for (const item in webinfo.dns[dns].wallet) {
-        if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
+// Start Script
+var startContextMenus = function() {
 
-            // Add Values
-            walletsLoaded[webinfo.dns[dns].wallet[item].symbol] = webinfo.dns[dns].wallet[item].symbol;
+    // Insert Address
+    chrome.contextMenus.update('insertAddress', {
+        title: chrome.i18n.getMessage('convert_to_wallet')
+    });
 
-            // Add Menu
-            chrome.contextMenus.create({
-                contexts: ['editable'],
-                parentId: 'insertAddress',
-                id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
-                title: webinfo.dns[dns].wallet[item].symbol.name
-            });
+    // Read Crypto Data
+    const walletsLoaded = {};
+    for (const dns in webinfo.dns) {
+        for (const item in webinfo.dns[dns].wallet) {
+            if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
 
-            // Add Callback
-            contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
-                return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
-            };
+                // Add Values
+                walletsLoaded[webinfo.dns[dns].wallet[item].symbol] = webinfo.dns[dns].wallet[item].symbol;
 
+                // Add Menu
+                chrome.contextMenus.create({
+                    contexts: ['editable'],
+                    parentId: 'insertAddress',
+                    id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
+                    title: webinfo.dns[dns].wallet[item].symbol.name
+                });
+
+                // Add Callback
+                contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
+                    return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
+                };
+
+            }
         }
-    }
+    };
+
 }
 
 // Click Menu
