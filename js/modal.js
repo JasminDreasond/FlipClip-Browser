@@ -10,7 +10,7 @@ $(function() {
 
     // Dark Mode Enable
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        $('#modal, .modal-content').addClass('bg-dark').addClass('text-white');
+        $('#modal, .modal-content, body').addClass('bg-dark').addClass('text-white');
     }
 
     // Params
