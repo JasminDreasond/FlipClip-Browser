@@ -100,7 +100,6 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                     )
                                 ) {
 
-
                                     // Get Address
                                     resolution.addr(addr, symbol).then((cryptoAddr) => {
 
