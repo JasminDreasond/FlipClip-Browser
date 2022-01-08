@@ -28,6 +28,24 @@ var modal = function(title, message) {
     });
 };
 
+// URL Validator
+var urlValidator = function(vanillaURL) {
+
+    // URL
+    let url = vanillaURL.split('/');
+
+    return (
+
+        // URL Base
+        (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
+        url[1] === '' &&
+
+        // Domains
+        (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
+    );
+
+};
+
 // Start Background
 var startBackground = function() {
     if (!started) {
@@ -37,24 +55,6 @@ var startBackground = function() {
 
         // Windows
         const windows = {};
-
-        // URL Validator
-        const urlValidator = function(vanillaURL) {
-
-            // URL
-            let url = vanillaURL.split('/');
-
-            return (
-
-                // URL Base
-                (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
-                url[1] === '' &&
-
-                // Domains
-                (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
-            );
-
-        };
 
         // Open NFT Script
         const openNFTPage = async function(tabID, vanillaURL, newTab) {

@@ -37,9 +37,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
         if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
 
             // Validate Selection
-            if (
-                data.selectionText
-            ) {
+            if (urlValidator('https://' + data.selectionText)) {
 
                 // Execute Lib
                 await chrome.scripting.executeScript({
