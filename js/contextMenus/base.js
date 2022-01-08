@@ -271,7 +271,7 @@ var startContextMenus = function() {
         title: chrome.i18n.getMessage('openDomainProfile')
     });
 
-    contextMenus['openDomainProfile'] = function(data) {
+    contextMenus['openDomainProfile'] = async function(data) {
         const dns = urlValidator('https://' + data.selectionText + '/');
         if (webinfo.dns[dns] && webinfo.dns[dns].page) {
             chrome.windows.create({
@@ -279,6 +279,7 @@ var startContextMenus = function() {
                 url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
             });
         }
+        return;
     };
 
     // Read Crypto Data
