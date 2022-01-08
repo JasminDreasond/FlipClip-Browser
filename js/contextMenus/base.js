@@ -10,6 +10,28 @@ chrome.contextMenus.create({
 
 const insertAddress = async function(data, tab, symbol, itemClick) {
 
+    // Insert Type
+    let insertFullInput = false;
+
+    // Data Validator
+    if (typeof data.selectionText !== 'string' || data.selectionText.length < 1) {
+
+        // First Validator
+        if (itemClick && itemClick.base) {
+
+            // Check Value
+            if (typeof itemClick.base.value === 'string' && itemClick.base.value.length > 0) {
+                data.selectionText = itemClick.base.value;
+                insertFullInput = true;
+            } else if (typeof itemClick.base.text === 'string' && itemClick.base.text.length > 0) {
+                data.selectionText = itemClick.base.text;
+                insertFullInput = true;
+            }
+
+        }
+
+    }
+
     // Exist Selection
     if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
 
@@ -35,6 +57,16 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
                     // Result
                     console.log(addr);
+
+                    // Normal Insert
+                    if (!insertFullInput) {
+
+                    }
+
+                    // Full Input
+                    else {
+
+                    }
 
                 })
 
