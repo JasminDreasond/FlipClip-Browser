@@ -118,6 +118,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                     resolution.addr(addr, symbol).then((cryptoAddr) => {
 
                                         // Get Element
+                                        console.log(itemClick.base.selectionEnd, itemClick.base.selectionStart);
                                         console.log(cryptoAddr);
                                         console.log(tinyInput.val());
 
