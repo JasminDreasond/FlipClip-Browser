@@ -19,13 +19,13 @@ const domains = {
 };
 
 // Send Modal
-var modal = function(title, message, icon = '') {
+var modal = function(title, message, type = 'normal', icon = '') {
     return new Promise(function(resolve, reject) {
         chrome.windows.create({
             type: 'popup',
             height: 400,
             width: 600,
-            url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}&icon=${encodeURIComponent(icon)}`)
+            url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}&type=${encodeURIComponent(type)}&icon=${encodeURIComponent(icon)}`)
         }).then(resolve).catch(reject);
     });
 };
@@ -300,7 +300,15 @@ var startBackground = function() {
 
             // Get Address Resykt
             getAddressResult: function(sender, sendResponse, data) {
-                console.log(data);
+                if (typeof data.domain === 'string' && typeof data.symbol === 'string' && typeof data.addr === 'string') {
+                    modal(
+                        chrome.i18n.getMessage('address_from_tab')
+                        .replace('{domain}', data.domain).replace('{symbol}', data.symbol),
+                        data.addr,
+                        'getText',
+                        'info'
+                    );
+                }
             }
 
         };
