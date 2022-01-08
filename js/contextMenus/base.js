@@ -271,6 +271,13 @@ var startContextMenus = function() {
         title: chrome.i18n.getMessage('openDomainProfile')
     });
 
+    contextMenus['openDomainProfile'] = function(data) {
+        chrome.windows.create({
+            type: 'normal',
+            url: message.data.url
+        });
+    };
+
     // Read Crypto Data
     for (const dns in webinfo.dns) {
         for (const item in webinfo.dns[dns].wallet) {

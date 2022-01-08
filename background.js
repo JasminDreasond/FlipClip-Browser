@@ -35,16 +35,24 @@ var urlValidator = function(vanillaURL) {
 
     // URL
     let url = vanillaURL.split('/');
+    if (
+        (
+            url[0].startsWith('ipfs:') ||
+            url[0].startsWith('https:') ||
+            url[0].startsWith('http:')
+        ) &&
+        url[1] === ''
+    ) {
 
-    return (
+        // UD
+        if ((domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))) {
+            return 'unstoppabledomains';
+        }
 
-        // URL Base
-        (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
-        url[1] === '' &&
+        // Nothing
+        else { return null; }
 
-        // Domains
-        (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
-    );
+    } else { return null; }
 
 };
 
