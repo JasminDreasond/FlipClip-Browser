@@ -6,6 +6,8 @@ This browser is completely simple to use. The extension supports history logging
 
 Remember that this system depends on the blockchain where the domain data is registered. If the blockchain network has problems, the domain does not work.
 
+More Information: https://github.com/JasminDreasond/FlipClip-Browser
+
 ## <a href="https://developer.chrome.com/docs/extensions/reference/contentSettings/" target="_blank">contentSettings</a>
 
 NFT domains from unstoppabledomains.com always change CID to be updated and this makes the user need to update privacy settings all the time when it makes the proxy subdomain update. This extension allows it to self-update user-defined privacy permissions on all new subdomains.
