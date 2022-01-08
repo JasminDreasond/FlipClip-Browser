@@ -19,7 +19,7 @@ const getElementData = function(item) {
         // this.attributes is not a plain object, but an array
         // of attribute nodes, which contain both the name and value
         if (this.specified) {
-            result.elements[this.name] = this.value;
+            result[this.name] = this.value;
         }
     });
 
@@ -42,6 +42,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
         // Input
         result.elements = getElementData(clickedEl);
+        console.log($(clickedEl).parent());
 
         // Send Response
         sendResponse(result);
