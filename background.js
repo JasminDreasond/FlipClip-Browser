@@ -34,7 +34,7 @@ var modal = function(title, message, type = 'normal', icon = '') {
 var urlValidator = function(vanillaURL) {
 
     // URL
-    if (typeof urlTrim === 'string') {
+    if (typeof vanillaURL === 'string') {
         const urlTrim = vanillaURL.trim();
         if (urlTrim.length === vanillaURL.length) {
             let url = vanillaURL.split('/');
