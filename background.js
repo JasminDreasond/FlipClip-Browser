@@ -19,11 +19,11 @@ const domains = {
 };
 
 // Send Modal
-var modal = function(title, message) {
+var modal = function(title, message, icon = '') {
     return new Promise(function(resolve, reject) {
         chrome.windows.create({
             type: 'popup',
-            url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}`)
+            url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}&icon=${encodeURIComponent(icon)}`)
         }).then(resolve).catch(reject);
     });
 };
