@@ -42,7 +42,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                 // Execute Lib
                 await chrome.scripting.executeScript({
                     target: { tabId: tab.id },
-                    files: ['/js/ud/resolution.js', '/js/jquery.min.js']
+                    files: ['/js/ud/resolution.js', '/js/jquery.min.js', 'loadingoverlay.min.js']
                 });
 
                 // Execute Script
@@ -55,53 +55,54 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                             // Module
                             var resolution = new unResolution.Resolution();
 
-                            // Get Address
-                            resolution.addr(addr, symbol).then((cryptoAddr) => {
+                            // Elements
+                            const elements = { base: { query: '' }, parent: { query: '' } };
+                            const insertElements = function(where) {
 
-                                // Elements
-                                const elements = { base: { query: '' }, parent: { query: '' } };
-                                const insertElements = function(where) {
+                                // Insert Tag Name
+                                elements[where].query += itemClick[where].tagName;
 
-                                    // Insert Tag Name
-                                    elements[where].query += itemClick[where].tagName;
-
-                                    // Insert Elements
-                                    for (const item in itemClick[where].elements) {
-                                        if (item === 'id') {
-                                            elements[where].query += '#' + itemClick[where].elements[item];
-                                        } else if (item === 'class') {
-                                            elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
-                                        } else if (item !== 'value') {
-                                            elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
-                                        }
+                                // Insert Elements
+                                for (const item in itemClick[where].elements) {
+                                    if (item === 'id') {
+                                        elements[where].query += '#' + itemClick[where].elements[item];
+                                    } else if (item === 'class') {
+                                        elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
+                                    } else if (item !== 'value') {
+                                        elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
                                     }
-
-                                };
-
-                                // Insert Query Data
-                                insertElements('base');
-                                insertElements('parent');
-                                if (itemClick.base.text.indexOf(addr) > -1) {
-                                    elements.base.query += ':contains(\'' + addr + '\')';
                                 }
 
-                                // Validator 1
-                                let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
-                                if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
+                            };
+
+                            // Insert Query Data
+                            insertElements('base');
+                            insertElements('parent');
+                            if (itemClick.base.text.indexOf(addr) > -1) {
+                                elements.base.query += ':contains(\'' + addr + '\')';
+                            }
+
+                            // Validator 1
+                            let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
+                            if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
+                            if (
+                                tinyInput.length > 0
+                            ) {
+
+                                // Validator 2
+                                const itemValue = tinyInput.val();
+                                const itemText = tinyInput.text();
                                 if (
-                                    tinyInput.length > 0
+                                    tinyInput.prop("tagName").toLowerCase() === itemClick.base.tagName &&
+                                    (
+                                        (typeof itemValue === 'string' && itemValue.indexOf(addr) > -1) ||
+                                        (typeof itemText === 'string' && itemText.indexOf(addr) > -1)
+                                    )
                                 ) {
 
-                                    // Validator 2
-                                    const itemValue = tinyInput.val();
-                                    const itemText = tinyInput.text();
-                                    if (
-                                        tinyInput.prop("tagName").toLowerCase() === itemClick.base.tagName &&
-                                        (
-                                            (typeof itemValue === 'string' && itemValue.indexOf(addr) > -1) ||
-                                            (typeof itemText === 'string' && itemText.indexOf(addr) > -1)
-                                        )
-                                    ) {
+
+                                    // Get Address
+                                    resolution.addr(addr, symbol).then((cryptoAddr) => {
 
                                         // Get Element
 
@@ -118,25 +119,25 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
                                         }
 
-                                    }
+                                    })
+
+                                    // Error
+                                    .catch(err => {
+
+                                        chrome.runtime.sendMessage({
+                                            type: 'errorInsertAddress',
+                                            data: {
+                                                code: err.code,
+                                                message: err.message
+                                            }
+                                        });
+
+                                        console.error(err);
+
+                                    });
+
                                 }
-
-                            })
-
-                            // Error
-                            .catch(err => {
-
-                                chrome.runtime.sendMessage({
-                                    type: 'errorInsertAddress',
-                                    data: {
-                                        code: err.code,
-                                        message: err.message
-                                    }
-                                });
-
-                                console.error(err);
-
-                            });
+                            }
 
                         }
                     }
