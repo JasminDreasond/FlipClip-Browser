@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             // this.attributes is not a plain object, but an array
             // of attribute nodes, which contain both the name and value
             if (this.specified) {
-                result[this.name] = this.value;
+                result.elements[this.name] = this.value;
             }
         });
 
