@@ -82,24 +82,40 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                 elements.base.query += ':contains(\'' + addr + '\')';
                             }
 
-                            // Get Element
+                            // Validator 1
                             let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
                             if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
-                            if (tinyInput.length > 0) {
+                            if (
+                                tinyInput.length > 0
+                            ) {
 
-                                //console.log(cryptoAddr);
-                                //console.log(tinyInput.val());
+                                // Validator 2
+                                const itemValue = tinyInput.val();
+                                const itemText = tinyInput.text();
+                                if (
+                                    tinyInput.prop("tagName").toLowerCase() === itemClick.base.tagName &&
+                                    (
+                                        (typeof itemValue === 'string' && itemValue.indexOf(addr) > -1) ||
+                                        (typeof itemText === 'string' && itemText.indexOf(addr) > -1)
+                                    )
+                                ) {
 
-                                // Normal Insert
-                                if (!insertFullInput) {
+                                    // Get Element
+
+                                    console.log(cryptoAddr);
+                                    console.log(tinyInput.val());
+
+                                    // Normal Insert
+                                    if (!insertFullInput) {
+
+                                    }
+
+                                    // Full Input
+                                    else {
+
+                                    }
 
                                 }
-
-                                // Full Input
-                                else {
-
-                                }
-
                             }
 
                         })
