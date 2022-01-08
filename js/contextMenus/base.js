@@ -36,108 +36,122 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
         // Exist Selection
         if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
 
-            // Execute Lib
-            await chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                files: ['/js/ud/resolution.js', '/js/jquery.min.js']
-            });
+            // Validate Selection
+            if (
+                data.selectionText
+            ) {
 
-            // Execute Script
-            await chrome.scripting.executeScript({
-                target: { tabId: tab.id },
-                args: [data.selectionText, symbol, insertFullInput, itemClick],
-                func: function(addr, symbol, insertFullInput, itemClick) {
-                    if (itemClick && itemClick.base && itemClick.parent) {
+                // Execute Lib
+                await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    files: ['/js/ud/resolution.js', '/js/jquery.min.js']
+                });
 
-                        // Module
-                        var resolution = new unResolution.Resolution();
+                // Execute Script
+                await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    args: [data.selectionText, symbol, insertFullInput, itemClick],
+                    func: function(addr, symbol, insertFullInput, itemClick) {
+                        if (itemClick && itemClick.base && itemClick.parent) {
 
-                        // Get Address
-                        resolution.addr(addr, symbol).then((cryptoAddr) => {
+                            // Module
+                            var resolution = new unResolution.Resolution();
 
-                            // Elements
-                            const elements = { base: { query: '' }, parent: { query: '' } };
-                            const insertElements = function(where) {
+                            // Get Address
+                            resolution.addr(addr, symbol).then((cryptoAddr) => {
 
-                                // Insert Tag Name
-                                elements[where].query += itemClick[where].tagName;
+                                // Elements
+                                const elements = { base: { query: '' }, parent: { query: '' } };
+                                const insertElements = function(where) {
 
-                                // Insert Elements
-                                for (const item in itemClick[where].elements) {
-                                    if (item === 'id') {
-                                        elements[where].query += '#' + itemClick[where].elements[item];
-                                    } else if (item === 'class') {
-                                        elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
-                                    } else if (item !== 'value') {
-                                        elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
+                                    // Insert Tag Name
+                                    elements[where].query += itemClick[where].tagName;
+
+                                    // Insert Elements
+                                    for (const item in itemClick[where].elements) {
+                                        if (item === 'id') {
+                                            elements[where].query += '#' + itemClick[where].elements[item];
+                                        } else if (item === 'class') {
+                                            elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
+                                        } else if (item !== 'value') {
+                                            elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
+                                        }
                                     }
+
+                                };
+
+                                // Insert Query Data
+                                insertElements('base');
+                                insertElements('parent');
+                                if (itemClick.base.text.indexOf(addr) > -1) {
+                                    elements.base.query += ':contains(\'' + addr + '\')';
                                 }
 
-                            };
-
-                            // Insert Query Data
-                            insertElements('base');
-                            insertElements('parent');
-                            if (itemClick.base.text.indexOf(addr) > -1) {
-                                elements.base.query += ':contains(\'' + addr + '\')';
-                            }
-
-                            // Validator 1
-                            let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
-                            if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
-                            if (
-                                tinyInput.length > 0
-                            ) {
-
-                                // Validator 2
-                                const itemValue = tinyInput.val();
-                                const itemText = tinyInput.text();
+                                // Validator 1
+                                let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
+                                if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
                                 if (
-                                    tinyInput.prop("tagName").toLowerCase() === itemClick.base.tagName &&
-                                    (
-                                        (typeof itemValue === 'string' && itemValue.indexOf(addr) > -1) ||
-                                        (typeof itemText === 'string' && itemText.indexOf(addr) > -1)
-                                    )
+                                    tinyInput.length > 0
                                 ) {
 
-                                    // Get Element
+                                    // Validator 2
+                                    const itemValue = tinyInput.val();
+                                    const itemText = tinyInput.text();
+                                    if (
+                                        tinyInput.prop("tagName").toLowerCase() === itemClick.base.tagName &&
+                                        (
+                                            (typeof itemValue === 'string' && itemValue.indexOf(addr) > -1) ||
+                                            (typeof itemText === 'string' && itemText.indexOf(addr) > -1)
+                                        )
+                                    ) {
 
-                                    console.log(cryptoAddr);
-                                    console.log(tinyInput.val());
+                                        // Get Element
 
-                                    // Normal Insert
-                                    if (!insertFullInput) {
+                                        console.log(cryptoAddr);
+                                        console.log(tinyInput.val());
+
+                                        // Normal Insert
+                                        if (!insertFullInput) {
+
+                                        }
+
+                                        // Full Input
+                                        else {
+
+                                        }
 
                                     }
+                                }
 
-                                    // Full Input
-                                    else {
+                            })
 
+                            // Error
+                            .catch(err => {
+
+                                chrome.runtime.sendMessage({
+                                    type: 'errorInsertAddress',
+                                    data: {
+                                        code: err.code,
+                                        message: err.message
                                     }
+                                });
 
-                                }
-                            }
+                                console.error(err);
 
-                        })
-
-                        // Error
-                        .catch(err => {
-
-                            chrome.runtime.sendMessage({
-                                type: 'errorInsertAddress',
-                                data: {
-                                    code: err.code,
-                                    message: err.message
-                                }
                             });
 
-                            console.error(err);
-
-                        });
-
+                        }
                     }
-                }
-            });
+                });
+
+            }
+
+            // Invalid Domain
+            else {
+                modal(
+                    chrome.i18n.getMessage('invalid_get_domain_title'),
+                    chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
+            }
 
         }
 
