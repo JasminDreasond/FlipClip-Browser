@@ -7,7 +7,7 @@ const contextMenus = {};
 chrome.contextMenus.create({
     contexts: ['editable'],
     id: 'insertAddress',
-    title: chrome.i18n.getMessage('convert_to_wallet')
+    title: 'Loading...'
 });
 
 const insertAddress = async function(data, tab, symbol, itemClick) {

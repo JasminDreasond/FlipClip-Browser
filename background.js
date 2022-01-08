@@ -23,9 +23,6 @@ var startBackground = function() {
     // Windows
     const windows = {};
 
-    // Import Domains
-    importScripts('/js/ud/domains.js');
-
     // URL Validator
     const urlValidator = function(vanillaURL) {
 
@@ -279,10 +276,18 @@ var startBackground = function() {
         }
     });
 
-    // Context Menus
-    importScripts('/js/contextMenus/base.js');
+    // Insert Address
+    chrome.contextMenus.update('insertAddress', {
+        title: chrome.i18n.getMessage('convert_to_wallet')
+    });
 
 };
 
 // Start i18
 importScripts('/js/background/i18.js');
+
+// Import Domains
+importScripts('/js/ud/domains.js');
+
+// Context Menus
+importScripts('/js/contextMenus/base.js');
