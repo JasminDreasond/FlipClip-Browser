@@ -16,44 +16,56 @@ chrome.contextMenus.create({
 
 const getAddress = async function(data, tab, symbol) {
 
-    // Execute Lib
-    await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ['/js/ud/resolution.js']
-    });
+    // Validate Selection
+    if (urlValidator('https://' + data.selectionText + '/')) {
 
-    // Execute Script
-    await chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        args: [data.selectionText, symbol],
-        func: function(addr, symbol) {
+        // Execute Lib
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ['/js/ud/resolution.js']
+        });
 
-            // Module
-            var resolution = new unResolution.Resolution();
+        // Execute Script
+        await chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            args: [data.selectionText, symbol],
+            func: function(addr, symbol) {
 
-            // Get Address
-            resolution.addr(addr, symbol).then((cryptoAddr) => {
-                console.log(cryptoAddr);
-            })
+                // Module
+                var resolution = new unResolution.Resolution();
 
-            // Error
-            .catch(err => {
+                // Get Address
+                resolution.addr(addr, symbol).then((cryptoAddr) => {
+                    console.log(cryptoAddr);
+                })
 
-                chrome.runtime.sendMessage({
-                    type: 'errorInsertAddress',
-                    data: {
-                        code: err.code,
-                        message: err.message
-                    }
+                // Error
+                .catch(err => {
+
+                    chrome.runtime.sendMessage({
+                        type: 'errorInsertAddress',
+                        data: {
+                            code: err.code,
+                            message: err.message
+                        }
+                    });
+
+                    console.error(err);
+
                 });
 
-                console.error(err);
 
-            });
+            }
+        });
 
+    }
 
-        }
-    });
+    // Invalid Domain
+    else {
+        modal(
+            chrome.i18n.getMessage('invalid_get_domain_title'),
+            chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
+    }
 
     // Complete
     return;
