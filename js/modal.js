@@ -1,3 +1,11 @@
+// Address Bar Resize
+const resizeFunction = function() {
+    $('.modal-content').css('height', $(document).height());
+};
+
+$(window).on('scroll focus mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup keyup keypress keydown hover blur click change', resizeFunction);
+$(window).resize(resizeFunction);
+
 $(function() {
 
     // Dark Mode Enable
@@ -44,6 +52,7 @@ $(function() {
     $('#close-modal, .close').click(function() { window.close(); });
 
     // Open Modal
+    $(window).trigger('resize');
     $('#appstart').fadeOut(500, function() {
         $('#appstart').remove();
     });
