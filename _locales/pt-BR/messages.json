@@ -150,5 +150,9 @@
     "new_address_from_tab": {
         "message": "Endereço de {symbol} do domínio \"{domain}\"",
         "description": "Endereço de {symbol} do domínio \"{domain}\""
+    },
+    "openDomainPage": {
+        "message": "Abrir o Website do Domínio",
+        "description": "Abrir o Website do Domínio"
     }
 }

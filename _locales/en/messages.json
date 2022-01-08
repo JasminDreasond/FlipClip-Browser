@@ -150,5 +150,9 @@
     "new_address_from_tab": {
         "message": "{symbol} address of the domain \"{domain}\"",
         "description": "{symbol} address of the domain \"{domain}\""
+    },
+    "openDomainPage": {
+        "message": "Open the Domain Website",
+        "description": "Open the Domain Website"
     }
 }

@@ -20,6 +20,12 @@ chrome.contextMenus.create({
     title: 'Loading...'
 });
 
+chrome.contextMenus.create({
+    contexts: ['editable', 'selection'],
+    id: 'openDomainPage',
+    title: 'Loading...'
+});
+
 const getAddress = async function(data, tab, symbol) {
 
     // Validate Selection
@@ -269,6 +275,10 @@ var startContextMenus = function() {
 
     chrome.contextMenus.update('openDomainProfile', {
         title: chrome.i18n.getMessage('openDomainProfile')
+    });
+
+    chrome.contextMenus.update('openDomainPage', {
+        title: chrome.i18n.getMessage('openDomainPage')
     });
 
     // Get Domain Profile
