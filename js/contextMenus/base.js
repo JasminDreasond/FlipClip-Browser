@@ -28,6 +28,8 @@ const getAddress = async function(data, tab, symbol) {
         args: [data.selectionText, symbol],
         func: function(addr, symbol) {
 
+            // Module
+            var resolution = new unResolution.Resolution();
 
             // Get Address
             resolution.addr(addr, symbol).then((cryptoAddr) => {
