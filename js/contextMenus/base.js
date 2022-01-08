@@ -55,10 +55,6 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                         // Get Address
                         resolution.addr(addr, symbol).then((cryptoAddr) => {
 
-                            // Result
-                            console.log(insertFullInput, itemClick);
-                            console.log(cryptoAddr);
-
                             // Elements
                             const elements = { base: { query: '' }, parent: { query: '' } };
                             const insertElements = function(where) {
@@ -87,17 +83,22 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                             }
 
                             // Get Element
-                            console.log(elements);
-                            const tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
-                            console.log(tinyInput);
+                            let tinyInput = $(elements.parent.query).eq(itemClick.parent.index).find(elements.base.query).eq(elements.base.index);
+                            if (tinyInput.length < 1) { tinyInput = tinyInput.prevObject; }
+                            if (tinyInput.length > 0) {
 
-                            // Normal Insert
-                            if (!insertFullInput) {
+                                //console.log(cryptoAddr);
+                                //console.log(tinyInput.val());
 
-                            }
+                                // Normal Insert
+                                if (!insertFullInput) {
 
-                            // Full Input
-                            else {
+                                }
+
+                                // Full Input
+                                else {
+
+                                }
 
                             }
 
