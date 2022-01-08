@@ -47,8 +47,8 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
             // Execute Script
             await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
-                args: [data.selectionText, symbol],
-                func: function(addr, symbol) {
+                args: [data.selectionText, symbol, insertFullInput],
+                func: function(addr, symbol, insertFullInput) {
 
                     // Module
                     var resolution = new unResolution.Resolution();
