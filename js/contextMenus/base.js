@@ -14,6 +14,50 @@ chrome.contextMenus.create({
     title: 'Loading...'
 });
 
+const getAddress = async function(data, tab, symbol) {
+
+    // Execute Lib
+    await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ['/js/ud/resolution.js']
+    });
+
+    // Execute Script
+    await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        args: [data.selectionText, symbol],
+        func: function(addr, symbol) {
+
+
+            // Get Address
+            resolution.addr(addr, symbol).then((cryptoAddr) => {
+                console.log(cryptoAddr);
+            })
+
+            // Error
+            .catch(err => {
+
+                chrome.runtime.sendMessage({
+                    type: 'errorInsertAddress',
+                    data: {
+                        code: err.code,
+                        message: err.message
+                    }
+                });
+
+                console.error(err);
+
+            });
+
+
+        }
+    });
+
+    // Complete
+    return;
+
+};
+
 const insertAddress = async function(data, tab, symbol, itemClick) {
 
     // First Validator
@@ -225,50 +269,7 @@ var startContextMenus = function() {
                 };
 
                 contextMenus['getAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab) {
-
-                    // Symbol
-                    const symbol = webinfo.dns[dns].wallet[item].symbol;
-
-                    // Execute Lib
-                    await chrome.scripting.executeScript({
-                        target: { tabId: tab.id },
-                        files: ['/js/ud/resolution.js']
-                    });
-
-                    // Execute Script
-                    await chrome.scripting.executeScript({
-                        target: { tabId: tab.id },
-                        args: [data.selectionText, symbol],
-                        func: function(addr, symbol) {
-
-
-                            // Get Address
-                            resolution.addr(addr, symbol).then((cryptoAddr) => {
-                                console.log(cryptoAddr);
-                            })
-
-                            // Error
-                            .catch(err => {
-
-                                chrome.runtime.sendMessage({
-                                    type: 'errorInsertAddress',
-                                    data: {
-                                        code: err.code,
-                                        message: err.message
-                                    }
-                                });
-
-                                console.error(err);
-
-                            });
-
-
-                        }
-                    });
-
-                    // Complete
-                    return;
-
+                    return getAddress(data, tab, webinfo.dns[dns].wallet[item].symbol);
                 };
 
             }
