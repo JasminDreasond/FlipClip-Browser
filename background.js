@@ -246,6 +246,7 @@ var startBackground = function() {
         // Messages
         const messages = {
 
+            // Connect Window
             connectWindow: function(sender, sendResponse) {
                 if (!windows[sender.tab.windowId]) { windows[sender.tab.windowId] = {}; }
                 windows[sender.tab.windowId].storage = {};
@@ -253,21 +254,29 @@ var startBackground = function() {
                 sendResponse(true);
             },
 
+            // Add History
             addHistory: function(sender, sendResponse, data) {
                 chrome.history.addUrl({ url: `https://${data.domain}/${data.path}` });
             },
 
+            // Remove History
             removeHistory: function(sender, sendResponse, data) {
                 chrome.history.deleteUrl({ url: `https://${data.domain}/${data.path}` });
             },
 
+            // Search History
             searchHistory: function(sender, sendResponse, data) {
                 chrome.history.search(data).then(search => {
                     sendResponse(null, search);
                 }).catch(err => {
                     sendResponse(err);
                 });
-            }
+            },
+
+            // Error Insert Address
+            errorInsertAddress: function(sender, sendResponse, data) {
+                console.log(data);
+            },
 
         };
 

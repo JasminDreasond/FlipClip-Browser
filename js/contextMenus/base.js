@@ -122,7 +122,17 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
                         // Error
                         .catch(err => {
+
+                            chrome.runtime.sendMessage({
+                                type: 'errorInsertAddress',
+                                data: {
+                                    code: err.code,
+                                    message: err.message
+                                }
+                            });
+
                             console.error(err);
+
                         });
 
                     }
