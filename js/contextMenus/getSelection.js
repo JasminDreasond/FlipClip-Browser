@@ -2,34 +2,40 @@
 var clickedEl = null;
 
 // Context Menu Detector
-$(document).on('contextmenu', () => {
-    clickedEl = document.activeElement;
-});
+$(document).on('contextmenu', () => { clickedEl = document.activeElement; });
 
 const getElementData = function(item) {
 
-    // Result
-    const result = {};
+    // Item
+    if (item) {
 
-    // Get Element
-    const element = $(item);
+        // Result
+        const result = { elements: {} };
 
-    // Read Elements
-    $.each(item.attributes, function() {
-        // this.attributes is not a plain object, but an array
-        // of attribute nodes, which contain both the name and value
-        if (this.specified) {
-            result[this.name] = this.value;
-        }
-    });
+        // Get Element
+        const element = $(item);
 
-    // Get Value
-    result.value = element.val();
-    result.text = element.text();
-    result.tagName = element.prop("tagName").toLowerCase();
+        // Read Elements
+        $.each(item.attributes, function() {
+            // this.attributes is not a plain object, but an array
+            // of attribute nodes, which contain both the name and value
+            if (this.specified) {
+                result.elements[this.name] = this.value;
+            }
+        });
 
-    // Complete
-    return result;
+        // Get Value
+        result.value = element.val();
+        result.text = element.text();
+        result.tagName = element.prop("tagName").toLowerCase();
+
+        // Complete
+        return result;
+
+    }
+
+    // Nope
+    else { return null; }
 
 };
 
@@ -41,8 +47,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         const result = {};
 
         // Input
-        result.elements = getElementData(clickedEl);
-        console.log($(clickedEl).parent());
+        result.base = getElementData(clickedEl);
+        result.parent = getElementData($(clickedEl).parent()[0]);
 
         // Send Response
         sendResponse(result);
