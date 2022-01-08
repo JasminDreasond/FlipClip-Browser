@@ -23,6 +23,8 @@ var modal = function(title, message, icon = '') {
     return new Promise(function(resolve, reject) {
         chrome.windows.create({
             type: 'popup',
+            height: 400,
+            width: 600,
             url: chrome.runtime.getURL(`/modal.html?title=${encodeURIComponent(title)}&message=${encodeURIComponent(message)}&icon=${encodeURIComponent(icon)}`)
         }).then(resolve).catch(reject);
     });
