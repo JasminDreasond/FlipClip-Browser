@@ -42,19 +42,31 @@ const getElementData = function(item) {
 // Receive Chrome Event
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request == "getClickedEl" && clickedEl) {
+        try {
 
-        // Prepare Result
-        const result = {};
+            // Prepare Result
+            const result = {};
 
-        // Input
-        result.base = getElementData(clickedEl);
-        result.parent = getElementData($(clickedEl).parent()[0]);
+            // Parent
+            const tinyElement = $(clickedEl);
+            const parent = tinyElement.parent();
 
-        // Send Response
-        sendResponse(result);
+            // Input
+            result.base = getElementData(clickedEl);
+            result.parent = getElementData(parent[0]);
 
-        // Reset Click Element
-        clickedEl = null;
+            // Get Index
+            result.base.index = tinyElement.index();
 
+            // Send Response
+            sendResponse(result);
+
+            // Reset Click Element
+            clickedEl = null;
+
+        } catch (err) {
+            console.error(err);
+            sendResponse(null);
+        }
     }
 });
