@@ -1,0 +1,7 @@
+body {
+    overflow: hidden !important;
+}
+
+.modal-body {
+    overflow-y: auto !important;
+}
