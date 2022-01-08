@@ -13,8 +13,31 @@ $(function() {
     $('.modal-title').text(params.title);
     document.title = params.title;
 
+    // Icon
+    let alertIcon = 'fas fa-exclamation-triangle';
+    if (typeof params.icon === 'string' && params.icon.length > 0) {
+
+        // Okay
+        if (params.icon === 'okay') {
+            alertIcon = 'fas fa-thumbs-up"';
+        }
+
+        // Info
+        else if (params.icon === 'info') {
+            alertIcon = 'fas fa-info-circle';
+        }
+
+        // Question
+        if (params.icon === 'question') {
+            alertIcon = 'fas fa-question-circle';
+        }
+
+    }
+
     // Insert Data
-    $('.modal-body').text(params.message);
+    $('.modal-body').text(params.message).prepend(
+        $('<i>', { class: alertIcon })
+    );
 
     // Close Button
     $('#close-modal, .close').click(function() { window.close(); });
