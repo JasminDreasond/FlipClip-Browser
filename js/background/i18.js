@@ -49,7 +49,9 @@ fetch(chrome.runtime.getURL('manifest.json'))
         manifest = json;
         exLang.default_locale = json.default_locale;
         addLanguage(exLang.locale).then(() => {
-
+            addLanguage(exLang.default_locale).then(() => {
+                startBackground();
+            }).catch(err => { modal('ERROR ' + err.code, err.message); });
         }).catch(() => {
             addLanguage(exLang.default_locale).then(() => {
                 startBackground();
