@@ -1,5 +1,10 @@
 $(function() {
 
+    // Dark Mode Enable
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        $('#modal, .modal-content').addClass('bg-dark').addClass('text-white');
+    }
+
     // Params
     const urlSearchParams = new URLSearchParams(window.location.search);
     var params = Object.fromEntries(urlSearchParams.entries());
