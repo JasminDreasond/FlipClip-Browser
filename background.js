@@ -298,6 +298,11 @@ var startBackground = function() {
                 modal('ERROR ' + data.code, data.message);
             },
 
+            // Get Address Resykt
+            getAddressResult: function(sender, sendResponse, data) {
+                console.log(data);
+            }
+
         };
 
         // Window Connection
