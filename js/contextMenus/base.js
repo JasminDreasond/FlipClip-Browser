@@ -14,6 +14,12 @@ chrome.contextMenus.create({
     title: 'Loading...'
 });
 
+chrome.contextMenus.create({
+    contexts: ['editable', 'selection'],
+    id: 'openDomainProfile',
+    title: 'Loading...'
+});
+
 const getAddress = async function(data, tab, symbol) {
 
     // Validate Selection
@@ -259,6 +265,10 @@ var startContextMenus = function() {
 
     chrome.contextMenus.update('getAddress', {
         title: chrome.i18n.getMessage('get_wallet_address')
+    });
+
+    chrome.contextMenus.update('openDomainProfile', {
+        title: chrome.i18n.getMessage('openDomainProfile')
     });
 
     // Read Crypto Data
