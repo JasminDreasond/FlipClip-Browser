@@ -60,7 +60,7 @@ chrome.contextMenus.create({
     contexts: ['editable'],
     parentId: 'insertAddress',
     id: 'insertAddressBTC',
-    title: 'BTC'
+    title: 'Bitcoin'
 });
 
 contextMenus.insertAddressBTC = async function(data, tab, itemClick) {
@@ -72,7 +72,7 @@ chrome.contextMenus.create({
     contexts: ['editable'],
     parentId: 'insertAddress',
     id: 'insertAddressETH',
-    title: 'ETH'
+    title: 'Ethereum'
 });
 
 contextMenus.insertAddressETH = async function(data, tab, itemClick) {
@@ -84,7 +84,7 @@ chrome.contextMenus.create({
     contexts: ['editable'],
     parentId: 'insertAddress',
     id: 'insertAddressDOGE',
-    title: 'DOGE'
+    title: 'Doge Coin'
 });
 
 contextMenus.insertAddressDOGE = async function(data, tab, itemClick) {
