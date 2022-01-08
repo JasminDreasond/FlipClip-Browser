@@ -130,5 +130,13 @@
     "convert_to_wallet": {
         "message": "Convert Domain to Wallet Address",
         "description": "Convert Domain to Wallet Address"
+    },
+    "invalid_get_domain_title": {
+        "message": "Invalid NFT Domain!",
+        "description": "Invalid NFT Domain!"
+    },
+    "invalid_get_domain_text": {
+        "message": "The \"{domain}\" domain does not belong to any NFT domain registration.",
+        "description": "The \"{domain}\" domain does not belong to any NFT domain registration."
     }
 }
