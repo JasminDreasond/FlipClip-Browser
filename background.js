@@ -1,3 +1,6 @@
+// Anti Repeat
+let started = false;
+
 // Domains Servers
 const domains = {
 
@@ -16,103 +19,104 @@ const domains = {
 };
 
 var startBackground = function() {
+    if (!started) {
 
-    if (!global) { var global = {}; }
-    if (!global.window) { global.window = {}; }
+        if (!global) { var global = {}; }
+        if (!global.window) { global.window = {}; }
 
-    // Windows
-    const windows = {};
+        // Windows
+        const windows = {};
 
-    // URL Validator
-    const urlValidator = function(vanillaURL) {
+        // URL Validator
+        const urlValidator = function(vanillaURL) {
 
-        // URL
-        let url = vanillaURL.split('/');
+            // URL
+            let url = vanillaURL.split('/');
 
-        return (
+            return (
 
-            // URL Base
-            (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
-            url[1] === '' &&
+                // URL Base
+                (url[0].startsWith('ipfs:') || url[0].startsWith('https:') || url[0].startsWith('http:')) &&
+                url[1] === '' &&
 
-            // Domains
-            (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
-        );
+                // Domains
+                (domains.unstoppabledomains.find(domain => url[2].endsWith(domain)))
+            );
 
-    };
-
-    // Open NFT Script
-    const openNFTPage = async function(tabID, vanillaURL, newTab) {
-
-        // Prepare URL Filter
-        let url = vanillaURL.split('/');
-        let domain = null;
-        let windowDetected = false;
-
-        // Create Window
-        const createWindow = function(resolve) {
-            chrome.windows.create({
-                type: 'popup',
-                url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
-            }, function(newWindow) {
-
-                // Add New Window
-                windows[newWindow.id] = { data: newWindow };
-                windows[newWindow.id].usingNow = true;
-
-                // Complete
-                resolve();
-                return;
-
-            });
         };
 
-        // Detect Window
-        const detectWindow = function() {
+        // Open NFT Script
+        const openNFTPage = async function(tabID, vanillaURL, newTab) {
 
-            // Detect Window
-            for (const item in windows) {
-                if (windows[item].usingNow) {
+            // Prepare URL Filter
+            let url = vanillaURL.split('/');
+            let domain = null;
+            let windowDetected = false;
 
-                    // Send Data to Window
-                    chrome.runtime.sendMessage(null, { type: 'newTab', url: url, domain: domain });
+            // Create Window
+            const createWindow = function(resolve) {
+                chrome.windows.create({
+                    type: 'popup',
+                    url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
+                }, function(newWindow) {
+
+                    // Add New Window
+                    windows[newWindow.id] = { data: newWindow };
+                    windows[newWindow.id].usingNow = true;
 
                     // Complete
-                    windowDetected = true;
-                    break;
+                    resolve();
+                    return;
 
+                });
+            };
+
+            // Detect Window
+            const detectWindow = function() {
+
+                // Detect Window
+                for (const item in windows) {
+                    if (windows[item].usingNow) {
+
+                        // Send Data to Window
+                        chrome.runtime.sendMessage(null, { type: 'newTab', url: url, domain: domain });
+
+                        // Complete
+                        windowDetected = true;
+                        break;
+
+                    }
                 }
-            }
 
-        };
+            };
 
-        // URL Checker
-        if (urlValidator(vanillaURL)) {
+            // URL Checker
+            if (urlValidator(vanillaURL)) {
 
-            try {
+                try {
 
-                // Remove Protocol
-                url.shift();
+                    // Remove Protocol
+                    url.shift();
 
-                // Remove Blank
-                url.shift();
+                    // Remove Blank
+                    url.shift();
 
-                // Get Domain
-                domain = url[0];
-                url.shift();
+                    // Get Domain
+                    domain = url[0];
+                    url.shift();
 
-                // Fix URL
-                url = url.join('/');
-                await new Promise(function(resolve) {
-                    chrome.tabs.remove(tabID, function() {
+                    // Fix URL
+                    url = url.join('/');
+                    await new Promise(function(resolve) {
+                        chrome.tabs.remove(tabID, function() {
 
-                        // New Window
-                        if (Object.keys(windows).length < 1) { createWindow(resolve); }
+                            // New Window
+                            if (Object.keys(windows).length < 1) { createWindow(resolve); }
 
-                        // Exist Window
-                        else {
+                            // Exist Window
+                            else {
 
-                            /*                         // Detect Window
+                                /*                         // Detect Window
                                                     detectWindow();
     
                                                     // Complete
@@ -121,164 +125,166 @@ var startBackground = function() {
                                                     // Nope
                                                     else { createWindow(resolve); } */
 
-                            createWindow(resolve);
+                                createWindow(resolve);
 
-                        }
+                            }
+
+                        });
+                    });
+
+                } catch (err) { console.error(err); }
+
+            }
+
+            // New Browser Page
+            else if (newTab) {
+
+                try {
+
+                    await new Promise(function(resolve) {
+
+                        // Get Domain
+                        domain = '';
+                        url = '';
+
+                        // Complete
+                        createWindow(resolve);
 
                     });
+
+                } catch (err) { console.error(err); }
+
+            }
+
+            // Complete
+            return;
+
+        };
+
+        // Web Request
+        const webRequestValidator = function(details) {
+
+            // Open URL
+            if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
+                openNFTPage(details.tabId, details.url);
+            }
+
+            // Send Frame Data
+            else if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
+                chrome.runtime.sendMessage(null, {
+                    type: 'frameUpdate',
+                    data: details
                 });
+            }
 
-            } catch (err) { console.error(err); }
+        };
 
-        }
+        /* chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); }); */
+        chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
+            urls: ["<all_urls>"]
+        });
 
-        // New Browser Page
-        else if (newTab) {
+        chrome.webRequest.onCompleted.addListener(function(details) {
 
-            try {
-
-                await new Promise(function(resolve) {
-
-                    // Get Domain
-                    domain = '';
-                    url = '';
-
-                    // Complete
-                    createWindow(resolve);
-
+            // Send Frame Data
+            if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
+                chrome.runtime.sendMessage(null, {
+                    type: 'onComplete',
+                    data: details
                 });
+            }
 
-            } catch (err) { console.error(err); }
+        }, {
+            urls: ["<all_urls>"]
+        });
 
-        }
+        chrome.windows.onBoundsChanged.addListener(function(window) {
 
-        // Complete
-        return;
+            // Send Frame Data
+            if (windows[window.id]) {
+                chrome.runtime.sendMessage(null, {
+                    type: 'onBoundsChanged',
+                    data: window
+                });
+            }
 
-    };
+        });
 
-    // Web Request
-    const webRequestValidator = function(details) {
+        // Delete Window Data
+        chrome.windows.onRemoved.addListener(function(windowID) {
+            if (windows[windowID]) {
 
-        // Open URL
-        if (details.frameId === 0 && details.type === "main_frame" && details.method === "GET") {
-            openNFTPage(details.tabId, details.url);
-        }
+                // Using Now
+                if (windows[windowID].usingNow) {
+                    for (const item in windows) {
+                        if (item !== String(windowID)) {
+                            windows[item].usingNow = true;
+                            break;
+                        }
+                    }
+                }
 
-        // Send Frame Data
-        else if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
-            chrome.runtime.sendMessage(null, {
-                type: 'frameUpdate',
-                data: details
-            });
-        }
+                // Delete Data
+                delete windows[windowID];
 
-    };
+            }
+        });
 
-    /* chrome.action.onClicked.addListener(function(tab) { return openNFTPage(tab.id, tab.url, true); }); */
-    chrome.webRequest.onBeforeRequest.addListener(webRequestValidator, {
-        urls: ["<all_urls>"]
-    });
-
-    chrome.webRequest.onCompleted.addListener(function(details) {
-
-        // Send Frame Data
-        if (details.frameId > 0 && details.type === "sub_frame" && details.parentFrameId === 0) {
-            chrome.runtime.sendMessage(null, {
-                type: 'onComplete',
-                data: details
-            });
-        }
-
-    }, {
-        urls: ["<all_urls>"]
-    });
-
-    chrome.windows.onBoundsChanged.addListener(function(window) {
-
-        // Send Frame Data
-        if (windows[window.id]) {
-            chrome.runtime.sendMessage(null, {
-                type: 'onBoundsChanged',
-                data: window
-            });
-        }
-
-    });
-
-    // Delete Window Data
-    chrome.windows.onRemoved.addListener(function(windowID) {
-        if (windows[windowID]) {
-
-            // Using Now
-            if (windows[windowID].usingNow) {
+        // Change Window Using Now
+        chrome.windows.onFocusChanged.addListener(function(windowID) {
+            if (windows[windowID]) {
                 for (const item in windows) {
-                    if (item !== String(windowID)) {
+                    if (String(windowID) === item) {
                         windows[item].usingNow = true;
-                        break;
+                    } else if (windows[item].usingNow) {
+                        delete windows[item].usingNow;
                     }
                 }
             }
+        });
 
-            // Delete Data
-            delete windows[windowID];
+        // Messages
+        const messages = {
 
-        }
-    });
+            connectWindow: function(sender, sendResponse) {
+                if (!windows[sender.tab.windowId]) { windows[sender.tab.windowId] = {}; }
+                windows[sender.tab.windowId].storage = {};
+                windows[sender.tab.windowId].sender = sender;
+                sendResponse(true);
+            },
 
-    // Change Window Using Now
-    chrome.windows.onFocusChanged.addListener(function(windowID) {
-        if (windows[windowID]) {
-            for (const item in windows) {
-                if (String(windowID) === item) {
-                    windows[item].usingNow = true;
-                } else if (windows[item].usingNow) {
-                    delete windows[item].usingNow;
-                }
+            addHistory: function(sender, sendResponse, data) {
+                chrome.history.addUrl({ url: `https://${data.domain}/${data.path}` });
+            },
+
+            removeHistory: function(sender, sendResponse, data) {
+                chrome.history.deleteUrl({ url: `https://${data.domain}/${data.path}` });
+            },
+
+            searchHistory: function(sender, sendResponse, data) {
+                chrome.history.search(data).then(search => {
+                    sendResponse(null, search);
+                }).catch(err => {
+                    sendResponse(err);
+                });
             }
-        }
-    });
 
-    // Messages
-    const messages = {
+        };
 
-        connectWindow: function(sender, sendResponse) {
-            if (!windows[sender.tab.windowId]) { windows[sender.tab.windowId] = {}; }
-            windows[sender.tab.windowId].storage = {};
-            windows[sender.tab.windowId].sender = sender;
-            sendResponse(true);
-        },
+        // Window Connection
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+            if (typeof message === 'string') {
+                if (typeof messages[message] === 'function') { messages[message](sender, sendResponse); }
+            } else {
+                if (typeof messages[message.type] === 'function') { messages[message.type](sender, sendResponse, message.data); }
+            }
+        });
 
-        addHistory: function(sender, sendResponse, data) {
-            chrome.history.addUrl({ url: `https://${data.domain}/${data.path}` });
-        },
+        // ContextMenus
+        startContextMenus();
+        started = true;
 
-        removeHistory: function(sender, sendResponse, data) {
-            chrome.history.deleteUrl({ url: `https://${data.domain}/${data.path}` });
-        },
-
-        searchHistory: function(sender, sendResponse, data) {
-            chrome.history.search(data).then(search => {
-                sendResponse(null, search);
-            }).catch(err => {
-                sendResponse(err);
-            });
-        }
-
-    };
-
-    // Window Connection
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        if (typeof message === 'string') {
-            if (typeof messages[message] === 'function') { messages[message](sender, sendResponse); }
-        } else {
-            if (typeof messages[message.type] === 'function') { messages[message.type](sender, sendResponse, message.data); }
-        }
-    });
-
-    // ContextMenus
-    startContextMenus();
-
+    }
 };
 
 // Import Script

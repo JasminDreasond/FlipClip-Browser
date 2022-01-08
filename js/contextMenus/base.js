@@ -54,6 +54,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 };
 
 // Start Script
+const walletsLoaded = {};
 var startContextMenus = function() {
 
     // Insert Address
@@ -62,7 +63,6 @@ var startContextMenus = function() {
     });
 
     // Read Crypto Data
-    const walletsLoaded = {};
     for (const dns in webinfo.dns) {
         for (const item in webinfo.dns[dns].wallet) {
             if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
