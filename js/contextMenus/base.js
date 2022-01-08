@@ -77,7 +77,7 @@ var startContextMenus = function() {
                     contexts: ['editable'],
                     parentId: 'insertAddress',
                     id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
-                    title: webinfo.dns[dns].wallet[item].symbol.name
+                    title: webinfo.dns[dns].wallet[item].name
                 });
 
                 // Add Callback
