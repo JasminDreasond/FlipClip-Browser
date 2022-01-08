@@ -50,7 +50,13 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                     target: { tabId: tab.id },
                     args: [data.selectionText, symbol, insertFullInput, itemClick],
                     func: function(addr, symbol, insertFullInput, itemClick) {
-                        if (itemClick && itemClick.base && itemClick.parent) {
+                        if (
+                            itemClick &&
+                            itemClick.base &&
+                            itemClick.parent &&
+                            typeof itemClick.base.selectionEnd === 'number' &&
+                            typeof itemClick.base.selectionStart === 'number'
+                        ) {
 
                             // Module
                             var resolution = new unResolution.Resolution();

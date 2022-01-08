@@ -29,6 +29,15 @@ const getElementData = function(item) {
         result.tagName = element.prop("tagName").toLowerCase();
         result.index = element.index();
 
+        // Select Position
+        if (typeof item.selectionStart === 'number') {
+            result.selectionStart = item.selectionStart;
+        }
+
+        if (typeof item.selectionEnd === 'number') {
+            result.selectionEnd = item.selectionEnd;
+        }
+
         // Complete
         return result;
 
