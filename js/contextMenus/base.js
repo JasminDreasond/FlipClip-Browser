@@ -272,10 +272,13 @@ var startContextMenus = function() {
     });
 
     contextMenus['openDomainProfile'] = function(data) {
-        chrome.windows.create({
-            type: 'normal',
-            url: message.data.url
-        });
+        const dns = urlValidator('https://' + data.selectionText + '/');
+        if (webinfo.dns[dns] && webinfo.dns[dns].page) {
+            chrome.windows.create({
+                type: 'normal',
+                url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
+            });
+        }
     };
 
     // Read Crypto Data
