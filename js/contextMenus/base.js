@@ -118,19 +118,16 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                                     resolution.addr(addr, symbol).then((cryptoAddr) => {
 
                                         // Get Element
-                                        console.log(itemClick.base.selectionEnd, itemClick.base.selectionStart);
-                                        console.log(cryptoAddr);
-                                        console.log(tinyInput.val());
+                                        var bbrep = function(text) {
+                                            var tmpVal = tinyInput.val().substring(itemClick.base.selectionStart, itemClick.base.selectionEnd);
+                                            tinyInput.val(tinyInput.val().replace(tmpVal, text));
+                                        }
 
                                         // Normal Insert
-                                        if (!insertFullInput) {
-
-                                        }
+                                        if (!insertFullInput) { bbrep(cryptoAddr); }
 
                                         // Full Input
-                                        else {
-
-                                        }
+                                        else { tinyInput.val(cryptoAddr); }
 
                                         // Complete
                                         tinyInput.LoadingOverlay("hide", true);
