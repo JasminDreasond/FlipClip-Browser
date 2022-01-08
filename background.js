@@ -61,90 +61,86 @@ var urlValidator = function(vanillaURL) {
 
 };
 
-// Start Background
-var startBackground = function() {
-    if (!started) {
+if (!global) { var global = {}; }
+if (!global.window) { global.window = {}; }
 
-        if (!global) { var global = {}; }
-        if (!global.window) { global.window = {}; }
+// Windows
+var windows = {};
 
-        // Windows
-        const windows = {};
+// Open NFT Script
+var openNFTPage = async function(tabID, vanillaURL, newTab) {
 
-        // Open NFT Script
-        const openNFTPage = async function(tabID, vanillaURL, newTab) {
+    // Prepare URL Filter
+    let url = vanillaURL.split('/');
+    let domain = null;
+    let windowDetected = false;
 
-            // Prepare URL Filter
-            let url = vanillaURL.split('/');
-            let domain = null;
-            let windowDetected = false;
+    // Create Window
+    const createWindow = function(resolve) {
+        chrome.windows.create({
+            type: 'popup',
+            state: 'maximized',
+            url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
+        }, function(newWindow) {
 
-            // Create Window
-            const createWindow = function(resolve) {
-                chrome.windows.create({
-                    type: 'popup',
-                    state: 'maximized',
-                    url: chrome.runtime.getURL(`/browser.html?path=${encodeURIComponent(url)}&domain=${encodeURIComponent(domain)}`)
-                }, function(newWindow) {
+            // Add New Window
+            windows[newWindow.id] = { data: newWindow };
+            windows[newWindow.id].usingNow = true;
 
-                    // Add New Window
-                    windows[newWindow.id] = { data: newWindow };
-                    windows[newWindow.id].usingNow = true;
+            // Complete
+            resolve();
+            return;
 
-                    // Complete
-                    resolve();
-                    return;
+        });
+    };
 
-                });
-            };
+    // Detect Window
+    const detectWindow = function() {
 
-            // Detect Window
-            const detectWindow = function() {
+        // Detect Window
+        for (const item in windows) {
+            if (windows[item].usingNow) {
 
-                // Detect Window
-                for (const item in windows) {
-                    if (windows[item].usingNow) {
+                // Send Data to Window
+                chrome.runtime.sendMessage(null, { type: 'newTab', url: url, domain: domain });
 
-                        // Send Data to Window
-                        chrome.runtime.sendMessage(null, { type: 'newTab', url: url, domain: domain });
+                // Complete
+                windowDetected = true;
+                break;
 
-                        // Complete
-                        windowDetected = true;
-                        break;
+            }
+        }
 
-                    }
-                }
+    };
 
-            };
+    // URL Checker
+    if (urlValidator(vanillaURL)) {
 
-            // URL Checker
-            if (urlValidator(vanillaURL)) {
+        try {
 
-                try {
+            // Remove Protocol
+            url.shift();
 
-                    // Remove Protocol
-                    url.shift();
+            // Remove Blank
+            url.shift();
 
-                    // Remove Blank
-                    url.shift();
+            // Get Domain
+            domain = url[0];
+            url.shift();
 
-                    // Get Domain
-                    domain = url[0];
-                    url.shift();
+            // Fix URL
+            url = url.join('/');
+            await new Promise(function(resolve) {
+                if (typeof tabID === 'string' || typeof tabID === 'number') {
+                    chrome.tabs.remove(tabID, function() {
 
-                    // Fix URL
-                    url = url.join('/');
-                    await new Promise(function(resolve) {
-                        if (typeof tabID === 'string' || typeof tabID === 'number') {
-                            chrome.tabs.remove(tabID, function() {
+                        // New Window
+                        if (Object.keys(windows).length < 1) { createWindow(resolve); }
 
-                                // New Window
-                                if (Object.keys(windows).length < 1) { createWindow(resolve); }
+                        // Exist Window
+                        else {
 
-                                // Exist Window
-                                else {
-
-                                    /*                         // Detect Window
+                            /*                         // Detect Window
                                                     detectWindow();
     
                                                     // Complete
@@ -153,48 +149,52 @@ var startBackground = function() {
                                                     // Nope
                                                     else { createWindow(resolve); } */
 
-                                    createWindow(resolve);
+                            createWindow(resolve);
 
-                                }
-
-                            });
-                        } else { createWindow(resolve); }
-                    });
-
-                } catch (err) {
-                    modal('ERROR ' + err.code, err.message);
-                    console.error(err);
-                }
-
-            }
-
-            // New Browser Page
-            else if (newTab) {
-
-                try {
-
-                    await new Promise(function(resolve) {
-
-                        // Get Domain
-                        domain = '';
-                        url = '';
-
-                        // Complete
-                        createWindow(resolve);
+                        }
 
                     });
+                } else { createWindow(resolve); }
+            });
 
-                } catch (err) {
-                    modal('ERROR ' + err.code, err.message);
-                    console.error(err);
-                }
+        } catch (err) {
+            modal('ERROR ' + err.code, err.message);
+            console.error(err);
+        }
 
-            }
+    }
 
-            // Complete
-            return;
+    // New Browser Page
+    else if (newTab) {
 
-        };
+        try {
+
+            await new Promise(function(resolve) {
+
+                // Get Domain
+                domain = '';
+                url = '';
+
+                // Complete
+                createWindow(resolve);
+
+            });
+
+        } catch (err) {
+            modal('ERROR ' + err.code, err.message);
+            console.error(err);
+        }
+
+    }
+
+    // Complete
+    return;
+
+};
+
+// Start Background
+var startBackground = function() {
+    if (!started) {
 
         // Web Request
         const webRequestValidator = function(details) {
