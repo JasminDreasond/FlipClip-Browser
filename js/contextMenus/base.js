@@ -36,8 +36,6 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
         // Exist Selection
         if (typeof data.selectionText === 'string' && data.selectionText.length > 0) {
 
-            console.log(data, tab, symbol, itemClick);
-
             // Execute Lib
             await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
@@ -47,8 +45,8 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
             // Execute Script
             await chrome.scripting.executeScript({
                 target: { tabId: tab.id },
-                args: [data.selectionText, symbol, insertFullInput],
-                func: function(addr, symbol, insertFullInput) {
+                args: [data.selectionText, symbol, insertFullInput, itemClick],
+                func: function(addr, symbol, insertFullInput, itemClick) {
 
                     // Module
                     var resolution = new unResolution.Resolution();
@@ -57,6 +55,7 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                     resolution.addr(addr, symbol).then((addr) => {
 
                         // Result
+                        console.log(insertFullInput, itemClick);
                         console.log(addr);
 
                         // Normal Insert
