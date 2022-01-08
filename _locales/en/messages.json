@@ -142,5 +142,9 @@
     "invalid_get_domain_text": {
         "message": "The \"{domain}\" domain does not belong to any NFT domain registration.",
         "description": "The \"{domain}\" domain does not belong to any NFT domain registration."
+    },
+    "new_address_from_tab": {
+        "message": "{symbol} address of the domain \"{domain}\"",
+        "description": "{symbol} address of the domain \"{domain}\""
     }
 }

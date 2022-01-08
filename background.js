@@ -302,7 +302,7 @@ var startBackground = function() {
             getAddressResult: function(sender, sendResponse, data) {
                 if (typeof data.domain === 'string' && typeof data.symbol === 'string' && typeof data.addr === 'string') {
                     modal(
-                        chrome.i18n.getMessage('address_from_tab')
+                        chrome.i18n.getMessage('new_address_from_tab')
                         .replace('{domain}', data.domain).replace('{symbol}', data.symbol),
                         data.addr,
                         'getText',
