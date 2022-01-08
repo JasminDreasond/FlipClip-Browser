@@ -47,34 +47,55 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
                 target: { tabId: tab.id },
                 args: [data.selectionText, symbol, insertFullInput, itemClick],
                 func: function(addr, symbol, insertFullInput, itemClick) {
+                    if (itemClick && itemClick.base && itemClick.parent) {
 
-                    // Module
-                    var resolution = new unResolution.Resolution();
+                        // Module
+                        var resolution = new unResolution.Resolution();
 
-                    // Get Address
-                    resolution.addr(addr, symbol).then((addr) => {
+                        // Get Address
+                        resolution.addr(addr, symbol).then((addr) => {
 
-                        // Result
-                        console.log(insertFullInput, itemClick);
-                        console.log(addr);
+                            // Result
+                            console.log(insertFullInput, itemClick);
+                            console.log(addr);
 
-                        // Normal Insert
-                        if (!insertFullInput) {
+                            // Elements
+                            const elements = { base: { query: '' }, parent: { query: '' } };
+                            const insertElements = function(where) {
+                                for (const item in itemClick[where].elements) {
+                                    if (item === 'id') {
+                                        elements[where].query += '#' + itemClick[where].elements[item];
+                                    } else if (item === 'class') {
+                                        elements[where].query += '.' + itemClick[where].elements[item].replace(/ /g, '.');
+                                    } else {
+                                        elements[where].query += '[' + item + '="' + itemClick[where].elements[item] + '"]';
+                                    }
+                                }
+                            };
 
-                        }
+                            // Insert Query Data
+                            insertElements('base');
+                            insertElements('parent');
+                            console.log(elements);
 
-                        // Full Input
-                        else {
+                            // Normal Insert
+                            if (!insertFullInput) {
 
-                        }
+                            }
 
-                    })
+                            // Full Input
+                            else {
 
-                    // Error
-                    .catch(err => {
-                        console.error(err);
-                    });
+                            }
 
+                        })
+
+                        // Error
+                        .catch(err => {
+                            console.error(err);
+                        });
+
+                    }
                 }
             });
 
