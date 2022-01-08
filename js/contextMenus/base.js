@@ -55,41 +55,31 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
 };
 
-// Bitcoin
-chrome.contextMenus.create({
-    contexts: ['editable'],
-    parentId: 'insertAddress',
-    id: 'insertAddressBTC',
-    title: 'Bitcoin'
-});
+// Read Crypto Data
+const walletsLoaded = {};
+for (const dns in webinfo.dns) {
+    for (const item in webinfo.dns[dns].wallet) {
+        if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
 
-contextMenus.insertAddressBTC = async function(data, tab, itemClick) {
-    return insertAddress(data, tab, 'BTC', itemClick);
-};
+            // Add Values
+            walletsLoaded[webinfo.dns[dns].wallet[item].symbol] = webinfo.dns[dns].wallet[item].symbol;
 
-// Ethereum
-chrome.contextMenus.create({
-    contexts: ['editable'],
-    parentId: 'insertAddress',
-    id: 'insertAddressETH',
-    title: 'Ethereum'
-});
+            // Add Menu
+            chrome.contextMenus.create({
+                contexts: ['editable'],
+                parentId: 'insertAddress',
+                id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
+                title: webinfo.dns[dns].wallet[item].symbol.name
+            });
 
-contextMenus.insertAddressETH = async function(data, tab, itemClick) {
-    return insertAddress(data, tab, 'ETH', itemClick);
-};
+            // Add Callback
+            contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
+                return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
+            };
 
-// Doge
-chrome.contextMenus.create({
-    contexts: ['editable'],
-    parentId: 'insertAddress',
-    id: 'insertAddressDOGE',
-    title: 'Doge Coin'
-});
-
-contextMenus.insertAddressDOGE = async function(data, tab, itemClick) {
-    return insertAddress(data, tab, 'DOGE', itemClick);
-};
+        }
+    }
+}
 
 // Click Menu
 chrome.contextMenus.onClicked.addListener((data, tab) => {
