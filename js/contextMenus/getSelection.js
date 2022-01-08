@@ -3,7 +3,6 @@ var clickedEl = null;
 
 // Context Menu Detector
 $(document).on('contextmenu', () => { clickedEl = document.activeElement; });
-
 const getElementData = function(item) {
 
     // Item
