@@ -6,46 +6,50 @@ var extraCrypto = {
         generator: function(record) {
             return function(domain) {
                 return new Promise(function(resolve, reject) {
-                    resolution.records(domain, [record]).then((value) => { resolve(value[record]); }).catch(reject);
+                    resolution.records(domain, record).then((value) => {
+                        if (record.length < 2) {
+                            resolve(value[record[0]]);
+                        } else {
+                            resolve(value);
+                        }
+                    }).catch(reject);
                 });
             }
+        },
+
+        data: {
+            USDT: ['ERC20', 'TRON', 'EOS', 'OMNI'],
+            MATIC: ['MATIC', 'BEP20', 'ERC20'],
+            BUSD: ['ERC20', 'BEP20', 'HRC20'],
+            SHIB: ['ERC20', 'MATIC', 'FANTOM'],
+            CAKE: ['ERC20', 'HRC20']
         },
 
     }
 
 };
 
-// USDT
-extraCrypto.unstoppabledomains.USDT = {
-    ERC20: extraCrypto.unstoppabledomains.generator('crypto.USDT.version.ERC20.address'),
-    TRON: extraCrypto.unstoppabledomains.generator('crypto.USDT.version.TRON.address'),
-    EOS: extraCrypto.unstoppabledomains.generator('crypto.USDT.version.EOS.address'),
-    OMNI: extraCrypto.unstoppabledomains.generator('crypto.USDT.version.OMNI.address'),
-};
+// Read Crypto
+for (const dns in extraCrypto) {
 
-// MATIC
-extraCrypto.unstoppabledomains.MATIC = {
-    MATIC: extraCrypto.unstoppabledomains.generator('crypto.MATIC.version.MATIC.address'),
-    BEP20: extraCrypto.unstoppabledomains.generator('crypto.MATIC.version.BEP20.address'),
-    ERC20: extraCrypto.unstoppabledomains.generator('crypto.MATIC.version.ERC20.address'),
-};
+    // Read Data
+    for (const data in extraCrypto[dns].data) {
 
-// BUSD
-extraCrypto.unstoppabledomains.BUSD = {
-    ERC20: extraCrypto.unstoppabledomains.generator('crypto.BUSD.version.ERC20.address'),
-    BEP20: extraCrypto.unstoppabledomains.generator('crypto.BUSD.version.BEP20.address'),
-    HRC20: extraCrypto.unstoppabledomains.generator('crypto.BUSD.version.HRC20.address'),
-};
+        // Read Versions
+        const versions = [];
+        for (const item in extraCrypto[dns].data[data]) {
 
-// SHIB
-extraCrypto.unstoppabledomains.SHIB = {
-    ERC20: extraCrypto.unstoppabledomains.generator('crypto.SHIB.version.ERC20.address'),
-    MATIC: extraCrypto.unstoppabledomains.generator('crypto.SHIB.version.MATIC.address'),
-    FANTOM: extraCrypto.unstoppabledomains.generator('crypto.SHIB.version.FANTOM.address'),
-};
+            // Create Versions
+            if (!extraCrypto[dns][data]) { extraCrypto[dns][data] = {}; }
+            const record = 'crypto.' + data + '.version.' + extraCrypto[dns].data[data][item] + '.address';
 
-// CAKE
-extraCrypto.unstoppabledomains.CAKE = {
-    ERC20: extraCrypto.unstoppabledomains.generator('crypto.CAKE.version.ERC20.address'),
-    HRC20: extraCrypto.unstoppabledomains.generator('crypto.CAKE.version.HRC20.address'),
-};
+            versions.push(record);
+            extraCrypto[dns][data][extraCrypto[dns].data[data][item]] = extraCrypto.unstoppabledomains.generator([record]);
+
+        }
+
+        // Add Full Versions
+        extraCrypto[dns][data].ALL = extraCrypto.unstoppabledomains.generator(versions);
+
+    }
+}
