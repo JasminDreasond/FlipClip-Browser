@@ -52,4 +52,9 @@ for (const dns in extraCrypto) {
         extraCrypto[dns][data].ALL = extraCrypto.unstoppabledomains.generator(versions);
 
     }
+
+    // Delete Data
+    delete extraCrypto[dns].data;
+    delete extraCrypto[dns].generator;
+
 }
