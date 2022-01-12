@@ -262,7 +262,7 @@ var startBackground = function() {
                 // Delete Data
                 delete windows[windowID];
 
-            }
+            } else if (mainMenu.window && mainMenu.window.id === mainMenu.window) { delete mainMenu.window; }
         });
 
         // Change Window Using Now
@@ -349,3 +349,22 @@ importScripts('/js/background/i18.js');
 importScripts('/js/ud/domains.js');
 importScripts('/js/contextMenus/base.js');
 importScripts('/js/contextMenus/webInfo.js');
+
+const mainMenu = { window: null };
+chrome.action.onClicked.addListener(() => {
+    if (!mainMenu.window) {
+        mainMenu.window = {};
+        chrome.windows.create({
+            type: 'popup',
+            height: 400,
+            width: 600,
+            url: chrome.runtime.getURL(`/modal.html?type=cryptoManager`)
+        }).then((tab) => {
+            mainMenu.window = tab;
+        }).catch((err) => {
+            delete mainMenu.window;
+            modal('ERROR ' + err.code, err.message);
+            console.error(err);
+        });
+    }
+});

@@ -11,6 +11,9 @@
     "background": {
         "service_worker": "background.js"
     },
+    "action": {
+        "default_title": "__MSG_appName__"
+    },
     "permissions": [
         "contentSettings",
         "background",
@@ -24,6 +27,7 @@
     "icons": {
         "128": "icons/icon_128.png",
         "16": "icons/icon_16.png",
+        "38": "icons/icon_38.png",
         "48": "icons/icon_48.png"
     },
     "host_permissions": ["<all_urls>"],
