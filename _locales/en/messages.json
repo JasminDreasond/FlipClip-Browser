@@ -154,5 +154,13 @@
     "openDomainPage": {
         "message": "Open the Domain Website",
         "description": "Open the Domain Website"
+    },
+    "typeACrypto": {
+        "message": "Enter an NFT domain address",
+        "description": "Enter an NFT domain address"
+    },
+    "cryptoManagerTitle": {
+        "message": "Crypto Lookup",
+        "description": "Crypto Lookup"
     }
 }
