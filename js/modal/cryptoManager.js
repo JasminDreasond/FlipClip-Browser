@@ -20,6 +20,25 @@ var cryptoManager = {
     // Check Cryptos
     checkCrypto: function(cid) {
 
+        // Clear Data
+        $('#domain_data').empty();
+
+        // Exist CID
+        if (cid) {
+
+            // Add CID Data
+            $('#domain_data').append(
+
+                // CID
+                $('<div>', { id: 'cid', class: 'my-3' }).append(
+                    $('<strong>').text('CID: '),
+                    $('<span>').text(cid)
+                )
+
+            );
+
+        }
+
     },
 
     // Start App
@@ -64,7 +83,10 @@ var cryptoManager = {
             }),
 
             // Error Place
-            $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).append($('<ol>', { class: 'm-0' })).css('white-space', 'pre-wrap')
+            $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).append($('<ol>', { class: 'm-0' })).css('white-space', 'pre-wrap'),
+
+            // Data
+            $('<div>', { id: 'domain_data' })
 
         );
 
