@@ -28,7 +28,11 @@ var cryptoManager = function() {
             }
 
             // Exist
-            if (dns) {;
+            if (dns) {
+
+                readDomainData(domain, 'ipfsHash').then((cid) => {
+                    console.log(cid);
+                });
 
             }
 
