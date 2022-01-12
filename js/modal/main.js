@@ -64,6 +64,11 @@ $(function() {
         );
     }
 
+    // Crypto Manager
+    else if (params.type === 'cryptoManager') {
+        cryptoManager();
+    }
+
     // Insert Data
     else {
         $('.modal-body').text(params.message);
