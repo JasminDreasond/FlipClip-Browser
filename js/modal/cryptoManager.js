@@ -1,9 +1,6 @@
 var domains = {};
 var cryptoManager = function() {
 
-    // Module
-    var resolution = new unResolution.Resolution();
-
     // Prepare Base
     document.title = chrome.i18n.getMessage('cryptoManagerTitle');
     $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
