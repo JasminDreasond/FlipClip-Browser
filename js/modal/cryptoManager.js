@@ -1,6 +1,22 @@
 var domains = {};
 var cryptoManager = {
 
+    // Insert Error
+    error: function(err, icon = 'fas fa-exclamation-triangle') {
+
+        // Log
+        console.error(err);
+
+        // Insert Error Message
+        $('#errorPlace ol').append(
+            $('<li>').text(err.message).prepend($('<i>', { class: icon + ' mr-2' }))
+        );
+
+        // Show Error
+        $('#errorPlace').removeClass('d-none');
+
+    },
+
     // Check Cryptos
     checkCrypto: function(cid) {
 
@@ -40,17 +56,8 @@ var cryptoManager = {
 
                     // Error
                     .catch(err => {
-
-                        console.error(err);
-
-                        $('#errorPlace ol').append(
-                            $('<li>').text(err.message).prepend($('<i>', { class: 'fas fa-exclamation-triangle mr-2' }))
-                        );
-
-                        $('#errorPlace').removeClass('d-none');
-
+                        cryptoManager.error(err);
                         cryptoManager.checkCrypto(null);
-
                     });
                 }
 
