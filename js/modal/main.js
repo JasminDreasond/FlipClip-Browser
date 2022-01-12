@@ -66,7 +66,7 @@ $(function() {
 
     // Crypto Manager
     else if (params.type === 'cryptoManager') {
-        cryptoManager();
+        cryptoManager.start();
     }
 
     // Insert Data

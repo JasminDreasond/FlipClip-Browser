@@ -1,42 +1,66 @@
 var domains = {};
-var cryptoManager = function() {
+var cryptoManager = {
 
-    // Prepare Base
-    document.title = chrome.i18n.getMessage('cryptoManagerTitle');
-    $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
-    $('.modal-body').append(
+    // Check Cryptos
+    checkCrypto: function(cid) {
 
-        // Input
-        $('<input>', { type: 'text', class: 'form-control text-center' })
+    },
 
-        // Detect Domain
-        .change(function() {
+    // Start App
+    start: function() {
 
-            // Prepare Update
-            $('#errorPlace').addClass('d-none').empty();
-            const domain = $(this).val();
+        // Prepare Base
+        document.title = chrome.i18n.getMessage('cryptoManagerTitle');
+        $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
+        $('.modal-body').append(
 
-            // Search Domain
-            if (typeof domain === 'string' && domain.length > 0) {
-                readDomainData(domain, 'ipfsHash')
+            // Input
+            $('<input>', { type: 'text', class: 'form-control text-center' })
 
-                // Success
-                .then((cid) => {
-                    console.log(cid);
-                })
+            // Detect Domain
+            .change(function() {
 
-                // Error
-                .catch(err => {
-                    console.error(err);
-                    $('#errorPlace').text(err.message).prepend($('<i>', { class: 'fas fa-exclamation-triangle mr-2' })).removeClass('d-none');
-                });
-            }
+                // Prepare Update
+                $('#errorPlace ').addClass('d-none');
+                $('#errorPlace ol').empty();
+                const domain = $(this).val();
 
-        }),
+                // Search Domain
+                if (typeof domain === 'string' && domain.length > 0) {
+                    readDomainData(domain, 'ipfsHash')
 
-        // Error Place
-        $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).css('white-space', 'pre-wrap')
+                    // Success
+                    .then((cid) => {
+                        if (cid && typeof cid.data === 'string' && cid.data.length > 0) {
+                            cryptoManager.checkCrypto(cid.data);
+                        } else {
+                            cryptoManager.checkCrypto(null);
+                        }
+                    })
 
-    );
+                    // Error
+                    .catch(err => {
+
+                        console.error(err);
+
+                        $('#errorPlace ol').append(
+                            $('<li>').text(err.message).prepend($('<i>', { class: 'fas fa-exclamation-triangle mr-2' }))
+                        );
+
+                        $('#errorPlace').removeClass('d-none');
+
+                        cryptoManager.checkCrypto(null);
+
+                    });
+                }
+
+            }),
+
+            // Error Place
+            $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).append($('<ol>', { class: 'm-0' })).css('white-space', 'pre-wrap')
+
+        );
+
+    }
 
 };
