@@ -5,35 +5,38 @@ var cryptoManager = function() {
     document.title = chrome.i18n.getMessage('cryptoManagerTitle');
     $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
     $('.modal-body').append(
+
+        // Input
         $('<input>', { type: 'text', class: 'form-control text-center' })
 
         // Detect Domain
         .change(function() {
 
-            // Domain DNS Selected
-            let dns = null;
+            // Prepare Update
+            $('#errorPlace').addClass('d-none').empty();
             const domain = $(this).val();
-            for (const where in domains) {
-                if (where !== 'filterGenerator') {
-                    for (const item in domains[where]) {
-                        if (domain.endsWith(domains[where][item])) {
-                            dns = where;
-                            break;
-                        }
-                    }
-                }
-            }
 
-            // Exist
-            if (dns) {
+            // Search Domain
+            if (typeof domain === 'string' && domain.length > 0) {
+                readDomainData(domain, 'ipfsHash')
 
-                readDomainData(domain, 'ipfsHash').then((cid) => {
+                // Success
+                .then((cid) => {
                     console.log(cid);
-                });
+                })
 
+                // Error
+                .catch(err => {
+                    console.error(err);
+                    $('#errorPlace').text(err.message).prepend($('<i>', { class: 'fas fa-exclamation-triangle mr-2' })).removeClass('d-none');
+                });
             }
 
-        })
+        }),
+
+        // Error Place
+        $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).css('white-space', 'pre-wrap')
+
     );
 
 };
