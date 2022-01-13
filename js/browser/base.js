@@ -204,18 +204,7 @@ $(function() {
 
                 // Browser Ready
                 console.log('FlipClip Browser Started!');
-
-                // IPFS IO Checker
-                if (
-                    browserSettings.proxy === tinyProxy.ipfsio.url &&
-                    browserSettings.proxyHomepage === tinyProxy.ipfsio.homepage
-                ) {
-                    console.log('IPFS IO Detected!');
-                    startTinyActions();
-                }
-
-                // Nope
-                else { startTinyActions(); }
+                startTinyActions();
 
             }
         });
