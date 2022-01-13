@@ -210,7 +210,24 @@ var cryptoManager = {
                                     id: 'proxyURL',
                                     placeholder: tinyProxy.url,
                                     'aria-describedby': 'proxyURLHelp'
-                                }).val(storage.proxyURL),
+                                }).val(storage.proxyURL).change(function() {
+
+                                    const tinyThis = $(this);
+                                    const newDomain = tinyThis.val();
+                                    tinyThis.prop('disabled', true);
+
+                                    if (newDomain.startsWith('https://') || newDomain.startsWith('http://')) {
+                                        chrome.storage.local.set({ proxyURL: newDomain }).then(() => {
+                                            tinyThis.prop('disabled', false);
+                                        }).catch(err => {
+                                            console.error(err);
+                                        });
+                                    } else {
+                                        tinyThis.val('');
+                                        tinyThis.prop('disabled', false);
+                                    }
+
+                                }),
 
                                 $('<small>', { id: 'proxyURLHelp', class: 'noselect' }).text(chrome.i18n.getMessage('proxyURLHelp'))
 
@@ -227,7 +244,24 @@ var cryptoManager = {
                                     id: 'proxyHomepage',
                                     placeholder: tinyProxy.homepage,
                                     'aria-describedby': 'proxyHomepageHelp'
-                                }).val(storage.proxyHomepage),
+                                }).val(storage.proxyHomepage).change(function() {
+
+                                    const tinyThis = $(this);
+                                    const newDomain = tinyThis.val();
+                                    tinyThis.prop('disabled', true);
+
+                                    if (newDomain.startsWith('https://') || newDomain.startsWith('http://')) {
+                                        chrome.storage.local.set({ proxyHomepage: newDomain }).then(() => {
+                                            tinyThis.prop('disabled', false);
+                                        }).catch(err => {
+                                            console.error(err);
+                                        });
+                                    } else {
+                                        tinyThis.val('');
+                                        tinyThis.prop('disabled', false);
+                                    }
+
+                                }),
 
                                 $('<small>', { id: 'proxyHomepageHelp', class: 'noselect' }).text(chrome.i18n.getMessage('proxyHomepageHelp'))
 
