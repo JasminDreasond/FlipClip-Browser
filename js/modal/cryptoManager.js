@@ -202,12 +202,13 @@ var cryptoManager = {
                             $('<center>').append(
                                 $('<button>', { class: 'btn btn-info noselect mb-3' }).text('Install IPFS.IO').click(function() {
                                     const tinyThis = $(this);
-                                    const newProxy = `https://{cid32}.ipfs.io/`;
-                                    const newHomepage = `https://dist.ipfs.io/`;
                                     tinyThis.prop('disabled', true);
-                                    $('#proxyURL').val(newProxy);
-                                    $('#proxyHomepage').val(newHomepage);
-                                    chrome.storage.local.set({ proxyURL: newProxy, proxyHomepage: newHomepage }).then(() => {
+                                    $('#proxyURL').val(tinyProxy.ipfsio.url);
+                                    $('#proxyHomepage').val(tinyProxy.ipfsio.homepage);
+                                    chrome.storage.local.set({
+                                        proxyURL: tinyProxy.ipfsio.url,
+                                        proxyHomepage: tinyProxy.ipfsio.homepage
+                                    }).then(() => {
                                         tinyThis.prop('disabled', false);
                                     }).catch(err => {
                                         console.error(err);
