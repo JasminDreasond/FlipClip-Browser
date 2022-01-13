@@ -185,6 +185,7 @@ $(function() {
     chrome.storage.sync.get(['proxyURL', 'proxyHomepage'], async function(storage) {
         if (typeof storage.proxyURL === 'string' && storage.proxyURL.length > 0) { browserSettings.proxy = storage.proxyURL; }
         if (typeof storage.proxyHomepage === 'string' && storage.proxyHomepage.length > 0) { browserSettings.proxyHomepage = storage.proxyHomepage; }
+        console.log(`Proxy ${browserSettings.proxy} from ${browserSettings.proxyHomepage}`);
         console.log('FlipClip Browser sending request...');
         chrome.runtime.sendMessage('connectWindow', (response) => {
             if (response) {
