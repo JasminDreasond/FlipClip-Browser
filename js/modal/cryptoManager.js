@@ -195,9 +195,11 @@ var cryptoManager = {
             if (!cryptoManager.settings.active) {
 
                 chrome.storage.local.get(['proxyURL', 'proxyHomepage'], async function(storage) {
+                    $('.modal-body').append(
+                        $('<div>', { id: 'settings' }).append(
 
-                    console.log(storage);
-
+                        )
+                    );
                 });
 
                 // Final Action
@@ -211,6 +213,7 @@ var cryptoManager = {
 
             // Disable
             else {
+                $('#settings').remove();
                 document.title = chrome.i18n.getMessage('cryptoManagerTitle');
                 $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
                 $('#cryptoManager').removeClass('d-none');
