@@ -22,7 +22,6 @@ var cryptoManager = {
 
         // Clear Data
         $('#domain_data').empty();
-        console.log(dns);
 
         // Exist Domain Name
         if (typeof domain === 'string' && domain.length > 0) {
@@ -35,17 +34,48 @@ var cryptoManager = {
 
                     // CID
                     $('<div>', { id: 'cid', class: 'my-3' }).append(
-                        $('<strong>').text('CID: '),
+                        $('<strong>', { class: 'mr-2' }).text('CID:'),
                         $('<span>').text(cid)
                     ),
 
                     // CID32
                     $('<div>', { id: 'cid', class: 'my-3' }).append(
-                        $('<strong>').text('CID32: '),
+                        $('<strong>', { class: 'mr-2' }).text('CID32:'),
                         $('<span>').text(CIDTool.base32(cid))
                     )
 
                 );
+
+            }
+
+            // More Domain Info
+            if (webinfo.dns[dns]) {
+
+                // DNS URL
+                const dnsURL = webinfo.dns[dns].page.replace('{domain}', domain).replace('{domainURI}', encodeURIComponent(domain));
+                const domainURL = `https://${domain}/`;
+                /*  https://dist.ipfs.io */
+
+                // Add Web Data
+                $('#domain_data').append(
+
+                    // Domain
+                    $('<div>', { id: 'domain', class: 'my-3' }).append(
+
+                        $('<strong>', { class: 'mr-2' }).text('DNS:'),
+                        $('<a>', { href: dnsURL, target: '_blank' }).text(dnsURL)
+
+                    ),
+
+                    // Domain
+                    $('<div>', { id: 'domain', class: 'my-3' }).append(
+
+                        $('<strong>', { class: 'mr-2' }).text(chrome.i18n.getMessage('domainURL')),
+                        $('<a>', { href: domainURL, target: '_blank' }).text(domainURL)
+
+                    )
+
+                )
 
             }
 

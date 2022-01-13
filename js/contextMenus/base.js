@@ -291,7 +291,7 @@ var startContextMenus = function() {
             const dns = urlValidator('https://' + data.selectionText + '/');
             if (webinfo.dns[dns] && webinfo.dns[dns].page) {
                 chrome.tabs.create({
-                    url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
+                    url: webinfo.dns[dns].page.replace('{domain}', data.selectionText).replace('{domainURI}', encodeURIComponent(data.selectionText))
                 });
             } else {
                 modal(
