@@ -214,6 +214,23 @@ var cryptoManager = {
 
                                 $('<small>', { id: 'proxyURLHelp' }).text('Enter the domain of the proxy server used to connect to NFT domains.')
 
+                            ),
+
+                            // Proxy Homepage
+                            $('<div>', { class: 'form-group' }).append(
+
+                                $('<label>', { for: 'proxyHomepage' }).text('Proxy Homepage'),
+
+                                $('<input>', {
+                                    type: 'url',
+                                    class: 'form-control',
+                                    id: 'proxyHomepage',
+                                    placeholder: tinyProxy.homepage,
+                                    'aria-describedby': 'proxyHomepageHelp'
+                                }).val(storage.proxyHomepage),
+
+                                $('<small>', { id: 'proxyHomepageHelp' }).text('Enter the official homepage of the proxy being used.')
+
                             )
 
                         )
