@@ -194,6 +194,9 @@ var cryptoManager = {
             // Enable
             if (!cryptoManager.settings.active) {
 
+
+
+                // Final Action
                 document.title = chrome.i18n.getMessage('settings');
                 $('.modal-title').text(chrome.i18n.getMessage('settings'));
                 $('#cryptoManager').addClass('d-none');
@@ -204,13 +207,11 @@ var cryptoManager = {
 
             // Disable
             else {
-
                 document.title = chrome.i18n.getMessage('cryptoManagerTitle');
                 $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
                 $('#cryptoManager').removeClass('d-none');
                 $(this).addClass('btn-info').removeClass('btn-success');
                 cryptoManager.settings.active = false;
-
             }
 
         });
