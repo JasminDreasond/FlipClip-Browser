@@ -57,7 +57,6 @@ var cryptoManager = {
                 // DNS URL
                 const dnsURL = webinfo.dns[dns].page.replace('{domain}', domain).replace('{domainURI}', encodeURIComponent(domain));
                 const domainURL = `https://${domain}/`;
-                /*  https://dist.ipfs.io */
 
                 // Add Web Data
                 $('#domain_data').append(
@@ -198,6 +197,23 @@ var cryptoManager = {
                 chrome.storage.local.get(['proxyURL', 'proxyHomepage'], async function(storage) {
                     $('.modal-body').append(
                         $('<div>', { id: 'settings' }).append(
+
+                            // Insert IPFS.IO
+                            $('<center>').append(
+                                $('<button>', { class: 'btn btn-info noselect mb-3' }).text('Install IPFS.IO').click(function() {
+                                    const tinyThis = $(this);
+                                    const newProxy = `https://{cid32}.ipfs.io/`;
+                                    const newHomepage = `https://dist.ipfs.io/`;
+                                    tinyThis.prop('disabled', true);
+                                    $('#proxyURL').val(newProxy);
+                                    $('#proxyHomepage').val(newHomepage);
+                                    chrome.storage.local.set({ proxyURL: newProxy, proxyHomepage: newHomepage }).then(() => {
+                                        tinyThis.prop('disabled', false);
+                                    }).catch(err => {
+                                        console.error(err);
+                                    });
+                                })
+                            ),
 
                             // Proxy URL
                             $('<div>', { class: 'form-group' }).append(
