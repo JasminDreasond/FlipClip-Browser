@@ -202,7 +202,7 @@ var cryptoManager = {
                             // Proxy URL
                             $('<div>', { class: 'form-group' }).append(
 
-                                $('<label>', { for: 'proxyURL' }).text('Proxy URL'),
+                                $('<label>', { for: 'proxyURL' }).text(chrome.i18n.getMessage('proxyURLTitle')),
 
                                 $('<input>', {
                                     type: 'url',
@@ -212,14 +212,14 @@ var cryptoManager = {
                                     'aria-describedby': 'proxyURLHelp'
                                 }).val(storage.proxyURL),
 
-                                $('<small>', { id: 'proxyURLHelp' }).text('Enter the domain of the proxy server used to connect to NFT domains.')
+                                $('<small>', { id: 'proxyURLHelp' }).text(chrome.i18n.getMessage('proxyURLHelp'))
 
                             ),
 
                             // Proxy Homepage
                             $('<div>', { class: 'form-group' }).append(
 
-                                $('<label>', { for: 'proxyHomepage' }).text('Proxy Homepage'),
+                                $('<label>', { for: 'proxyHomepage' }).text(chrome.i18n.getMessage('proxyHomepageTitle')),
 
                                 $('<input>', {
                                     type: 'url',
@@ -229,7 +229,7 @@ var cryptoManager = {
                                     'aria-describedby': 'proxyHomepageHelp'
                                 }).val(storage.proxyHomepage),
 
-                                $('<small>', { id: 'proxyHomepageHelp' }).text('Enter the official homepage of the proxy being used.')
+                                $('<small>', { id: 'proxyHomepageHelp' }).text(chrome.i18n.getMessage('proxyHomepageHelp'))
 
                             )
 

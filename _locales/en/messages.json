@@ -170,5 +170,21 @@
     "settings": {
         "message": "Settings",
         "description": "Settings"
+    },
+    "proxyURLHelp": {
+        "message": "Enter the domain of the proxy server used to connect to NFT domains.",
+        "description": "Enter the domain of the proxy server used to connect to NFT domains."
+    },
+    "proxyHomepageHelp": {
+        "message": "Enter the official homepage of the proxy being used.",
+        "description": "Enter the official homepage of the proxy being used."
+    },
+    "proxyURLTitle": {
+        "message": "Proxy URL",
+        "description": "Proxy URL"
+    },
+    "proxyHomepageTitle": {
+        "message": "Proxy Homepage",
+        "description": "Proxy Homepage"
     }
 }
