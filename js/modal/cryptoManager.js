@@ -223,8 +223,12 @@ var cryptoManager = {
                                             console.error(err);
                                         });
                                     } else {
-                                        tinyThis.val('');
-                                        tinyThis.prop('disabled', false);
+                                        chrome.storage.local.set({ proxyURL: null }).then(() => {
+                                            tinyThis.val('');
+                                            tinyThis.prop('disabled', false);
+                                        }).catch(err => {
+                                            console.error(err);
+                                        });
                                     }
 
                                 }),
@@ -257,8 +261,12 @@ var cryptoManager = {
                                             console.error(err);
                                         });
                                     } else {
-                                        tinyThis.val('');
-                                        tinyThis.prop('disabled', false);
+                                        chrome.storage.local.set({ proxyHomepage: null }).then(() => {
+                                            tinyThis.val('');
+                                            tinyThis.prop('disabled', false);
+                                        }).catch(err => {
+                                            console.error(err);
+                                        });
                                     }
 
                                 }),
