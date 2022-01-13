@@ -200,7 +200,7 @@ var cryptoManager = {
 
                             // Insert IPFS.IO
                             $('<center>').append(
-                                $('<button>', { class: 'btn btn-info noselect mb-3' }).text('Install IPFS.IO').click(function() {
+                                $('<button>', { class: 'btn btn-info noselect mb-3' }).text(chrome.i18n.getMessage('insertThisConfig').replace('{configname}', 'ipfs.io')).click(function() {
                                     const tinyThis = $(this);
                                     tinyThis.prop('disabled', true);
                                     $('#proxyURL').val(tinyProxy.ipfsio.url);

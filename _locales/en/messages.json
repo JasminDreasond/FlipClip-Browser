@@ -186,5 +186,9 @@
     "proxyHomepageTitle": {
         "message": "Proxy Homepage",
         "description": "Proxy Homepage"
+    },
+    "insertThisConfig": {
+        "message": "Insert {configname} Config",
+        "description": "Insert {configname} Config"
     }
 }
