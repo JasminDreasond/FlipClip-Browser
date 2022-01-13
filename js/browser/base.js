@@ -190,6 +190,18 @@ $(function() {
         chrome.runtime.sendMessage('connectWindow', (response) => {
             if (response) {
 
+                // Start Browser Actions
+                const startTinyActions = function() {
+                    startAddressBar(function() {
+                        startBrowser(function() {
+                            $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
+                            $('#appstart').fadeOut(500, function() {
+                                $('#appstart').remove();
+                            });
+                        });
+                    });
+                };
+
                 // Browser Ready
                 console.log('FlipClip Browser Started!');
 
@@ -198,18 +210,12 @@ $(function() {
                     browserSettings.proxy === tinyProxy.ipfsio.url &&
                     browserSettings.proxyHomepage === tinyProxy.ipfsio.homepage
                 ) {
-
+                    console.log('IPFS IO Detected!');
+                    startTinyActions();
                 }
 
-                // Start Browser Actions
-                startAddressBar(function() {
-                    startBrowser(function() {
-                        $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
-                        $('#appstart').fadeOut(500, function() {
-                            $('#appstart').remove();
-                        });
-                    });
-                });
+                // Nope
+                else { startTinyActions(); }
 
             }
         });
