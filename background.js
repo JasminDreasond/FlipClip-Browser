@@ -344,7 +344,7 @@ var startBackground = function() {
                 mainMenu.window = {};
                 chrome.windows.create({
                     type: 'popup',
-                    height: 500,
+                    height: 600,
                     width: 700,
                     url: chrome.runtime.getURL(`/modal.html?type=cryptoManager`)
                 }).then((tab) => {
