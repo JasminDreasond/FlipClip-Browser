@@ -181,19 +181,24 @@ const messages = {
 // Start Window Connection
 console.log('FlipClip Browser starting...');
 $(function() {
-    console.log('FlipClip Browser sending request...');
-    chrome.runtime.sendMessage('connectWindow', (response) => {
-        if (response) {
-            console.log('FlipClip Browser Started!');
-            startAddressBar(function() {
-                startBrowser(function() {
-                    $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
-                    $('#appstart').fadeOut(500, function() {
-                        $('#appstart').remove();
+    console.log('Loading Proxy Data...');
+    chrome.storage.sync.get(['proxyURL', 'proxyHomepage'], async function(storage) {
+        if (typeof storage.proxyURL === 'string' && storage.proxyURL.length > 0) { browserSettings.proxy = storage.proxyURL; }
+        if (typeof storage.proxyHomepage === 'string' && storage.proxyHomepage.length > 0) { browserSettings.proxyHomepage = storage.proxyHomepage; }
+        console.log('FlipClip Browser sending request...');
+        chrome.runtime.sendMessage('connectWindow', (response) => {
+            if (response) {
+                console.log('FlipClip Browser Started!');
+                startAddressBar(function() {
+                    startBrowser(function() {
+                        $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
+                        $('#appstart').fadeOut(500, function() {
+                            $('#appstart').remove();
+                        });
                     });
                 });
-            });
-        }
+            }
+        });
     });
 });
 

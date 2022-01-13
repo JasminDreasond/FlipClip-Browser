@@ -47,8 +47,8 @@ var browserSettings = {
     },
 
     // Proxy
-    proxy: 'https://{cid32}.ipfs.dweb.link/',
-    proxyHomepage: 'https://dweb.link/',
+    proxy: tinyProxy.url,
+    proxyHomepage: tinyProxy.homepage,
     urlGenerator: function(value) {
         let urlResult = browserSettings.proxy.replace('{cid}', value).replace('{cid32}', CIDTool.base32(value));
         if (!browserSettings.proxy.endsWith('/')) { urlResult += '/'; }

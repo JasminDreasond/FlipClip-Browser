@@ -194,7 +194,11 @@ var cryptoManager = {
             // Enable
             if (!cryptoManager.settings.active) {
 
+                chrome.storage.sync.get(['proxyURL', 'proxyHomepage'], async function(storage) {
 
+                    console.log(storage);
+
+                });
 
                 // Final Action
                 document.title = chrome.i18n.getMessage('settings');
