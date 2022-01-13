@@ -162,5 +162,9 @@
     "cryptoManagerTitle": {
         "message": "Crypto Lookup",
         "description": "Crypto Lookup"
+    },
+    "invalidDNSDomain": {
+        "message": "The DNS server for this domain is invalid!",
+        "description": "The DNS server for this domain is invalid!"
     }
 }

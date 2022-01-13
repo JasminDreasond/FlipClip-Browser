@@ -86,7 +86,7 @@ var cryptoManager = {
                 }
 
                 // Search Domain
-                if (typeof domain === 'string' && domain.length > 0) {
+                if (typeof domain === 'string' && domain.length > 0 && typeof dns === 'string' && dns.length > 0) {
                     readDomainData(domain, 'ipfsHash')
 
                     // Success
@@ -103,6 +103,8 @@ var cryptoManager = {
                         cryptoManager.error(err);
                         cryptoManager.checkCrypto(null, domain, dns);
                     });
+                } else {
+                    cryptoManager.error(new Error(chrome.i18n.getMessage('invalidDNSDomain')));
                 }
 
             }),
