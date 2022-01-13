@@ -75,7 +75,39 @@ var cryptoManager = {
 
                     )
 
-                )
+                );
+
+
+                // Get Wallet Buttons
+                for (const item in webinfo.dns[dns].wallet) {
+                    $('#domain_data').append(
+                        $('<div>', { class: 'mt-3' }).append(
+
+                            $('<strong>', { class: 'mr-1' }).text(webinfo.dns[dns].wallet[item].name + ':'),
+                            $('<span>').append(
+                                $('<button>', { class: 'btn btn-primary browser-button', id: 'wallet_' + webinfo.dns[dns].wallet[item].symbol }).append(
+                                    $('<i>', { class: 'fas fa-eye' })
+                                ).data('WALLET_SYMBOL', webinfo.dns[dns].wallet[item].symbol).click(function() {
+
+                                    const symbol = $(this).data('WALLET_SYMBOL');
+                                    $('#wallet_' + symbol).prop('disabled', true)
+                                    readDomainData(domain, 'addr', symbol).then((data) => {
+
+                                        $('#wallet_' + symbol).replaceWith(
+                                            $('<span>').text(data.data)
+                                        );
+
+                                    }).catch(err => {
+                                        alert(err.message);
+                                        console.error(err);
+                                        $('#wallet_' + symbol).removeClass('btn-primary').addClass('btn-danger');
+                                    });
+
+                                })
+                            )
+
+                        ));
+                }
 
             }
 

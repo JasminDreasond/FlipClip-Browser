@@ -54,7 +54,7 @@ browserSettings.webinfo.open = function() {
                             })
                         )
 
-                    ))
+                    ));
 
             }
 
