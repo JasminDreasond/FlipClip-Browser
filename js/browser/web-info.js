@@ -22,7 +22,7 @@ browserSettings.webinfo.open = function() {
                 $('<hr>', { class: 'my-4' }),
 
                 // Wallet
-                $('<h5>', { class: 'm-0 mb-4' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
+                $('<h5>', { class: 'noselect m-0 mb-4' }).text(chrome.i18n.getMessage('wallet')).prepend($('<i>', { class: 'fab fa-bitcoin mr-2' }))
             ];
 
             // Get Wallet Buttons
@@ -31,7 +31,7 @@ browserSettings.webinfo.open = function() {
                 buttonsWallet.push(
                     $('<p>').append(
 
-                        $('<strong>', { class: 'mr-1' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
+                        $('<strong>', { class: 'mr-1 noselect' }).text(browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].name + ':'),
                         $('<span>').append(
                             $('<button>', { class: 'btn btn-primary browser-button', id: 'wallet_' + browserSettings.webinfo.dns[browserSettings.tabs[id].dns].wallet[item].symbol }).append(
                                 $('<i>', { class: 'fas fa-eye' })
@@ -63,20 +63,20 @@ browserSettings.webinfo.open = function() {
     }
 
     // Title
-    $('#webicon .modal-title').addClass('text-success').empty().text(chrome.i18n.getMessage('ipfsConnectionTitle')).prepend($('<i>', { class: 'fas fa-lock mr-2' }));
+    $('#webicon .modal-title').addClass('text-success noselect').empty().text(chrome.i18n.getMessage('ipfsConnectionTitle')).prepend($('<i>', { class: 'fas fa-lock mr-2' }));
 
     // Body
     $('#webicon .modal-body').empty().append(
 
         // Info
-        $('<p>', { class: 'm-0' }).text(chrome.i18n.getMessage('ipfsConnectionInfo')),
+        $('<p>', { class: 'm-0 noselect' }).text(chrome.i18n.getMessage('ipfsConnectionInfo')),
 
         $('<hr>', { class: 'my-4' }),
 
         // Proxy
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('proxyURL')),
+            $('<strong>', { class: 'mr-1 noselect' }).text(chrome.i18n.getMessage('proxyURL')),
             $('<a>', { href: browserSettings.proxyHomepage, target: '_blank' }).text(browserSettings.proxy)
 
         ),
@@ -84,7 +84,7 @@ browserSettings.webinfo.open = function() {
         // Domain
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('domainURL')),
+            $('<strong>', { class: 'mr-1 noselect' }).text(chrome.i18n.getMessage('domainURL')),
             $('<a>', { href: domainPage, target: '_blank' }).text(browserSettings.tabs[id].domain)
 
         ),
@@ -92,7 +92,7 @@ browserSettings.webinfo.open = function() {
         // CID
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('cidURL')),
+            $('<strong>', { class: 'mr-1 noselect' }).text(chrome.i18n.getMessage('cidURL')),
             $('<span>').text(browserSettings.tabs[id].cid)
 
         ),
@@ -100,7 +100,7 @@ browserSettings.webinfo.open = function() {
         // CID32
         $('<p>').append(
 
-            $('<strong>', { class: 'mr-1' }).text(chrome.i18n.getMessage('cid32URL')),
+            $('<strong>', { class: 'mr-1 noselect' }).text(chrome.i18n.getMessage('cid32URL')),
             $('<span>').text(browserSettings.tabs[id].cid32)
 
         ),
