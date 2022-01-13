@@ -18,30 +18,35 @@ var cryptoManager = {
     },
 
     // Check Cryptos
-    checkCrypto: function(cid) {
+    checkCrypto: function(cid, domain, dns) {
 
         // Clear Data
         $('#domain_data').empty();
 
-        // Exist CID
-        if (cid) {
+        // Exist Domain Name
+        if (typeof domain === 'string' && domain.length > 0) {
 
-            // Add CID Data
-            $('#domain_data').append(
+            // Exist CID
+            if (typeof cid === 'string' && cid.length > 0) {
 
-                // CID
-                $('<div>', { id: 'cid', class: 'my-3' }).append(
-                    $('<strong>').text('CID: '),
-                    $('<span>').text(cid)
-                ),
+                // Add CID Data
+                $('#domain_data').append(
 
-                // CID32
-                $('<div>', { id: 'cid', class: 'my-3' }).append(
-                    $('<strong>').text('CID32: '),
-                    $('<span>').text(CIDTool.base32(cid))
-                )
+                    // CID
+                    $('<div>', { id: 'cid', class: 'my-3' }).append(
+                        $('<strong>').text('CID: '),
+                        $('<span>').text(cid)
+                    ),
 
-            );
+                    // CID32
+                    $('<div>', { id: 'cid', class: 'my-3' }).append(
+                        $('<strong>').text('CID32: '),
+                        $('<span>').text(CIDTool.base32(cid))
+                    )
+
+                );
+
+            }
 
         }
 
@@ -66,6 +71,20 @@ var cryptoManager = {
                 $('#errorPlace ol').empty();
                 const domain = $(this).val();
 
+                // Domain DNS Selected
+                let dns = null;
+                const domain = $(this).val();
+                for (const where in domains) {
+                    if (where !== 'filterGenerator') {
+                        for (const item in domains[where]) {
+                            if (domain.endsWith(domains[where][item])) {
+                                dns = where;
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 // Search Domain
                 if (typeof domain === 'string' && domain.length > 0) {
                     readDomainData(domain, 'ipfsHash')
@@ -73,16 +92,16 @@ var cryptoManager = {
                     // Success
                     .then((cid) => {
                         if (cid && typeof cid.data === 'string' && cid.data.length > 0) {
-                            cryptoManager.checkCrypto(cid.data);
+                            cryptoManager.checkCrypto(cid.data, domain, dns);
                         } else {
-                            cryptoManager.checkCrypto(null);
+                            cryptoManager.checkCrypto(null, domain, dns);
                         }
                     })
 
                     // Error
                     .catch(err => {
                         cryptoManager.error(err);
-                        cryptoManager.checkCrypto(null);
+                        cryptoManager.checkCrypto(null, domain, dns);
                     });
                 }
 
