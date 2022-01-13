@@ -16,6 +16,9 @@ $(document).keyup(function(e) {
 // Start Script
 $(function() {
 
+    // Close Button
+    $('#close-modal').text(chrome.i18n.getMessage('close'));
+
     // Dark Mode Enabled
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         $('#modal, .modal-content, body').addClass('bg-dark').addClass('text-white');
