@@ -1,6 +1,9 @@
 var domains = {};
 var cryptoManager = {
 
+    // Settings
+    settings: { active: false, button: null },
+
     // Insert Error
     error: function(err, icon = 'fas fa-exclamation-triangle') {
 
@@ -181,6 +184,42 @@ var cryptoManager = {
                 $('<div>', { id: 'domain_data' })
 
             )
+
+        );
+
+        // Prepare Button
+        cryptoManager.settings.button = $('<button>', { class: 'btn btn-info' });
+        cryptoManager.settings.button.click(function() {
+
+            // Enable
+            if (!cryptoManager.settings.active) {
+
+                document.title = chrome.i18n.getMessage('settings');
+                $('.modal-title').text(chrome.i18n.getMessage('settings'));
+                $('#cryptoManager').addClass('d-none');
+                $(this).removeClass('btn-info').addClass('btn-success');
+                cryptoManager.settings.active = true;
+
+            }
+
+            // Disable
+            else {
+
+                document.title = chrome.i18n.getMessage('cryptoManagerTitle');
+                $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
+                $('#cryptoManager').removeClass('d-none');
+                $(this).addClass('btn-info').removeClass('btn-success');
+                cryptoManager.settings.active = false;
+
+            }
+
+        });
+
+        // Settings Button
+        $('.modal-footer').prepend(
+
+            // Settings Button
+            cryptoManager.settings.button.text(chrome.i18n.getMessage('settings'))
 
         );
 

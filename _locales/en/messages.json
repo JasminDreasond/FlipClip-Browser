@@ -166,5 +166,9 @@
     "invalidDNSDomain": {
         "message": "The DNS server for this domain is invalid!",
         "description": "The DNS server for this domain is invalid!"
+    },
+    "settings": {
+        "message": "Settings",
+        "description": "Settings"
     }
 }
