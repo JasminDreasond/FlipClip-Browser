@@ -182,7 +182,7 @@ const messages = {
 console.log('FlipClip Browser starting...');
 $(function() {
     console.log('Loading Proxy Data...');
-    chrome.storage.sync.get(['proxyURL', 'proxyHomepage'], async function(storage) {
+    chrome.storage.local.get(['proxyURL', 'proxyHomepage'], async function(storage) {
         if (typeof storage.proxyURL === 'string' && storage.proxyURL.length > 0) { browserSettings.proxy = storage.proxyURL; }
         if (typeof storage.proxyHomepage === 'string' && storage.proxyHomepage.length > 0) { browserSettings.proxyHomepage = storage.proxyHomepage; }
         console.log(`Proxy ${browserSettings.proxy} from ${browserSettings.proxyHomepage}`);

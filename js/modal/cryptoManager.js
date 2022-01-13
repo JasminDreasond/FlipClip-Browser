@@ -194,7 +194,7 @@ var cryptoManager = {
             // Enable
             if (!cryptoManager.settings.active) {
 
-                chrome.storage.sync.get(['proxyURL', 'proxyHomepage'], async function(storage) {
+                chrome.storage.local.get(['proxyURL', 'proxyHomepage'], async function(storage) {
 
                     console.log(storage);
 
