@@ -262,89 +262,95 @@ const insertAddress = async function(data, tab, symbol, itemClick) {
 
 // Start Script
 const walletsLoaded = {};
+let startContextMenusStarted = false;
 var startContextMenus = function() {
+    if (!startContextMenusStarted) {
 
-    // Insert Address
-    chrome.contextMenus.update('insertAddress', {
-        title: chrome.i18n.getMessage('convert_to_wallet') + ' (BETA)'
-    });
+        // Update
+        startContextMenusStarted = true;
 
-    chrome.contextMenus.update('getAddress', {
-        title: chrome.i18n.getMessage('get_wallet_address')
-    });
+        // Insert Address
+        chrome.contextMenus.update('insertAddress', {
+            title: chrome.i18n.getMessage('convert_to_wallet') + ' (BETA)'
+        });
 
-    chrome.contextMenus.update('openDomainProfile', {
-        title: chrome.i18n.getMessage('openDomainProfile')
-    });
+        chrome.contextMenus.update('getAddress', {
+            title: chrome.i18n.getMessage('get_wallet_address')
+        });
 
-    chrome.contextMenus.update('openDomainPage', {
-        title: chrome.i18n.getMessage('openDomainPage')
-    });
+        chrome.contextMenus.update('openDomainProfile', {
+            title: chrome.i18n.getMessage('openDomainProfile')
+        });
 
-    // Get Domain Profile
-    contextMenus['openDomainProfile'] = async function(data) {
-        const dns = urlValidator('https://' + data.selectionText + '/');
-        if (webinfo.dns[dns] && webinfo.dns[dns].page) {
-            chrome.tabs.create({
-                url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
-            });
-        } else {
-            modal(
-                chrome.i18n.getMessage('invalid_get_domain_title'),
-                chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
-        }
-        return;
-    };
+        chrome.contextMenus.update('openDomainPage', {
+            title: chrome.i18n.getMessage('openDomainPage')
+        });
 
-    // Get Domain Profile
-    contextMenus['openDomainPage'] = async function(data) {
-        const url = 'https://' + data.selectionText + '/';
-        if (urlValidator(url)) {
-            openNFTPage(null, url);
-        } else {
-            modal(
-                chrome.i18n.getMessage('invalid_get_domain_title'),
-                chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
-        }
-        return;
-    };
-
-    // Read Crypto Data
-    for (const dns in webinfo.dns) {
-        for (const item in webinfo.dns[dns].wallet) {
-            if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
-
-                // Add Values
-                walletsLoaded[webinfo.dns[dns].wallet[item].symbol] = webinfo.dns[dns].wallet[item].symbol;
-
-                // Add Menu
-                chrome.contextMenus.create({
-                    contexts: ['editable'],
-                    parentId: 'insertAddress',
-                    id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
-                    title: webinfo.dns[dns].wallet[item].name
+        // Get Domain Profile
+        contextMenus['openDomainProfile'] = async function(data) {
+            const dns = urlValidator('https://' + data.selectionText + '/');
+            if (webinfo.dns[dns] && webinfo.dns[dns].page) {
+                chrome.tabs.create({
+                    url: webinfo.dns[dns].page.replace('{domain}', data.selectionText)
                 });
-
-                chrome.contextMenus.create({
-                    contexts: ['selection'],
-                    parentId: 'getAddress',
-                    id: 'getAddress' + webinfo.dns[dns].wallet[item].symbol,
-                    title: webinfo.dns[dns].wallet[item].name
-                });
-
-                // Add Callback
-                contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
-                    return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
-                };
-
-                contextMenus['getAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab) {
-                    return getAddress(data, tab, webinfo.dns[dns].wallet[item].symbol);
-                };
-
+            } else {
+                modal(
+                    chrome.i18n.getMessage('invalid_get_domain_title'),
+                    chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
             }
-        }
-    };
+            return;
+        };
 
+        // Get Domain Profile
+        contextMenus['openDomainPage'] = async function(data) {
+            const url = 'https://' + data.selectionText + '/';
+            if (urlValidator(url)) {
+                openNFTPage(null, url);
+            } else {
+                modal(
+                    chrome.i18n.getMessage('invalid_get_domain_title'),
+                    chrome.i18n.getMessage('invalid_get_domain_text').replace('{domain}', data.selectionText));
+            }
+            return;
+        };
+
+        // Read Crypto Data
+        for (const dns in webinfo.dns) {
+            for (const item in webinfo.dns[dns].wallet) {
+                if (!walletsLoaded[webinfo.dns[dns].wallet[item].symbol]) {
+
+                    // Add Values
+                    walletsLoaded[webinfo.dns[dns].wallet[item].symbol] = webinfo.dns[dns].wallet[item].symbol;
+
+                    // Add Menu
+                    chrome.contextMenus.create({
+                        contexts: ['editable'],
+                        parentId: 'insertAddress',
+                        id: 'insertAddress' + webinfo.dns[dns].wallet[item].symbol,
+                        title: webinfo.dns[dns].wallet[item].name
+                    });
+
+                    chrome.contextMenus.create({
+                        contexts: ['selection'],
+                        parentId: 'getAddress',
+                        id: 'getAddress' + webinfo.dns[dns].wallet[item].symbol,
+                        title: webinfo.dns[dns].wallet[item].name
+                    });
+
+                    // Add Callback
+                    contextMenus['insertAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab, itemClick) {
+                        return insertAddress(data, tab, webinfo.dns[dns].wallet[item].symbol, itemClick);
+                    };
+
+                    contextMenus['getAddress' + webinfo.dns[dns].wallet[item].symbol] = async function(data, tab) {
+                        return getAddress(data, tab, webinfo.dns[dns].wallet[item].symbol);
+                    };
+
+                }
+            }
+        };
+
+    }
 }
 
 // Click Menu

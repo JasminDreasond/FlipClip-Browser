@@ -33,6 +33,12 @@ var cryptoManager = {
                 $('<div>', { id: 'cid', class: 'my-3' }).append(
                     $('<strong>').text('CID: '),
                     $('<span>').text(cid)
+                ),
+
+                // CID32
+                $('<div>', { id: 'cid', class: 'my-3' }).append(
+                    $('<strong>').text('CID32: '),
+                    $('<span>').text(CIDTool.base32(cid))
                 )
 
             );
