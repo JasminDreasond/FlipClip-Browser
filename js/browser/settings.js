@@ -72,8 +72,8 @@ browserSettings.buttons.settings = function() {
 
             // Insert Cfg
             optionsBase.append(
-                $('<label>', { for: settingsList[item].value, class: 'col-sm-6 col-form-label my-2' }).text(chrome.i18n.getMessage(settingsList[item].value)),
-                $('<div>', { class: 'col-sm-4 my-2' }).append(
+                $('<label>', { for: settingsList[item].value, class: 'noselect col-sm-6 col-form-label my-2' }).text(chrome.i18n.getMessage(settingsList[item].value)),
+                $('<div>', { class: 'col-sm-4 my-2 noselect' }).append(
                     select.change(async function() {
 
                         const value = $(this).val();
