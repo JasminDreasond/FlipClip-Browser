@@ -154,5 +154,41 @@
     "openDomainPage": {
         "message": "Abrir o Website do Domínio",
         "description": "Abrir o Website do Domínio"
+    },
+    "typeACrypto": {
+        "message": "Digite um endereço de domínio NFT",
+        "description": "Digite um endereço de domínio NFT"
+    },
+    "cryptoManagerTitle": {
+        "message": "Crypto Lookup",
+        "description": "Crypto Lookup"
+    },
+    "invalidDNSDomain": {
+        "message": "O servidor DNS para este domínio é inválido!",
+        "description": "O servidor DNS para este domínio é inválido!"
+    },
+    "settings": {
+        "message": "Configurações",
+        "description": "Configurações"
+    },
+    "proxyURLHelp": {
+        "message": "Insira o domínio do servidor proxy usado para se conectar aos domínios NFT.",
+        "description": "Insira o domínio do servidor proxy usado para se conectar aos domínios NFT."
+    },
+    "proxyHomepageHelp": {
+        "message": "Digite a página oficial do proxy que está sendo usado.",
+        "description": "Digite a página oficial do proxy que está sendo usado."
+    },
+    "proxyURLTitle": {
+        "message": "Proxy URL",
+        "description": "Proxy URL"
+    },
+    "proxyHomepageTitle": {
+        "message": "Proxy Homepage",
+        "description": "Proxy Homepage"
+    },
+    "insertThisConfig": {
+        "message": "Inserir configuração de {configname}",
+        "description": "Inserir configuração de {configname}"
     }
 }
