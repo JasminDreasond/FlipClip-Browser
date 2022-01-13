@@ -22,6 +22,7 @@ var cryptoManager = {
 
         // Clear Data
         $('#domain_data').empty();
+        console.log(dns);
 
         // Exist Domain Name
         if (typeof domain === 'string' && domain.length > 0) {
@@ -73,7 +74,6 @@ var cryptoManager = {
 
                 // Domain DNS Selected
                 let dns = null;
-                const domain = $(this).val();
                 for (const where in domains) {
                     if (where !== 'filterGenerator') {
                         for (const item in domains[where]) {
