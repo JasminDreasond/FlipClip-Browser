@@ -37,13 +37,13 @@ var cryptoManager = {
 
                     // CID
                     $('<div>', { id: 'cid', class: 'my-3' }).append(
-                        $('<strong>', { class: 'mr-2' }).text('CID:'),
+                        $('<strong>', { class: 'noselect mr-2' }).text('CID:'),
                         $('<span>').text(cid)
                     ),
 
                     // CID32
                     $('<div>', { id: 'cid', class: 'my-3' }).append(
-                        $('<strong>', { class: 'mr-2' }).text('CID32:'),
+                        $('<strong>', { class: 'noselect mr-2' }).text('CID32:'),
                         $('<span>').text(CIDTool.base32(cid))
                     )
 
@@ -65,7 +65,7 @@ var cryptoManager = {
                     // Domain
                     $('<div>', { id: 'domain', class: 'my-3' }).append(
 
-                        $('<strong>', { class: 'mr-2' }).text('DNS:'),
+                        $('<strong>', { class: 'noselect mr-2' }).text('DNS:'),
                         $('<a>', { href: dnsURL, target: '_blank' }).text(dnsURL)
 
                     ),
@@ -73,7 +73,7 @@ var cryptoManager = {
                     // Domain
                     $('<div>', { id: 'domain', class: 'my-3' }).append(
 
-                        $('<strong>', { class: 'mr-2' }).text(chrome.i18n.getMessage('domainURL')),
+                        $('<strong>', { class: 'noselect mr-2' }).text(chrome.i18n.getMessage('domainURL')),
                         $('<a>', { href: domainURL, target: '_blank' }).text(domainURL)
 
                     )
@@ -86,7 +86,7 @@ var cryptoManager = {
                     $('#domain_data').append(
                         $('<div>', { class: 'mt-3' }).append(
 
-                            $('<strong>', { class: 'mr-1' }).text(webinfo.dns[dns].wallet[item].name + ':'),
+                            $('<strong>', { class: 'noselect mr-1' }).text(webinfo.dns[dns].wallet[item].name + ':'),
                             $('<span>').append(
                                 $('<button>', { class: 'btn btn-primary browser-button', id: 'wallet_' + webinfo.dns[dns].wallet[item].symbol }).append(
                                     $('<i>', { class: 'fas fa-eye' })
@@ -97,7 +97,7 @@ var cryptoManager = {
                                     readDomainData(domain, 'addr', symbol).then((data) => {
 
                                         $('#wallet_' + symbol).replaceWith(
-                                            $('<span>').text(data.data)
+                                            $('<span>', ).text(data.data)
                                         );
 
                                     }).catch(err => {
@@ -202,7 +202,7 @@ var cryptoManager = {
                             // Proxy URL
                             $('<div>', { class: 'form-group' }).append(
 
-                                $('<label>', { for: 'proxyURL' }).text(chrome.i18n.getMessage('proxyURLTitle')),
+                                $('<label>', { for: 'proxyURL', class: 'noselect' }).text(chrome.i18n.getMessage('proxyURLTitle')),
 
                                 $('<input>', {
                                     type: 'url',
@@ -212,14 +212,14 @@ var cryptoManager = {
                                     'aria-describedby': 'proxyURLHelp'
                                 }).val(storage.proxyURL),
 
-                                $('<small>', { id: 'proxyURLHelp' }).text(chrome.i18n.getMessage('proxyURLHelp'))
+                                $('<small>', { id: 'proxyURLHelp', class: 'noselect' }).text(chrome.i18n.getMessage('proxyURLHelp'))
 
                             ),
 
                             // Proxy Homepage
                             $('<div>', { class: 'form-group' }).append(
 
-                                $('<label>', { for: 'proxyHomepage' }).text(chrome.i18n.getMessage('proxyHomepageTitle')),
+                                $('<label>', { for: 'proxyHomepage', class: 'noselect' }).text(chrome.i18n.getMessage('proxyHomepageTitle')),
 
                                 $('<input>', {
                                     type: 'url',
@@ -229,7 +229,7 @@ var cryptoManager = {
                                     'aria-describedby': 'proxyHomepageHelp'
                                 }).val(storage.proxyHomepage),
 
-                                $('<small>', { id: 'proxyHomepageHelp' }).text(chrome.i18n.getMessage('proxyHomepageHelp'))
+                                $('<small>', { id: 'proxyHomepageHelp', class: 'noselect' }).text(chrome.i18n.getMessage('proxyHomepageHelp'))
 
                             )
 
