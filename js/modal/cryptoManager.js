@@ -194,9 +194,27 @@ var cryptoManager = {
             // Enable
             if (!cryptoManager.settings.active) {
 
+                // Read Storage
                 chrome.storage.local.get(['proxyURL', 'proxyHomepage'], async function(storage) {
                     $('.modal-body').append(
                         $('<div>', { id: 'settings' }).append(
+
+                            // Proxy URL
+                            $('<div>', { class: 'form-group' }).append(
+
+                                $('<label>', { for: 'proxyURL' }).text('Proxy URL'),
+
+                                $('<input>', {
+                                    type: 'url',
+                                    class: 'form-control',
+                                    id: 'proxyURL',
+                                    placeholder: tinyProxy.url,
+                                    'aria-describedby': 'proxyURLHelp'
+                                }).val(storage.proxyURL),
+
+                                $('<small>', { id: 'proxyURLHelp' }).text('Enter the domain of the proxy server used to connect to NFT domains.')
+
+                            )
 
                         )
                     );
