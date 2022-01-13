@@ -189,7 +189,19 @@ $(function() {
         console.log('FlipClip Browser sending request...');
         chrome.runtime.sendMessage('connectWindow', (response) => {
             if (response) {
+
+                // Browser Ready
                 console.log('FlipClip Browser Started!');
+
+                // IPFS IO Checker
+                if (
+                    browserSettings.proxy === tinyProxy.ipfsio.url &&
+                    browserSettings.proxyHomepage === tinyProxy.ipfsio.homepage
+                ) {
+
+                }
+
+                // Start Browser Actions
                 startAddressBar(function() {
                     startBrowser(function() {
                         $('#address-bar li, #address-bar #page-status').on("contextmenu", function() { return false; });
@@ -198,6 +210,7 @@ $(function() {
                         });
                     });
                 });
+
             }
         });
     });
