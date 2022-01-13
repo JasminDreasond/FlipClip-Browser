@@ -123,59 +123,64 @@ var cryptoManager = {
         $('.modal-title').text(chrome.i18n.getMessage('typeACrypto'));
         $('.modal-body').append(
 
-            // Input
-            $('<input>', { type: 'text', class: 'form-control text-center' })
+            // Crypto Manager Item
+            $('<div>', { id: 'cryptoManager' }).append(
 
-            // Detect Domain
-            .change(function() {
+                // Input
+                $('<input>', { type: 'text', class: 'form-control text-center' })
 
-                // Prepare Update
-                $('#errorPlace ').addClass('d-none');
-                $('#errorPlace ol').empty();
-                const domain = $(this).val();
+                // Detect Domain
+                .change(function() {
 
-                // Domain DNS Selected
-                let dns = null;
-                for (const where in domains) {
-                    if (where !== 'filterGenerator') {
-                        for (const item in domains[where]) {
-                            if (domain.endsWith(domains[where][item])) {
-                                dns = where;
-                                break;
+                    // Prepare Update
+                    $('#errorPlace ').addClass('d-none');
+                    $('#errorPlace ol').empty();
+                    const domain = $(this).val();
+
+                    // Domain DNS Selected
+                    let dns = null;
+                    for (const where in domains) {
+                        if (where !== 'filterGenerator') {
+                            for (const item in domains[where]) {
+                                if (domain.endsWith(domains[where][item])) {
+                                    dns = where;
+                                    break;
+                                }
                             }
                         }
                     }
-                }
 
-                // Search Domain
-                if (typeof domain === 'string' && domain.length > 0 && typeof dns === 'string' && dns.length > 0) {
-                    readDomainData(domain, 'ipfsHash')
+                    // Search Domain
+                    if (typeof domain === 'string' && domain.length > 0 && typeof dns === 'string' && dns.length > 0) {
+                        readDomainData(domain, 'ipfsHash')
 
-                    // Success
-                    .then((cid) => {
-                        if (cid && typeof cid.data === 'string' && cid.data.length > 0) {
-                            cryptoManager.checkCrypto(cid.data, domain, dns);
-                        } else {
+                        // Success
+                        .then((cid) => {
+                            if (cid && typeof cid.data === 'string' && cid.data.length > 0) {
+                                cryptoManager.checkCrypto(cid.data, domain, dns);
+                            } else {
+                                cryptoManager.checkCrypto(null, domain, dns);
+                            }
+                        })
+
+                        // Error
+                        .catch(err => {
+                            cryptoManager.error(err);
                             cryptoManager.checkCrypto(null, domain, dns);
-                        }
-                    })
+                        });
+                    } else {
+                        cryptoManager.error(new Error(chrome.i18n.getMessage('invalidDNSDomain')));
+                    }
 
-                    // Error
-                    .catch(err => {
-                        cryptoManager.error(err);
-                        cryptoManager.checkCrypto(null, domain, dns);
-                    });
-                } else {
-                    cryptoManager.error(new Error(chrome.i18n.getMessage('invalidDNSDomain')));
-                }
+                }),
 
-            }),
+                // Error Place
+                $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).append($('<ol>', { class: 'm-0' })).css('white-space', 'pre-wrap'),
 
-            // Error Place
-            $('<div>', { class: 'alert alert-danger text-break my-4 d-none', id: 'errorPlace' }).append($('<ol>', { class: 'm-0' })).css('white-space', 'pre-wrap'),
+                // Data
+                $('<div>', { id: 'domain_data' })
 
-            // Data
-            $('<div>', { id: 'domain_data' })
+            )
 
         );
 
